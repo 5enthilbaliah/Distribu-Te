@@ -2,7 +2,7 @@
 namespace DistribuTe.Infrastructure.AppDatabase;
 
 using Domain.AppEntities;
-using DistribuTe.Domain.AppEntities.Specifications;
+using Domain.AppEntities.Specifications;
 using Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +11,15 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
     public virtual DbSet<ProjectCategoryAggregate> ProjectCategories { get; set; }
     public virtual DbSet<ProjectAggregate> Projects { get; set; }
     public virtual DbSet<SquadAggregate> Squads { get; set; }
+    public virtual DbSet<AssociateAggregate> Associates { get; set; }
+    public virtual DbSet<SquadAssociateAggregate> SquadAssociates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.AddConfiguration<ProjectCategoryConfiguration, ProjectCategoryAggregate>();
-        modelBuilder.AddConfiguration<ProjectConfiguration, ProjectAggregate>();
+        modelBuilder.AddConfiguration<ProjectCategoryAggregateConfiguration, ProjectCategoryAggregate>();
+        modelBuilder.AddConfiguration<ProjectAggregateConfiguration, ProjectAggregate>();
         modelBuilder.AddConfiguration<SquadAggregateConfiguration, SquadAggregate>();
+        modelBuilder.AddConfiguration<AssociateAggregateConfiguration, AssociateAggregate>();
+        modelBuilder.AddConfiguration<SquadAssociateAggregateConfiguration, SquadAssociateAggregate>();
     }
 }

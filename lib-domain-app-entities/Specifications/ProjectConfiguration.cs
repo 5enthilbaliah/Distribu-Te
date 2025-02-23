@@ -18,16 +18,19 @@ public class ProjectConfiguration<TProject> : IEntityTypeConfiguration<TProject>
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(45)
-            .HasColumnName("name");
+            .HasColumnName("name")
+            .HasColumnType("varchar(45)");
         
         builder.Property(p => p.Code)
             .IsRequired()
             .HasMaxLength(20)
-            .HasColumnName("code");
+            .HasColumnName("code")
+            .HasColumnType("varchar(20)");
         
         builder.Property(p => p.Description)
             .HasMaxLength(200)
-            .HasColumnName("description");
+            .HasColumnName("description")
+            .HasColumnType("varchar(200)");
 
         builder.Property(p => p.CreatedOn)
             .HasColumnType("datetime2(7)")
@@ -38,11 +41,13 @@ public class ProjectConfiguration<TProject> : IEntityTypeConfiguration<TProject>
 
         builder.Property(p => p.CreatedBy)
             .IsRequired()
-            .HasMaxLength(200)
-            .HasColumnName("created_by");
+            .HasMaxLength(45)
+            .HasColumnName("created_by")
+            .HasColumnType("varchar(45)");
         builder.Property(p => p.ModifiedBy)
-            .HasMaxLength(200)
-            .HasColumnName("modified_by");
+            .HasMaxLength(45)
+            .HasColumnName("modified_by")
+            .HasColumnType("varchar(45)");
         
         builder.Property(p => p.CategoryId)
             .HasColumnName("category_id");
@@ -51,7 +56,7 @@ public class ProjectConfiguration<TProject> : IEntityTypeConfiguration<TProject>
     }
 }
 
-public class ProjectConfiguration : IEntityTypeConfiguration<ProjectAggregate>
+public class ProjectAggregateConfiguration : IEntityTypeConfiguration<ProjectAggregate>
 {
     public void Configure(EntityTypeBuilder<ProjectAggregate> builder)
     {

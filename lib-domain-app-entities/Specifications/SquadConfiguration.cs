@@ -19,16 +19,19 @@ public class SquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
         builder.Property(s => s.Name)
             .IsRequired()
             .HasMaxLength(45)
-            .HasColumnName("name");
+            .HasColumnName("name")
+            .HasColumnType("varchar(45)");
         
         builder.Property(s => s.Code)
             .IsRequired()
             .HasMaxLength(20)
-            .HasColumnName("code");
+            .HasColumnName("code")
+            .HasColumnType("varchar(20)");
         
         builder.Property(s => s.Description)
             .HasMaxLength(200)
-            .HasColumnName("description");
+            .HasColumnName("description")
+            .HasColumnType("varchar(200)");
 
         builder.Property(s => s.CreatedOn)
             .HasColumnType("datetime2(7)")
@@ -40,10 +43,12 @@ public class SquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
         builder.Property(s => s.CreatedBy)
             .IsRequired()
             .HasMaxLength(200)
-            .HasColumnName("created_by");
+            .HasColumnName("created_by")
+            .HasColumnType("varchar(200)");
         builder.Property(s => s.ModifiedBy)
             .HasMaxLength(200)
-            .HasColumnName("modified_by");
+            .HasColumnName("modified_by")
+            .HasColumnType("varchar(200)");
     }
 }
 
@@ -53,5 +58,10 @@ public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggrega
     {
         var configuration = new SquadConfiguration<SquadAggregate>();
         configuration.Configure(builder);
+
+        builder.HasMany(s => s.SquadAssociates)
+            .WithOne(s => s.Squad)
+            .HasForeignKey(s => s.SquadId)
+            .HasPrincipalKey(s => s.Id);
     }
 }
