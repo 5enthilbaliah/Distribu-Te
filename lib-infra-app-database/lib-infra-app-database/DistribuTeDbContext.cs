@@ -14,9 +14,8 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.AddConfiguration<ProjectCategoryAggregateConfiguration, ProjectCategoryAggregate>();
-        modelBuilder.AddConfiguration<ProjectAggregateConfiguration, ProjectAggregate>();
-        
+        modelBuilder.AddConfiguration<ProjectCategoryConfiguration, ProjectCategoryAggregate>();
+        modelBuilder.AddConfiguration<ProjectConfiguration, ProjectAggregate>();
         modelBuilder.AddConfiguration<SquadAggregateConfiguration, SquadAggregate>();
     }
 }
