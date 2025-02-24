@@ -62,5 +62,10 @@ public class ProjectAggregateConfiguration : IEntityTypeConfiguration<ProjectAgg
     {
         var configuration = new ProjectConfiguration<ProjectAggregate>();
         configuration.Configure(builder);
+        
+        builder.HasMany(p => p.SquadProjects)
+            .WithOne(p => p.Project)
+            .HasForeignKey(p => p.ProjectId)
+            .HasPrincipalKey(p => p.Id);
     }
 }
