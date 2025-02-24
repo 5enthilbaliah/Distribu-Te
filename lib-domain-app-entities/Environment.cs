@@ -16,5 +16,5 @@ public class Environment
 
 public class EnvironmentAggregate : Environment
 {
-    
+    public virtual IList<DeploymentAggregate> Deployments { get; set; }
 }

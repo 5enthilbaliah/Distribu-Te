@@ -53,5 +53,10 @@ public class EnvironmentAggregateConfiguration : IEntityTypeConfiguration<Enviro
     {
         var configuration = new EnvironmentConfiguration<EnvironmentAggregate>();
         configuration.Configure(builder);
+        
+        builder.HasMany(e => e.Deployments)
+            .WithOne(e => e.Environment)
+            .HasForeignKey(e => e.EnvironmentId)
+            .HasPrincipalKey(e => e.Id);
     }
 }

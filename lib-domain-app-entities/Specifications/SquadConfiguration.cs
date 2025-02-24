@@ -68,5 +68,10 @@ public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggrega
             .WithOne(s => s.Squad)
             .HasForeignKey(s => s.SquadId)
             .HasPrincipalKey(s => s.Id);
+        
+        builder.HasMany(s => s.Deployments)
+            .WithOne(s => s.Squad)
+            .HasForeignKey(s => s.SquadId)
+            .HasPrincipalKey(s => s.Id);
     }
 }
