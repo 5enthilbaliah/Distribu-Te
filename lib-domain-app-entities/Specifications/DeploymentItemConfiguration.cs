@@ -3,35 +3,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy>
-    where TDeploy : Deployment
+public class DeploymentItemConfiguration<TDepItem> : IEntityTypeConfiguration<TDepItem>
+    where TDepItem : DeploymentItem
 {
-    public void Configure(EntityTypeBuilder<TDeploy> builder)
+    public void Configure(EntityTypeBuilder<TDepItem> builder)
     {
-        builder.ToTable("deployments");
+        builder.ToTable("deployment_items");
 
         builder.HasKey(d => d.Id);
         builder.Property(d => d.Id)
             .ValueGeneratedOnAdd()
             .HasColumnName("id");
-        
-        builder.Property(d => d.Name)
-            .IsRequired()
-            .HasMaxLength(45)
-            .HasColumnName("name")
-            .HasColumnType("varchar(45)");
 
-        builder.Property(d => d.SquadId)
-            .HasColumnName("squad_id");
-        builder.Property(d => d.EnvironmentId)
-            .HasColumnName("environment_id");
-        
-        builder.Property(d => d.PlannedStart)
-            .HasColumnType("datetime2(7)")
-            .HasColumnName("planned_start");
-        builder.Property(d => d.PlannedEnd)
-            .HasColumnType("datetime2(7)")
-            .HasColumnName("planned_end");
+        builder.Property(d => d.DeploymentId)
+            .HasColumnName("deployment_id");
+        builder.Property(d => d.ProjectId)
+            .HasColumnName("project_id");
+        builder.Property(d => d.Sequence)
+            .HasColumnName("sequence");
         
         builder.Property(d => d.ActualStart)
             .HasColumnType("datetime2(7)")
@@ -64,16 +53,11 @@ public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy
     }
 }
 
-public class DeploymentAggregateConfiguration : IEntityTypeConfiguration<DeploymentAggregate>
+public class DeploymentItemAggregateConfiguration : IEntityTypeConfiguration<DeploymentItemAggregate>
 {
-    public void Configure(EntityTypeBuilder<DeploymentAggregate> builder)
+    public void Configure(EntityTypeBuilder<DeploymentItemAggregate> builder)
     {
-        var configuration = new DeploymentConfiguration<DeploymentAggregate>();
+        var configuration = new DeploymentItemConfiguration<DeploymentItemAggregate>();
         configuration.Configure(builder);
-        
-        builder.HasMany(d => d.DeploymentItems)
-            .WithOne(d => d.Deployment)
-            .HasForeignKey(d => d.DeploymentId)
-            .HasPrincipalKey(d => d.Id);
     }
 }

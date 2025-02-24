@@ -16,6 +16,8 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
     public virtual DbSet<SquadProjectAggregate> SquadProjects { get; set; }
     public virtual DbSet<EnvironmentAggregate> Environments { get; set; }
     public virtual DbSet<DeploymentAggregate> Deployments { get; set; }
+    public virtual DbSet<DeploymentTaskTypeAggregate> DeploymentTaskTypes { get; set; }
+    public virtual DbSet<DeploymentItemAggregate> DeploymentItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,5 +29,7 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
         modelBuilder.AddConfiguration<SquadProjectAggregateConfiguration, SquadProjectAggregate>();
         modelBuilder.AddConfiguration<EnvironmentAggregateConfiguration, EnvironmentAggregate>();
         modelBuilder.AddConfiguration<DeploymentAggregateConfiguration, DeploymentAggregate>();
+        modelBuilder.AddConfiguration<DeploymentTaskTypeAggregateConfiguration, DeploymentTaskTypeAggregate>();
+        modelBuilder.AddConfiguration<DeploymentItemAggregateConfiguration, DeploymentItemAggregate>();
     }
 }

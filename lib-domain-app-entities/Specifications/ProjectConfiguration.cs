@@ -67,5 +67,10 @@ public class ProjectAggregateConfiguration : IEntityTypeConfiguration<ProjectAgg
             .WithOne(p => p.Project)
             .HasForeignKey(p => p.ProjectId)
             .HasPrincipalKey(p => p.Id);
+        
+        builder.HasMany(p => p.DeploymentItems)
+            .WithOne(p => p.Project)
+            .HasForeignKey(p => p.ProjectId)
+            .HasPrincipalKey(p => p.Id);
     }
 }

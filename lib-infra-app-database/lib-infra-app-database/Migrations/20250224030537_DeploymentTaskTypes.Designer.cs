@@ -4,6 +4,7 @@ using DistribuTe.Infrastructure.AppDatabase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DistribuTe.Infrastructure.AppDatabase.Migrations
 {
     [DbContext(typeof(DistribuTeDbContext))]
-    partial class DistribuTeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224030537_DeploymentTaskTypes")]
+    partial class DeploymentTaskTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,69 +158,6 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasIndex("SquadId");
 
                     b.ToTable("deployments", (string)null);
-                });
-
-            modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentItemAggregate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("ActualEnd")
-                        .HasColumnType("datetime2(7)")
-                        .HasColumnName("actual_end");
-
-                    b.Property<DateTime?>("ActualStart")
-                        .HasColumnType("datetime2(7)")
-                        .HasColumnName("actual_start");
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)")
-                        .HasColumnName("comments");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
-                        .HasColumnName("created_by");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(7)")
-                        .HasColumnName("created_on");
-
-                    b.Property<int>("DeploymentId")
-                        .HasColumnType("int")
-                        .HasColumnName("deployment_id");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(45)
-                        .HasColumnType("varchar(45)")
-                        .HasColumnName("modified_by");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(7)")
-                        .HasColumnName("modified_on");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int")
-                        .HasColumnName("project_id");
-
-                    b.Property<int>("Sequence")
-                        .HasColumnType("int")
-                        .HasColumnName("sequence");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeploymentId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("deployment_items", (string)null);
                 });
 
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentTaskTypeAggregate", b =>
@@ -577,25 +517,6 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.Navigation("Squad");
                 });
 
-            modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentItemAggregate", b =>
-                {
-                    b.HasOne("DistribuTe.Domain.AppEntities.DeploymentAggregate", "Deployment")
-                        .WithMany("DeploymentItems")
-                        .HasForeignKey("DeploymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DistribuTe.Domain.AppEntities.ProjectAggregate", "Project")
-                        .WithMany("DeploymentItems")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Deployment");
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.ProjectAggregate", b =>
                 {
                     b.HasOne("DistribuTe.Domain.AppEntities.ProjectCategoryAggregate", "Category")
@@ -650,11 +571,6 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.Navigation("SquadAssociates");
                 });
 
-            modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentAggregate", b =>
-                {
-                    b.Navigation("DeploymentItems");
-                });
-
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.EnvironmentAggregate", b =>
                 {
                     b.Navigation("Deployments");
@@ -662,8 +578,6 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
 
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.ProjectAggregate", b =>
                 {
-                    b.Navigation("DeploymentItems");
-
                     b.Navigation("SquadProjects");
                 });
 
