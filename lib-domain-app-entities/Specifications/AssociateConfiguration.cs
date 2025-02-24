@@ -74,5 +74,10 @@ public class AssociateAggregateConfiguration : IEntityTypeConfiguration<Associat
             .WithOne(a => a.Associate)
             .HasForeignKey(a => a.AssociateId)
             .HasPrincipalKey(a => a.Id);
+        
+        builder.HasMany(a => a.DeploymentItemTasks)
+            .WithOne(a => a.Associate)
+            .HasForeignKey(a => a.AssociateId)
+            .HasPrincipalKey(a => a.Id);
     }
 }

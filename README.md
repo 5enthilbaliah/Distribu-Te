@@ -27,3 +27,6 @@ dotnet ef migrations script 20250224030537_DeploymentTaskTypes 20250224025046_De
 
 dotnet ef migrations script 20250224030537_DeploymentTaskTypes 20250224033424_DeploymentItems --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224033424_DeploymentItems.sql"
 dotnet ef migrations script 20250224033424_DeploymentItems 20250224030537_DeploymentTaskTypes --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224033424_DeploymentItems.sql"
+
+dotnet ef migrations script 20250224033424_DeploymentItems 20250224040213_DeploymentItemTasks --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224040213_DeploymentItemTasks.sql"
+dotnet ef migrations script 20250224040213_DeploymentItemTasks 20250224033424_DeploymentItems --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224040213_DeploymentItemTasks.sql"

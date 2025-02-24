@@ -22,4 +22,5 @@ public class DeploymentItemAggregate : DeploymentItem
 {
     public virtual DeploymentAggregate Deployment { get; set; }
     public virtual ProjectAggregate Project { get; set; }
+    public virtual IList<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }
 }

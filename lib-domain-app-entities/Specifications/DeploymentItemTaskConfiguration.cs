@@ -3,22 +3,22 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class DeploymentItemConfiguration<TDepItem> : IEntityTypeConfiguration<TDepItem>
-    where TDepItem : DeploymentItem
+public class DeploymentItemTaskConfiguration<TDepTask> : IEntityTypeConfiguration<TDepTask>
+    where TDepTask : DeploymentItemTask
 {
-    public void Configure(EntityTypeBuilder<TDepItem> builder)
+    public void Configure(EntityTypeBuilder<TDepTask> builder)
     {
-        builder.ToTable("deployment_items");
+        builder.ToTable("deployment_item_tasks");
 
         builder.HasKey(d => d.Id);
         builder.Property(d => d.Id)
             .ValueGeneratedOnAdd()
             .HasColumnName("id");
-
-        builder.Property(d => d.DeploymentId)
-            .HasColumnName("deployment_id");
-        builder.Property(d => d.ProjectId)
-            .HasColumnName("project_id");
+        
+        builder.Property(d => d.DeploymentItemId)
+            .HasColumnName("deployment_item_id");
+        builder.Property(d => d.AssociateId)
+            .HasColumnName("associate_id");
         builder.Property(d => d.Sequence)
             .HasColumnName("sequence");
         
@@ -53,16 +53,11 @@ public class DeploymentItemConfiguration<TDepItem> : IEntityTypeConfiguration<TD
     }
 }
 
-public class DeploymentItemAggregateConfiguration : IEntityTypeConfiguration<DeploymentItemAggregate>
+public class DeploymentItemTaskAggregateConfiguration : IEntityTypeConfiguration<DeploymentItemTaskAggregate>
 {
-    public void Configure(EntityTypeBuilder<DeploymentItemAggregate> builder)
+    public void Configure(EntityTypeBuilder<DeploymentItemTaskAggregate> builder)
     {
-        var configuration = new DeploymentItemConfiguration<DeploymentItemAggregate>();
+        var configuration = new DeploymentItemTaskConfiguration<DeploymentItemTaskAggregate>();
         configuration.Configure(builder);
-        
-        builder.HasMany(d => d.DeploymentItemTasks)
-            .WithOne(d => d.DeploymentItem)
-            .HasForeignKey(d => d.DeploymentItemId)
-            .HasPrincipalKey(d => d.Id);
     }
 }
