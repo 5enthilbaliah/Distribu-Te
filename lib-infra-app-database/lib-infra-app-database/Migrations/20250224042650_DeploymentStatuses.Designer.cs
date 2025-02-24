@@ -4,6 +4,7 @@ using DistribuTe.Infrastructure.AppDatabase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DistribuTe.Infrastructure.AppDatabase.Migrations
 {
     [DbContext(typeof(DistribuTeDbContext))]
-    partial class DistribuTeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224042650_DeploymentStatuses")]
+    partial class DeploymentStatuses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -217,17 +220,11 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("sequence");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int")
-                        .HasColumnName("status_id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DeploymentId");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("deployment_items", (string)null);
                 });
@@ -286,17 +283,11 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("sequence");
 
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int")
-                        .HasColumnName("status_id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssociateId");
 
                     b.HasIndex("DeploymentItemId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("deployment_item_tasks", (string)null);
                 });
@@ -695,7 +686,7 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
                         .WithMany("Deployments")
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Environment");
@@ -719,17 +710,9 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
-                        .WithMany("DeploymentItems")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Deployment");
 
                     b.Navigation("Project");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentItemTaskAggregate", b =>
@@ -746,17 +729,9 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
-                        .WithMany("DeploymentItemTasks")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Associate");
 
                     b.Navigation("DeploymentItem");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.ProjectAggregate", b =>
@@ -827,10 +802,6 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
 
             modelBuilder.Entity("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", b =>
                 {
-                    b.Navigation("DeploymentItemTasks");
-
-                    b.Navigation("DeploymentItems");
-
                     b.Navigation("Deployments");
                 });
 

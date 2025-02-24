@@ -30,3 +30,15 @@ dotnet ef migrations script 20250224033424_DeploymentItems 20250224030537_Deploy
 
 dotnet ef migrations script 20250224033424_DeploymentItems 20250224040213_DeploymentItemTasks --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224040213_DeploymentItemTasks.sql"
 dotnet ef migrations script 20250224040213_DeploymentItemTasks 20250224033424_DeploymentItems --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224040213_DeploymentItemTasks.sql"
+
+dotnet ef migrations script 20250224040213_DeploymentItemTasks 20250224042650_DeploymentStatuses --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224042650_DeploymentStatuses.sql"
+dotnet ef migrations script 20250224042650_DeploymentStatuses 20250224040213_DeploymentItemTasks --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224042650_DeploymentStatuses.sql"
+
+dotnet ef migrations script 20250224042650_DeploymentStatuses 20250224051032_DeploymentStatusesForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224051032_DeploymentStatusesForeignKeys.sql"
+dotnet ef migrations script 20250224051032_DeploymentStatusesForeignKeys 20250224042650_DeploymentStatuses --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224051032_DeploymentStatusesForeignKeys.sql"
+
+dotnet ef migrations script 20250224051032_DeploymentStatusesForeignKeys 20250224051843_DeploymentStatusesForeignKeys2 --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224051843_DeploymentStatusesForeignKeys2.sql"
+dotnet ef migrations script 20250224051843_DeploymentStatusesForeignKeys2 20250224051032_DeploymentStatusesForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224051843_DeploymentStatusesForeignKeys2.sql"
+
+dotnet ef migrations script 20250224051843_DeploymentStatusesForeignKeys2 20250224052633_DeploymentStatusesForeignKeys3 --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224052633_DeploymentStatusesForeignKeys3.sql"
+dotnet ef migrations script 20250224052633_DeploymentStatusesForeignKeys3 20250224051843_DeploymentStatusesForeignKeys2 --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224052633_DeploymentStatusesForeignKeys3.sql"

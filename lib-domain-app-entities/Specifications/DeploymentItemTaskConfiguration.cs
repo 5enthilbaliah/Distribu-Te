@@ -50,6 +50,9 @@ public class DeploymentItemTaskConfiguration<TDepTask> : IEntityTypeConfiguratio
             .HasMaxLength(45)
             .HasColumnName("modified_by")
             .HasColumnType("varchar(45)");
+        
+        builder.Property(d => d.StatusId)
+            .HasColumnName("status_id");
     }
 }
 
@@ -59,5 +62,11 @@ public class DeploymentItemTaskAggregateConfiguration : IEntityTypeConfiguration
     {
         var configuration = new DeploymentItemTaskConfiguration<DeploymentItemTaskAggregate>();
         configuration.Configure(builder);
+        
+        builder.HasOne(d => d.Status)
+            .WithMany(d => d.DeploymentItemTasks)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.StatusId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

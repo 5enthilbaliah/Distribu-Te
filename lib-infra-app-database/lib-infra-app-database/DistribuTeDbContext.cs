@@ -19,6 +19,7 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
     public virtual DbSet<DeploymentTaskTypeAggregate> DeploymentTaskTypes { get; set; }
     public virtual DbSet<DeploymentItemAggregate> DeploymentItems { get; set; }
     public virtual DbSet<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }
+    public virtual DbSet<DeploymentStatusAggregate> DeploymentStatuses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,5 +34,6 @@ public class DistribuTeDbContext(DbContextOptions<DistribuTeDbContext> options) 
         modelBuilder.AddConfiguration<DeploymentTaskTypeAggregateConfiguration, DeploymentTaskTypeAggregate>();
         modelBuilder.AddConfiguration<DeploymentItemAggregateConfiguration, DeploymentItemAggregate>();
         modelBuilder.AddConfiguration<DeploymentItemTaskAggregateConfiguration, DeploymentItemTaskAggregate>();
+        modelBuilder.AddConfiguration<DeploymentStatusAggregateConfiguration, DeploymentStatusAggregate>();
     }
 }

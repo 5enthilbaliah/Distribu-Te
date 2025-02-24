@@ -16,10 +16,12 @@ public class DeploymentItemTask
     public string CreatedBy { get; set; } = null!;
     public DateTime? ModifiedOn { get; set; }
     public string? ModifiedBy { get; set; }
+    public int StatusId { get; set; }
 }
 
 public class DeploymentItemTaskAggregate : DeploymentItemTask
 {
     public virtual DeploymentItemAggregate DeploymentItem { get; set; }
     public virtual AssociateAggregate Associate { get; set; }
+    public virtual DeploymentStatusAggregate Status { get; set; }
 }

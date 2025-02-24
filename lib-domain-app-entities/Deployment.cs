@@ -18,6 +18,7 @@ public class Deployment
     public string CreatedBy { get; set; } = null!;
     public DateTime? ModifiedOn { get; set; }
     public string? ModifiedBy { get; set; }
+    public int StatusId { get; set; }
 }
 
 public class DeploymentAggregate : Deployment
@@ -25,4 +26,5 @@ public class DeploymentAggregate : Deployment
     public virtual SquadAggregate Squad { get; set; }
     public virtual EnvironmentAggregate Environment { get; set; }
     public virtual IList<DeploymentItemAggregate> DeploymentItems { get; set; }
+    public virtual DeploymentStatusAggregate Status { get; set; }
 }

@@ -61,6 +61,9 @@ public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy
             .HasMaxLength(45)
             .HasColumnName("modified_by")
             .HasColumnType("varchar(45)");
+        
+        builder.Property(d => d.StatusId)
+            .HasColumnName("status_id");
     }
 }
 
@@ -75,5 +78,11 @@ public class DeploymentAggregateConfiguration : IEntityTypeConfiguration<Deploym
             .WithOne(d => d.Deployment)
             .HasForeignKey(d => d.DeploymentId)
             .HasPrincipalKey(d => d.Id);
+        
+        builder.HasOne(d => d.Status)
+            .WithMany(d => d.Deployments)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.StatusId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
