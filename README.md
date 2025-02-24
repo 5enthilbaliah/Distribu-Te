@@ -51,3 +51,6 @@ dotnet ef migrations script 20250224054930_DeploymentForeignKeys 20250224054037_
 
 dotnet ef migrations script 20250224054930_DeploymentForeignKeys 20250224060729_ProjectForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224060729_ProjectForeignKeys.sql"
 dotnet ef migrations script 20250224060729_ProjectForeignKeys 20250224054930_DeploymentForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224060729_ProjectForeignKeys.sql"
+
+dotnet ef migrations script 20250224060729_ProjectForeignKeys 20250224142118_TaskTypesForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224142118_TaskTypesForeignKeys.sql"
+dotnet ef migrations script 20250224142118_TaskTypesForeignKeys 20250224060729_ProjectForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224142118_TaskTypesForeignKeys.sql"

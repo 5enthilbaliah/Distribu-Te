@@ -17,6 +17,7 @@ public class DeploymentItemTask
     public DateTime? ModifiedOn { get; set; }
     public string? ModifiedBy { get; set; }
     public int StatusId { get; set; }
+    public int TaskTypeId { get; set; }
 }
 
 public class DeploymentItemTaskAggregate : DeploymentItemTask
@@ -24,4 +25,5 @@ public class DeploymentItemTaskAggregate : DeploymentItemTask
     public virtual DeploymentItemAggregate DeploymentItem { get; set; }
     public virtual AssociateAggregate Associate { get; set; }
     public virtual DeploymentStatusAggregate Status { get; set; }
+    public virtual DeploymentTaskTypeAggregate TaskType { get; set; }
 }

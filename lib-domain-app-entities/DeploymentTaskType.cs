@@ -16,5 +16,5 @@ public class DeploymentTaskType
 
 public class DeploymentTaskTypeAggregate : DeploymentTaskType
 {
-    
+    public virtual ICollection<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }
 }

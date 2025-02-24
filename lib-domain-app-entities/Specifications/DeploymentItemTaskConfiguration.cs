@@ -53,6 +53,9 @@ public class DeploymentItemTaskConfiguration<TDepTask> : IEntityTypeConfiguratio
         
         builder.Property(d => d.StatusId)
             .HasColumnName("status_id");
+
+        builder.Property(d => d.TaskTypeId)
+            .HasColumnName("task_type_id");
     }
 }
 
@@ -79,6 +82,12 @@ public class DeploymentItemTaskAggregateConfiguration : IEntityTypeConfiguration
             .WithMany(d => d.DeploymentItemTasks)
             .HasPrincipalKey(d => d.Id)
             .HasForeignKey(d => d.DeploymentItemId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(d => d.TaskType)
+            .WithMany(d => d.DeploymentItemTasks)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.TaskTypeId)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }
