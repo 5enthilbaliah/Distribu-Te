@@ -57,10 +57,5 @@ public class ProjectCategoryAggregateConfiguration : IEntityTypeConfiguration<Pr
     {
         var configuration = new ProjectCategoryConfiguration<ProjectCategoryAggregate>();
         configuration.Configure(builder);
-
-        builder.HasMany(p => p.Projects)
-            .WithOne(p => p.Category)
-            .HasForeignKey(p => p.CategoryId)
-            .HasPrincipalKey(p => p.Id);
     }
 }

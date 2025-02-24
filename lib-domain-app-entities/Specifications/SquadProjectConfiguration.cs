@@ -50,5 +50,17 @@ public class SquadProjectAggregateConfiguration : IEntityTypeConfiguration<Squad
     {
         var configuration = new SquadProjectConfiguration<SquadProjectAggregate>();
         configuration.Configure(builder);
+        
+        builder.HasOne(p => p.Project)
+            .WithMany(p => p.SquadProjects)
+            .HasPrincipalKey(p => p.Id)
+            .HasForeignKey(p => p.ProjectId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(p => p.Squad)
+            .WithMany(p => p.SquadProjects)
+            .HasPrincipalKey(p => p.Id)
+            .HasForeignKey(p => p.SquadId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

@@ -4,6 +4,7 @@ using DistribuTe.Infrastructure.AppDatabase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DistribuTe.Infrastructure.AppDatabase.Migrations
 {
     [DbContext(typeof(DistribuTeDbContext))]
-    partial class DistribuTeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224054037_AssociateForeignKeys")]
+    partial class AssociateForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -683,13 +686,13 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.EnvironmentAggregate", "Environment")
                         .WithMany("Deployments")
                         .HasForeignKey("EnvironmentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.SquadAggregate", "Squad")
                         .WithMany("Deployments")
                         .HasForeignKey("SquadId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
@@ -710,13 +713,13 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentAggregate", "Deployment")
                         .WithMany("DeploymentItems")
                         .HasForeignKey("DeploymentId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.ProjectAggregate", "Project")
                         .WithMany("DeploymentItems")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
@@ -743,7 +746,7 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentItemAggregate", "DeploymentItem")
                         .WithMany("DeploymentItemTasks")
                         .HasForeignKey("DeploymentItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.DeploymentStatusAggregate", "Status")
@@ -764,7 +767,7 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.ProjectCategoryAggregate", "Category")
                         .WithMany("Projects")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -775,13 +778,13 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.AssociateAggregate", "Associate")
                         .WithMany("SquadAssociates")
                         .HasForeignKey("AssociateId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.SquadAggregate", "Squad")
                         .WithMany("SquadAssociates")
                         .HasForeignKey("SquadId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Associate");
@@ -794,13 +797,13 @@ namespace DistribuTe.Infrastructure.AppDatabase.Migrations
                     b.HasOne("DistribuTe.Domain.AppEntities.ProjectAggregate", "Project")
                         .WithMany("SquadProjects")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DistribuTe.Domain.AppEntities.SquadAggregate", "Squad")
                         .WithMany("SquadProjects")
                         .HasForeignKey("SquadId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Project");

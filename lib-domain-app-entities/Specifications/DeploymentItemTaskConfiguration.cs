@@ -68,5 +68,17 @@ public class DeploymentItemTaskAggregateConfiguration : IEntityTypeConfiguration
             .HasPrincipalKey(d => d.Id)
             .HasForeignKey(d => d.StatusId)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(d => d.Associate)
+            .WithMany(d => d.DeploymentItemTasks)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.AssociateId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(d => d.DeploymentItem)
+            .WithMany(d => d.DeploymentItemTasks)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.DeploymentItemId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

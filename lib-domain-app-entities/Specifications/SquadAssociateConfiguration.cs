@@ -54,5 +54,17 @@ public class SquadAssociateAggregateConfiguration : IEntityTypeConfiguration<Squ
     {
         var configuration = new SquadAssociateConfiguration<SquadAssociateAggregate>();
         configuration.Configure(builder);
+        
+        builder.HasOne(a => a.Associate)
+            .WithMany(a => a.SquadAssociates)
+            .HasForeignKey(a => a.AssociateId)
+            .HasPrincipalKey(a => a.Id)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(a => a.Squad)
+            .WithMany(a => a.SquadAssociates)
+            .HasForeignKey(a => a.SquadId)
+            .HasPrincipalKey(a => a.Id)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

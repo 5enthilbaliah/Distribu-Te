@@ -62,16 +62,24 @@ public class DeploymentItemAggregateConfiguration : IEntityTypeConfiguration<Dep
     {
         var configuration = new DeploymentItemConfiguration<DeploymentItemAggregate>();
         configuration.Configure(builder);
-        
-        builder.HasMany(d => d.DeploymentItemTasks)
-            .WithOne(d => d.DeploymentItem)
-            .HasForeignKey(d => d.DeploymentItemId)
-            .HasPrincipalKey(d => d.Id);
 
         builder.HasOne(d => d.Status)
             .WithMany(d => d.DeploymentItems)
             .HasPrincipalKey(d => d.Id)
             .HasForeignKey(d => d.StatusId)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(d => d.Deployment)
+            .WithMany(d => d.DeploymentItems)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.DeploymentId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasOne(d => d.Project)
+            .WithMany(d => d.DeploymentItems)
+            .HasPrincipalKey(d => d.Id)
+            .HasForeignKey(d => d.ProjectId)
+            .OnDelete(DeleteBehavior.NoAction);
+
     }
 }

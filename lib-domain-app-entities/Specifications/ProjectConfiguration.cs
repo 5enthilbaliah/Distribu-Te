@@ -63,14 +63,10 @@ public class ProjectAggregateConfiguration : IEntityTypeConfiguration<ProjectAgg
         var configuration = new ProjectConfiguration<ProjectAggregate>();
         configuration.Configure(builder);
         
-        builder.HasMany(p => p.SquadProjects)
-            .WithOne(p => p.Project)
-            .HasForeignKey(p => p.ProjectId)
-            .HasPrincipalKey(p => p.Id);
-        
-        builder.HasMany(p => p.DeploymentItems)
-            .WithOne(p => p.Project)
-            .HasForeignKey(p => p.ProjectId)
-            .HasPrincipalKey(p => p.Id);
+        builder.HasOne(p => p.Category)
+            .WithMany(p => p.Projects)
+            .HasPrincipalKey(p => p.Id)
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
