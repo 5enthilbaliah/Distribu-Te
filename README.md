@@ -15,3 +15,6 @@ dotnet ef migrations script 20250223231229_SquadAssociates 20250223214443_Initia
 
 dotnet ef migrations script 20250223231229_SquadAssociates 20250224014453_SquadProjects --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224014453_SquadProjects.sql"
 dotnet ef migrations script 20250224014453_SquadProjects 20250223231229_SquadAssociates --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224014453_SquadProjects.sql"
+
+dotnet ef migrations script 20250224014453_SquadProjects 20250224022218_Environments --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224022218_Environments.sql"
+dotnet ef migrations script 20250224022218_Environments 20250224014453_SquadProjects --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224022218_Environments.sql"
