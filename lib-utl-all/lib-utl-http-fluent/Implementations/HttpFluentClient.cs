@@ -339,27 +339,201 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
 
     public async Task<string> ExecuteRawAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return default;
+
+        var statusCode = (int)result.StatusCode;
+        if (statusCode is >= 400 and <= 499)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            throw new ClientErrorException(err, result.StatusCode);
+        }
+        
+        if (statusCode is >= 500 and <= 599)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ServerErrorException(err, result.StatusCode);
+        }
+
+        return await result.Content.ReadAsStringAsync(cancellationToken)
+            .ConfigureAwait(false);
     }
 
-    public Task<(string result, HttpStatusCode statusCode)> ExecuteWithStatusRawAsync(CancellationToken cancellationToken = default)
+    public async Task<(string result, HttpStatusCode statusCode)> ExecuteWithStatusRawAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return (default, HttpStatusCode.NotFound);
+        if (result.StatusCode == HttpStatusCode.NoContent)
+            return (default, HttpStatusCode.NoContent);
+        
+        var statusCode = (int)result.StatusCode;
+        if (statusCode is >= 400 and <= 499)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ClientErrorException(err, result.StatusCode);
+        }
+        
+        if (statusCode is >= 500 and <= 599)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ServerErrorException(err, result.StatusCode);
+        }
+        
+        return (await result.Content.ReadAsStringAsync(cancellationToken)
+            .ConfigureAwait(false), result.StatusCode);
     }
 
-    public Task<(string result, HttpStatusCode statusCode)> ExecuteRawWithoutFaultHandlingAsync(CancellationToken cancellationToken = default)
+    public async Task<(string result, HttpStatusCode statusCode)> ExecuteRawWithoutFaultHandlingAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return (default, HttpStatusCode.NotFound);
+        if (result.StatusCode == HttpStatusCode.NoContent)
+            return (default, HttpStatusCode.NoContent);
+
+        return (await result.Content.ReadAsStringAsync(cancellationToken)
+            .ConfigureAwait(false), result.StatusCode);
     }
 
-    public Task<TResult> ExecuteAsync<TResult>(JsonNamingPolicies jsonNamingPolicy, CancellationToken cancellationToken = default) where TResult : class
+    public async Task<TResult> ExecuteAsync<TResult>(JsonNamingPolicies jsonNamingPolicy, CancellationToken cancellationToken = default) where TResult : class
     {
-        throw new NotImplementedException();
+        var jsonPolicy = jsonNamingPolicy switch
+        {
+            JsonNamingPolicies.Kebab => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            },
+            JsonNamingPolicies.Snake => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+            },
+            JsonNamingPolicies.Camel => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            },
+            _ => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false
+            },
+        };
+        
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return default;
+
+        var statusCode = (int)result.StatusCode;
+        if (statusCode is >= 400 and <= 499)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            throw new ClientErrorException(err, result.StatusCode);
+        }
+        
+        if (statusCode is >= 500 and <= 599)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ServerErrorException(err, result.StatusCode);
+        }
+
+        await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        return await JsonSerializer.DeserializeAsync<TResult>(responseStream, jsonPolicy, 
+            cancellationToken).ConfigureAwait(false)!;
     }
 
-    public Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(JsonNamingPolicies jsonNamingPolicy,
+    public async Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(JsonNamingPolicies jsonNamingPolicy,
         CancellationToken cancellationToken = default) where TResult : class
     {
-        throw new NotImplementedException();
+        var jsonPolicy = jsonNamingPolicy switch
+        {
+            JsonNamingPolicies.Kebab => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            },
+            JsonNamingPolicies.Snake => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+            },
+            JsonNamingPolicies.Camel => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            },
+            _ => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false
+            },
+        };
+        
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return (default, HttpStatusCode.NotFound);
+        if (result.StatusCode == HttpStatusCode.NoContent)
+            return (default, HttpStatusCode.NoContent);
+        
+        var statusCode = (int)result.StatusCode;
+        if (statusCode is >= 400 and <= 499)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ClientErrorException(err, result.StatusCode);
+        }
+        
+        if (statusCode is >= 500 and <= 599)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+            
+            throw new ServerErrorException(err, result.StatusCode);
+        }
+        
+        await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        return (await JsonSerializer.DeserializeAsync<TResult>(responseStream, jsonPolicy,
+            cancellationToken).ConfigureAwait(false), result.StatusCode)!;
     }
 }
