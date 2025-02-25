@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-workflowz", "lib-fw-workflowz\lib-fw-workflowz.csproj", "{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "lib-fw-modulez\lib-fw-modulez.csproj", "{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
