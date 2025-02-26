@@ -6,47 +6,64 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Web;
+using Ardalis.GuardClauses;
 using Enumerations;
 using Exceptions;
 using Microsoft.AspNetCore.Http;
 
 // TODO:: Use result pattern
 
-public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringStart, IQueryStringMapper, 
+public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringStart, IQueryStringMapper,
     IHeaderStart, IHeaderMapper, IActionMapper, IContentMapper, IExecuter
 {
     private readonly HttpClient _httpClient = httpClient;
-    private string _url;
-    private HttpMethod _method;
-    private Dictionary<string, string> _queryStringKvs = new Dictionary<string, string>();
+    private string? _url;
+    private HttpMethod? _method;
 
-    private Dictionary<string, IEnumerable<string>>
-        _queryStringArrayKvs = new Dictionary<string, IEnumerable<string>>();
+    private readonly Dictionary<string, string> _queryStringKvs = new();
 
-    private Dictionary<string, string> _headerKvs = new Dictionary<string, string>();
-    private Dictionary<string, string> _contentKvs = new Dictionary<string, string>();
-    private HttpContent _content;
+    private readonly Dictionary<string, IEnumerable<string>>
+        _queryStringArrayKvs = new();
+
+    private readonly Dictionary<string, string> _headerKvs = new();
+    private readonly Dictionary<string, string> _contentKvs = new();
+
+    private HttpContent? _content;
+
+    // ReSharper disable once InconsistentNaming
+    private static string PLAIN_TEXT => "text/plain";
+    // ReSharper disable once InconsistentNaming
+    private static string APPLICATION_JSON => "application/json";
+
+    private static Func<KeyValuePair<string, string>, string> QueryStringGenerate =>
+        (kv) => $"{kv.Key}={HttpUtility.UrlEncode(kv.Value)}";
+    
+    private static Func<KeyValuePair<string, IEnumerable<string>>, IEnumerable<string>> QueryArrayStringGenerate =>
+        kv => kv.Value.Select(value => $"{kv.Key}={HttpUtility.UrlEncode(value)}");
+
+    private static Func<string, string, string> QueryStringAggregate =>
+        (curr, next) => $"{curr}&{next}";
 
     private async Task<HttpResponseMessage> GetResponseAsync(CancellationToken cancellationToken = default)
     {
+        Guard.Against.NullOrEmpty(_url);
+        Guard.Against.Null(_method);
+        
         var query = string.Empty;
 
         if (_queryStringKvs.Count > 0)
-            query = _queryStringKvs.Select(kv => $"{kv.Key}={HttpUtility.UrlEncode(kv.Value)}")
-                .Aggregate((curr, next) => $"{curr}&{next}");
+            query = _queryStringKvs.Select(QueryStringGenerate)
+                .Aggregate(QueryStringAggregate);
 
         if (_queryStringArrayKvs.Count > 0)
         {
-            foreach (var qarray in _queryStringArrayKvs)
-            {
-                var qryArray = qarray.Value.Select(value => $"{qarray.Key}={HttpUtility.UrlEncode(value)}")
-                    .Aggregate((curr, next) => $"{curr}&{next}");
-
-                if (string.IsNullOrEmpty(query))
-                    query = qryArray;
-                else
-                    query += $"&{qryArray}";
-            }
+            var qryArray = _queryStringArrayKvs.SelectMany(QueryArrayStringGenerate)
+                .Aggregate(QueryStringAggregate);
+            
+            if (string.IsNullOrEmpty(query))
+                query = qryArray;
+            else
+                query += $"&{qryArray}";
         }
 
         if (!string.IsNullOrEmpty(query))
@@ -60,21 +77,21 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             request.Headers.Add(kv.Key, kv.Value);
         }
 
-        if (_content != null)
+        if (_content == null)
+            return await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken)
+                .ConfigureAwait(false);
+        
+        request.Content = _content;
+        foreach (var kv in _contentKvs)
         {
-            request.Content = _content;
-            foreach (var kv in _contentKvs)
-            {
-                if (request.Content.Headers.Contains(kv.Key))
-                    request.Content.Headers.Remove(kv.Key);
-                request.Content.Headers.Add(kv.Key, kv.Value);
-            }
+            if (request.Content.Headers.Contains(kv.Key))
+                request.Content.Headers.Remove(kv.Key);
+            request.Content.Headers.Add(kv.Key, kv.Value);
         }
-
         return await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken)
             .ConfigureAwait(false);
     }
-    
+
     public IQueryStringStart Url(string url)
     {
         _url = url;
@@ -123,7 +140,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             _headerKvs.Add(key, value);
             return this;
         }
-        
+
         _contentKvs.Add(key, value);
         return this;
     }
@@ -140,7 +157,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             _headerKvs.Add(key, value);
             return this;
         }
-        
+
         _contentKvs.Add(key, value);
         return this;
     }
@@ -149,7 +166,6 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
     {
         return this;
     }
-
 
     public IExecuter Get()
     {
@@ -191,7 +207,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
 
         if (typeof(TBody).FullName!.Equals("System.String", StringComparison.InvariantCultureIgnoreCase))
         {
-            _content = new StringContent(body.ToString()!, Encoding.UTF8, "text/plain");
+            _content = new StringContent(body.ToString()!, Encoding.UTF8, PLAIN_TEXT);
             return this;
         }
 
@@ -202,24 +218,24 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             })
             : JsonSerializer.Serialize(body);
-        
-        _content = new StringContent(body.ToString()!, Encoding.UTF8, "application/json");
+
+        _content = new StringContent(body.ToString()!, Encoding.UTF8, APPLICATION_JSON);
         return this;
     }
 
     public IExecuter WithPrimitiveBody<TPrimitive>(TPrimitive body) where TPrimitive : struct
     {
         var json = JsonSerializer.Serialize(body);
-        
-        _content = new StringContent(body.ToString()!, Encoding.UTF8, "application/json");
+
+        _content = new StringContent(body.ToString()!, Encoding.UTF8, APPLICATION_JSON);
         return this;
     }
 
     public IExecuter WithFormBody<TForm>(TForm body) where TForm : class
     {
-        var properties = body.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
-            .ToList();
-        var formFields = properties.Where(p => p.PropertyType == typeof(IFormFile));
+        var properties = body.GetType().GetProperties(
+                BindingFlags.Instance | BindingFlags.Public).ToList();
+        
         var multipartFormDataContent = new MultipartFormDataContent();
 
         foreach (var property in properties)
@@ -227,7 +243,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             if (property.PropertyType == typeof(IFormFile))
             {
                 var formFile = property.GetValue(body) as IFormFile;
-                var fileContent = new StreamContent(formFile.OpenReadStream())
+                var fileContent = new StreamContent(formFile!.OpenReadStream())
                 {
                     Headers =
                     {
@@ -239,7 +255,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 continue;
             }
 
-            var content = new StringContent((property.GetValue(body) ?? string.Empty).ToString());
+            var content = new StringContent((property.GetValue(body) ?? string.Empty).ToString()!);
             multipartFormDataContent.Add(content, property.Name);
         }
 
@@ -247,7 +263,8 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
         return this;
     }
 
-    public async Task<TResult> ExecuteAsync<TResult>(bool useCamelCaseDeserializer = false, CancellationToken cancellationToken = default) where TResult : class
+    public async Task<TResult> ExecuteAsync<TResult>(bool useCamelCaseDeserializer = false,
+        CancellationToken cancellationToken = default) where TResult : class
     {
         using var result = await GetResponseAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -256,41 +273,46 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             return default;
 
         var statusCode = (int)result.StatusCode;
-        if (statusCode is >= 400 and <= 499)
+        switch (statusCode)
         {
-            var err = await result.Content.ReadAsStringAsync(cancellationToken)
-                .ConfigureAwait(false);
-            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
-                  $"Error {err}";
-            throw new ClientErrorException(err, result.StatusCode);
-        }
-        
-        if (statusCode is >= 500 and <= 599)
-        {
-            var err = await result.Content.ReadAsStringAsync(cancellationToken)
-                .ConfigureAwait(false);
-            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
-                  $"Error {err}";
-            
-            throw new ServerErrorException(err, result.StatusCode);
-        }
-
-        await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
-            .ConfigureAwait(false);
-
-        return (useCamelCaseDeserializer
-            ? await JsonSerializer.DeserializeAsync<TResult>(responseStream, new JsonSerializerOptions
+            case >= 400 and <= 499:
             {
-                AllowTrailingCommas = false,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            }, cancellationToken).ConfigureAwait(false)
-            : await JsonSerializer.DeserializeAsync<TResult>(responseStream, new JsonSerializerOptions
+                var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                    .ConfigureAwait(false);
+                err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                      $"Error {err}";
+                throw new ClientErrorException(err, result.StatusCode);
+            }
+            case >= 500 and <= 599:
             {
-                AllowTrailingCommas = false
-            }, cancellationToken).ConfigureAwait(false))!;
+                var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                    .ConfigureAwait(false);
+                err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                      $"Error {err}";
+
+                throw new ServerErrorException(err, result.StatusCode);
+            }
+            default:
+            {
+                await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
+                    .ConfigureAwait(false);
+
+                return (useCamelCaseDeserializer
+                    ? await JsonSerializer.DeserializeAsync<TResult>(responseStream, new JsonSerializerOptions
+                    {
+                        AllowTrailingCommas = false,
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    }, cancellationToken).ConfigureAwait(false)
+                    : await JsonSerializer.DeserializeAsync<TResult>(responseStream, new JsonSerializerOptions
+                    {
+                        AllowTrailingCommas = false
+                    }, cancellationToken).ConfigureAwait(false))!;
+            }
+        }
     }
 
-    public async Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(bool useCamelCaseDeserializer = false,
+    public async Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(
+        bool useCamelCaseDeserializer = false,
         CancellationToken cancellationToken = default) where TResult : class
     {
         using var result = await GetResponseAsync(cancellationToken)
@@ -300,7 +322,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             return (default, HttpStatusCode.NotFound);
         if (result.StatusCode == HttpStatusCode.NoContent)
             return (default, HttpStatusCode.NoContent);
-        
+
         var statusCode = (int)result.StatusCode;
         if (statusCode is >= 400 and <= 499)
         {
@@ -308,20 +330,20 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 .ConfigureAwait(false);
             err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ClientErrorException(err, result.StatusCode);
         }
-        
+
         if (statusCode is >= 500 and <= 599)
         {
             var err = await result.Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
             err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ServerErrorException(err, result.StatusCode);
         }
-        
+
         await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
             .ConfigureAwait(false);
 
@@ -354,14 +376,14 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                   $"Error {err}";
             throw new ClientErrorException(err, result.StatusCode);
         }
-        
+
         if (statusCode is >= 500 and <= 599)
         {
             var err = await result.Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
             err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ServerErrorException(err, result.StatusCode);
         }
 
@@ -369,7 +391,8 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             .ConfigureAwait(false);
     }
 
-    public async Task<(string result, HttpStatusCode statusCode)> ExecuteWithStatusRawAsync(CancellationToken cancellationToken = default)
+    public async Task<(string result, HttpStatusCode statusCode)> ExecuteWithStatusRawAsync(
+        CancellationToken cancellationToken = default)
     {
         using var result = await GetResponseAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -378,7 +401,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             return (default, HttpStatusCode.NotFound);
         if (result.StatusCode == HttpStatusCode.NoContent)
             return (default, HttpStatusCode.NoContent);
-        
+
         var statusCode = (int)result.StatusCode;
         if (statusCode is >= 400 and <= 499)
         {
@@ -386,25 +409,26 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 .ConfigureAwait(false);
             err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ClientErrorException(err, result.StatusCode);
         }
-        
+
         if (statusCode is >= 500 and <= 599)
         {
             var err = await result.Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
             err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ServerErrorException(err, result.StatusCode);
         }
-        
+
         return (await result.Content.ReadAsStringAsync(cancellationToken)
             .ConfigureAwait(false), result.StatusCode);
     }
 
-    public async Task<(string result, HttpStatusCode statusCode)> ExecuteRawWithoutFaultHandlingAsync(CancellationToken cancellationToken = default)
+    public async Task<(string result, HttpStatusCode statusCode)> ExecuteRawWithoutFaultHandlingAsync(
+        CancellationToken cancellationToken = default)
     {
         using var result = await GetResponseAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -417,65 +441,7 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
             .ConfigureAwait(false), result.StatusCode);
     }
 
-    public async Task<TResult> ExecuteAsync<TResult>(JsonNamingPolicies jsonNamingPolicy, CancellationToken cancellationToken = default) where TResult : class
-    {
-        var jsonPolicy = jsonNamingPolicy switch
-        {
-            JsonNamingPolicies.Kebab => new JsonSerializerOptions
-            {
-                AllowTrailingCommas = false,
-                PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
-            },
-            JsonNamingPolicies.Snake => new JsonSerializerOptions
-            {
-                AllowTrailingCommas = false,
-                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
-            },
-            JsonNamingPolicies.Camel => new JsonSerializerOptions
-            {
-                AllowTrailingCommas = false,
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            },
-            _ => new JsonSerializerOptions
-            {
-                AllowTrailingCommas = false
-            },
-        };
-        
-        using var result = await GetResponseAsync(cancellationToken)
-            .ConfigureAwait(false);
-
-        if (result.StatusCode == HttpStatusCode.NotFound)
-            return default;
-
-        var statusCode = (int)result.StatusCode;
-        if (statusCode is >= 400 and <= 499)
-        {
-            var err = await result.Content.ReadAsStringAsync(cancellationToken)
-                .ConfigureAwait(false);
-            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
-                  $"Error {err}";
-            throw new ClientErrorException(err, result.StatusCode);
-        }
-        
-        if (statusCode is >= 500 and <= 599)
-        {
-            var err = await result.Content.ReadAsStringAsync(cancellationToken)
-                .ConfigureAwait(false);
-            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
-                  $"Error {err}";
-            
-            throw new ServerErrorException(err, result.StatusCode);
-        }
-
-        await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
-            .ConfigureAwait(false);
-
-        return await JsonSerializer.DeserializeAsync<TResult>(responseStream, jsonPolicy, 
-            cancellationToken).ConfigureAwait(false)!;
-    }
-
-    public async Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(JsonNamingPolicies jsonNamingPolicy,
+    public async Task<TResult> ExecuteAsync<TResult>(JsonNamingPolicies jsonNamingPolicy,
         CancellationToken cancellationToken = default) where TResult : class
     {
         var jsonPolicy = jsonNamingPolicy switch
@@ -500,15 +466,13 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 AllowTrailingCommas = false
             },
         };
-        
+
         using var result = await GetResponseAsync(cancellationToken)
             .ConfigureAwait(false);
 
         if (result.StatusCode == HttpStatusCode.NotFound)
-            return (default, HttpStatusCode.NotFound);
-        if (result.StatusCode == HttpStatusCode.NoContent)
-            return (default, HttpStatusCode.NoContent);
-        
+            return default;
+
         var statusCode = (int)result.StatusCode;
         if (statusCode is >= 400 and <= 499)
         {
@@ -516,20 +480,82 @@ public class HttpFluentClient(HttpClient httpClient) : IUrlMapper, IQueryStringS
                 .ConfigureAwait(false);
             err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
             throw new ClientErrorException(err, result.StatusCode);
         }
-        
+
         if (statusCode is >= 500 and <= 599)
         {
             var err = await result.Content.ReadAsStringAsync(cancellationToken)
                 .ConfigureAwait(false);
             err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
                   $"Error {err}";
-            
+
             throw new ServerErrorException(err, result.StatusCode);
         }
-        
+
+        await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        return await JsonSerializer.DeserializeAsync<TResult>(responseStream, jsonPolicy,
+            cancellationToken).ConfigureAwait(false)!;
+    }
+
+    public async Task<(TResult result, HttpStatusCode statusCode)> ExecuteWithStatusAsync<TResult>(
+        JsonNamingPolicies jsonNamingPolicy,
+        CancellationToken cancellationToken = default) where TResult : class
+    {
+        var jsonPolicy = jsonNamingPolicy switch
+        {
+            JsonNamingPolicies.Kebab => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.KebabCaseLower
+            },
+            JsonNamingPolicies.Snake => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
+            },
+            JsonNamingPolicies.Camel => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            },
+            _ => new JsonSerializerOptions
+            {
+                AllowTrailingCommas = false
+            },
+        };
+
+        using var result = await GetResponseAsync(cancellationToken)
+            .ConfigureAwait(false);
+
+        if (result.StatusCode == HttpStatusCode.NotFound)
+            return (default, HttpStatusCode.NotFound);
+        if (result.StatusCode == HttpStatusCode.NoContent)
+            return (default, HttpStatusCode.NoContent);
+
+        var statusCode = (int)result.StatusCode;
+        if (statusCode is >= 400 and <= 499)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Client error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+
+            throw new ClientErrorException(err, result.StatusCode);
+        }
+
+        if (statusCode is >= 500 and <= 599)
+        {
+            var err = await result.Content.ReadAsStringAsync(cancellationToken)
+                .ConfigureAwait(false);
+            err = $"Server error occurred while accessing url {_httpClient.BaseAddress}{_url} method {_method}" +
+                  $"Error {err}";
+
+            throw new ServerErrorException(err, result.StatusCode);
+        }
+
         await using var responseStream = await result.Content.ReadAsStreamAsync(cancellationToken)
             .ConfigureAwait(false);
 
