@@ -2,18 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>DistribuTe.Mutators.Teams.Application</RootNamespace>
+        <RootNamespace>DistribuTe.Mutators.Teams.Infrastructure</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.4.1" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\lib-domain-app-entities\lib-domain-app-entities.csproj" />
-      <ProjectReference Include="..\..\lib-fw-all\lib-fw-modulez\lib-fw-modulez.csproj" />
       <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />
     </ItemGroup>
 

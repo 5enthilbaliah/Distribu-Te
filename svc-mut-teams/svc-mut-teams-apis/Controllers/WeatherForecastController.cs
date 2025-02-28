@@ -1,40 +1,28 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers;
 
+using Application.WeatherForecast.Dtos;
+using Application.WeatherForecast.Queries;
 using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("protected/[controller]")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController(IMediator mediator) : ControllerBase
 {
-    private static readonly string[] Summaries =
-    [
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    ];
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    
     
     [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+    [Route("")]
+    [ProducesResponseType(typeof(IEnumerable<WeatherForecastDto>), 200)]
+    public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
-        var rng = new Random();
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+        var result = await _mediator.Send(new GetRandomWeatherForecastQuery(),
+            cancellationToken).ConfigureAwait(false);
+        
+        return Ok(result);
     }
-}
-
-public class WeatherForecast
-{
-    public DateTime Date { get; set; }
-
-    public int TemperatureC { get; set; }
-
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-    public string Summary { get; set; }
 }

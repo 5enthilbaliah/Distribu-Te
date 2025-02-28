@@ -1,4 +1,5 @@
-﻿namespace DistribuTe.Mutators.Teams.Application._shared;
+﻿// ReSharper disable once CheckNamespace
+namespace DistribuTe.Mutators.Teams.Application.Shared;
 
 public interface IRequestContext
 {

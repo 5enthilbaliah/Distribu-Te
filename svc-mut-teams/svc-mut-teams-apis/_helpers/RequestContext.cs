@@ -2,7 +2,7 @@
 namespace DistribuTe.Mutators.Teams.Apis.Helpers;
 
 using System.Security.Claims;
-using Application._shared;
+using Application.Shared;
 using Helpers.Swagger;
 using Microsoft.AspNetCore.Http;
 
