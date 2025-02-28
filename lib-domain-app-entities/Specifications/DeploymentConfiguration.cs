@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy>
-    where TDeploy : Deployment
+    where TDeploy : BaseDeployment
 {
     public void Configure(EntityTypeBuilder<TDeploy> builder)
     {

@@ -3,7 +3,7 @@
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 namespace DistribuTe.Domain.AppEntities;
 
-public class Associate
+public class BaseAssociate
 {
     public int Id { get; set; }
     public string FirstName { get; set; } = null!;
@@ -17,7 +17,7 @@ public class Associate
     public string? ModifiedBy { get; set; }
 }
 
-public class AssociateAggregate : Associate
+public class AssociateAggregate : BaseAssociate
 {
     public virtual IList<SquadAssociateAggregate> SquadAssociates { get; set; }
     public virtual IList<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }

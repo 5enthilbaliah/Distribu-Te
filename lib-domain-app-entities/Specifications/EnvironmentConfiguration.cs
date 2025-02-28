@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class EnvironmentConfiguration<TEnv> : IEntityTypeConfiguration<TEnv>
-    where TEnv : Environment
+    where TEnv : BaseEnvironment
 {
     public void Configure(EntityTypeBuilder<TEnv> builder)
     {

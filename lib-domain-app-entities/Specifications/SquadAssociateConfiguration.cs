@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class SquadAssociateConfiguration<TSqdAssociate> : IEntityTypeConfiguration<TSqdAssociate>
-    where TSqdAssociate : SquadAssociate
+    where TSqdAssociate : BaseSquadAssociate
 {
     public void Configure(EntityTypeBuilder<TSqdAssociate> builder)
     {

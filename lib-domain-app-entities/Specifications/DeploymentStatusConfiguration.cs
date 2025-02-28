@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class DeploymentStatusConfiguration<TStatus> : IEntityTypeConfiguration<TStatus>
-    where TStatus : DeploymentStatus
+    where TStatus : BaseDeploymentStatus
 {
     public void Configure(EntityTypeBuilder<TStatus> builder)
     {

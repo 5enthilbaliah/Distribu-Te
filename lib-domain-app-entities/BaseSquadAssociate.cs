@@ -3,18 +3,21 @@
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 namespace DistribuTe.Domain.AppEntities;
 
-public class Environment
+public class BaseSquadAssociate
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = null!;
-    public string Code { get; set; } = null!;
+    public int AssociateId { get; set; }
+    public int SquadId { get; set; }
+    public DateTime StartedOn { get; set; }
+    public DateTime? EndedOn { get; set; }
+    public decimal Capacity { get; set; }
     public DateTime CreatedOn { get; set; }
     public string CreatedBy { get; set; } = null!;
     public DateTime? ModifiedOn { get; set; }
     public string? ModifiedBy { get; set; }
 }
 
-public class EnvironmentAggregate : Environment
+public class SquadAssociateAggregate : BaseSquadAssociate
 {
-    public virtual IList<DeploymentAggregate> Deployments { get; set; }
+    public virtual SquadAggregate Squad { get; set; }
+    public virtual AssociateAggregate Associate { get; set; }
 }

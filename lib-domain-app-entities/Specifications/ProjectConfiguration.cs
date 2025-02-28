@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class ProjectConfiguration<TProject> : IEntityTypeConfiguration<TProject>
-    where TProject : Project
+    where TProject : BaseProject
 {
     public void Configure(EntityTypeBuilder<TProject> builder)
     {

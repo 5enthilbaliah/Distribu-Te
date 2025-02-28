@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class ProjectCategoryConfiguration<TProjCat> : IEntityTypeConfiguration<TProjCat>
-    where TProjCat : ProjectCategory
+    where TProjCat : BaseProjectCategory
 {
     public void Configure(EntityTypeBuilder<TProjCat> builder)
     {
