@@ -27,4 +27,8 @@
       <ProjectReference Include="..\svc-mut-teams-application\svc-mut-teams-application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>

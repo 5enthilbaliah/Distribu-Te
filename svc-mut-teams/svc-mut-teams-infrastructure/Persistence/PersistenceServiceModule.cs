@@ -1,5 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
+using Domain;
+using Domain.Entities;
 using Domain.Settings;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
@@ -19,5 +21,11 @@ public class PersistenceServiceModule : DependencyServiceModule
             {
                 mssqlOpt.CommandTimeout(dbSettings.TimeoutInSeconds);
             }));
+
+        services.AddScoped<ITeamsRepository<Associate, AssociateId>, AssociateTeamsRepository>();
+        services.AddScoped<ITeamsRepository<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
+        services.AddScoped<ITeamsRepository<Squad, SquadId>, SquadTeamsRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

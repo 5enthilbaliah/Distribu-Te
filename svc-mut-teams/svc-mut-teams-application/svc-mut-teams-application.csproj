@@ -16,4 +16,9 @@
       <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="SquadAssociates\" />
+      <Folder Include="Squads\" />
+    </ItemGroup>
+
 </Project>

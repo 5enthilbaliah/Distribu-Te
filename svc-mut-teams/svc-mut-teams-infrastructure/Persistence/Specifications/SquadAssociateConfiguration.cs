@@ -21,9 +21,11 @@ public class SquadAssociateConfiguration : IEntityTypeConfiguration<SquadAssocia
         var complexPropBuilder = builder.ComplexProperty(s => s.Id);
         complexPropBuilder
             .Property(s => s.AssociateId)
+            .HasColumnName("associate_id")
             .HasConversion(associateConverter);
         complexPropBuilder
             .Property(s => s.SquadId)
+            .HasColumnName("squad_id")
             .HasConversion(squadConverter);
         
         var configuration = new BaseSquadAssociateConfiguration<SquadAssociate>();
