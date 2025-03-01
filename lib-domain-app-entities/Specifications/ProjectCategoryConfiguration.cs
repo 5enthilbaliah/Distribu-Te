@@ -9,12 +9,7 @@ public class ProjectCategoryConfiguration<TProjCat> : IEntityTypeConfiguration<T
     public void Configure(EntityTypeBuilder<TProjCat> builder)
     {
         builder.ToTable("project_categories");
-
-        builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-
+        
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(45)
@@ -55,6 +50,11 @@ public class ProjectCategoryAggregateConfiguration : IEntityTypeConfiguration<Pr
 {
     public void Configure(EntityTypeBuilder<ProjectCategoryAggregate> builder)
     {
+        builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new ProjectCategoryConfiguration<ProjectCategoryAggregate>();
         configuration.Configure(builder);
     }

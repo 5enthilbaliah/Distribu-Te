@@ -9,14 +9,6 @@ public class SquadAssociateConfiguration<TSqdAssociate> : IEntityTypeConfigurati
     public void Configure(EntityTypeBuilder<TSqdAssociate> builder)
     {
         builder.ToTable("squad_associates");
-
-        builder.HasKey(s => new { s.SquadId, s.AssociateId });
-
-        builder.Property(s => s.AssociateId)
-            .HasColumnName("associate_id");
-        
-        builder.Property(s => s.SquadId)
-            .HasColumnName("squad_id");
         
         builder.Property(s => s.StartedOn)
             .HasColumnType("datetime2(7)")
@@ -52,6 +44,14 @@ public class SquadAssociateAggregateConfiguration : IEntityTypeConfiguration<Squ
 {
     public void Configure(EntityTypeBuilder<SquadAssociateAggregate> builder)
     {
+        builder.HasKey(s => new { s.SquadId, s.AssociateId });
+
+        builder.Property(s => s.AssociateId)
+            .HasColumnName("associate_id");
+        
+        builder.Property(s => s.SquadId)
+            .HasColumnName("squad_id");
+        
         var configuration = new SquadAssociateConfiguration<SquadAssociateAggregate>();
         configuration.Configure(builder);
         

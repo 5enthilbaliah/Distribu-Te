@@ -9,13 +9,7 @@ public class EnvironmentConfiguration<TEnv> : IEntityTypeConfiguration<TEnv>
     public void Configure(EntityTypeBuilder<TEnv> builder)
     {
         builder.ToTable("environments");
-
-        builder.HasKey(e => e.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-   
-
+        
         builder.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(45)
@@ -51,6 +45,11 @@ public class EnvironmentAggregateConfiguration : IEntityTypeConfiguration<Enviro
 {
     public void Configure(EntityTypeBuilder<EnvironmentAggregate> builder)
     {
+        builder.HasKey(e => e.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new EnvironmentConfiguration<EnvironmentAggregate>();
         configuration.Configure(builder);
     }

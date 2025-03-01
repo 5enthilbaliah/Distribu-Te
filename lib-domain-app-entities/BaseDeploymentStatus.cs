@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseDeploymentStatus
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public DateTime CreatedOn { get; set; }
     public string CreatedBy { get; set; } = null!;
@@ -15,6 +14,7 @@ public class BaseDeploymentStatus
 
 public class DeploymentStatusAggregate : BaseDeploymentStatus
 {
+    public int Id { get; set; }
     public virtual IList<DeploymentAggregate> Deployments { get; set; }
     public virtual IList<DeploymentItemAggregate> DeploymentItems { get; set; }
     public virtual IList<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }

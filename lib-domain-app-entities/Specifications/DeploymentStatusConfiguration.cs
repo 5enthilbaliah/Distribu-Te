@@ -9,13 +9,7 @@ public class DeploymentStatusConfiguration<TStatus> : IEntityTypeConfiguration<T
     public void Configure(EntityTypeBuilder<TStatus> builder)
     {
         builder.ToTable("deployment_statuses");
-
-        builder.HasKey(e => e.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-   
-
+        
         builder.Property(e => e.Name)
             .IsRequired()
             .HasMaxLength(45)
@@ -45,6 +39,11 @@ public class DeploymentStatusAggregateConfiguration : IEntityTypeConfiguration<D
 {
     public void Configure(EntityTypeBuilder<DeploymentStatusAggregate> builder)
     {
+        builder.HasKey(e => e.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new DeploymentStatusConfiguration<DeploymentStatusAggregate>();
         configuration.Configure(builder);
     }

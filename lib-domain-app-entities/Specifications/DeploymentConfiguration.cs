@@ -9,11 +9,6 @@ public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy
     public void Configure(EntityTypeBuilder<TDeploy> builder)
     {
         builder.ToTable("deployments");
-
-        builder.HasKey(d => d.Id);
-        builder.Property(d => d.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
         
         builder.Property(d => d.Name)
             .IsRequired()
@@ -71,6 +66,11 @@ public class DeploymentAggregateConfiguration : IEntityTypeConfiguration<Deploym
 {
     public void Configure(EntityTypeBuilder<DeploymentAggregate> builder)
     {
+        builder.HasKey(d => d.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new DeploymentConfiguration<DeploymentAggregate>();
         configuration.Configure(builder);
         

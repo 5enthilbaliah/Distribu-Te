@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseEnvironment
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Code { get; set; } = null!;
     public DateTime CreatedOn { get; set; }
@@ -16,5 +15,6 @@ public class BaseEnvironment
 
 public class EnvironmentAggregate : BaseEnvironment
 {
+    public int Id { get; set; }
     public virtual IList<DeploymentAggregate> Deployments { get; set; }
 }

@@ -10,12 +10,6 @@ public class SquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
     {
         builder.ToTable("squads");
 
-        builder.HasKey(s => s.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-   
-
         builder.Property(s => s.Name)
             .IsRequired()
             .HasMaxLength(45)
@@ -56,6 +50,11 @@ public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggrega
 {
     public void Configure(EntityTypeBuilder<SquadAggregate> builder)
     {
+        builder.HasKey(s => s.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new SquadConfiguration<SquadAggregate>();
         configuration.Configure(builder);
     }

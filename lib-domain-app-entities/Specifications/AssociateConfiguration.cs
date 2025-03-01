@@ -10,11 +10,6 @@ public class AssociateConfiguration<TAssociate> : IEntityTypeConfiguration<TAsso
     {
         builder.ToTable("associates");
 
-        builder.HasKey(a => a.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-
         builder.Property(a => a.FirstName)
             .IsRequired()
             .HasMaxLength(45)
@@ -67,6 +62,11 @@ public class AssociateAggregateConfiguration : IEntityTypeConfiguration<Associat
 {
     public void Configure(EntityTypeBuilder<AssociateAggregate> builder)
     {
+        builder.HasKey(a => a.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new AssociateConfiguration<AssociateAggregate>();
         configuration.Configure(builder);
     }

@@ -10,11 +10,6 @@ public class DeploymentItemConfiguration<TDepItem> : IEntityTypeConfiguration<TD
     {
         builder.ToTable("deployment_items");
 
-        builder.HasKey(d => d.Id);
-        builder.Property(d => d.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-
         builder.Property(d => d.DeploymentId)
             .HasColumnName("deployment_id");
         builder.Property(d => d.ProjectId)
@@ -60,6 +55,11 @@ public class DeploymentItemAggregateConfiguration : IEntityTypeConfiguration<Dep
 {
     public void Configure(EntityTypeBuilder<DeploymentItemAggregate> builder)
     {
+        builder.HasKey(d => d.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new DeploymentItemConfiguration<DeploymentItemAggregate>();
         configuration.Configure(builder);
 

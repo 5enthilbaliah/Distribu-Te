@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseProject
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Code { get; set; } = null!;
     public string? Description { get; set; }
@@ -18,6 +17,7 @@ public class BaseProject
 
 public class ProjectAggregate : BaseProject
 {
+    public int Id { get; set; }
     public virtual ProjectCategoryAggregate Category { get; set; } 
     public virtual IList<SquadProjectAggregate> SquadProjects { get; set; }
     public virtual IList<DeploymentItemAggregate> DeploymentItems { get; set; }

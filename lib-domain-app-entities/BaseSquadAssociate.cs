@@ -5,8 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseSquadAssociate
 {
-    public int AssociateId { get; set; }
-    public int SquadId { get; set; }
     public DateTime StartedOn { get; set; }
     public DateTime? EndedOn { get; set; }
     public decimal Capacity { get; set; }
@@ -18,6 +16,8 @@ public class BaseSquadAssociate
 
 public class SquadAssociateAggregate : BaseSquadAssociate
 {
+    public int AssociateId { get; set; }
+    public int SquadId { get; set; }
     public virtual SquadAggregate Squad { get; set; }
     public virtual AssociateAggregate Associate { get; set; }
 }

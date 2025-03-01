@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseDeploymentTaskType
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Code { get; set; } = null!;
     public DateTime CreatedOn { get; set; }
@@ -16,5 +15,6 @@ public class BaseDeploymentTaskType
 
 public class DeploymentTaskTypeAggregate : BaseDeploymentTaskType
 {
+    public int Id { get; set; }
     public virtual ICollection<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }
 }

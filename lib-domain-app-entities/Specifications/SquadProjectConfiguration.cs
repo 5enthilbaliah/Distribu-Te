@@ -9,14 +9,6 @@ public class SquadProjectConfiguration<TSqdProject> : IEntityTypeConfiguration<T
     public void Configure(EntityTypeBuilder<TSqdProject> builder)
     {
         builder.ToTable("squad_projects");
-
-        builder.HasKey(s => new { s.SquadId, s.ProjectId });
-
-        builder.Property(s => s.ProjectId)
-            .HasColumnName("project_id");
-        
-        builder.Property(s => s.SquadId)
-            .HasColumnName("squad_id");
         
         builder.Property(s => s.StartedOn)
             .HasColumnType("datetime2(7)")
@@ -48,6 +40,14 @@ public class SquadProjectAggregateConfiguration : IEntityTypeConfiguration<Squad
 {
     public void Configure(EntityTypeBuilder<SquadProjectAggregate> builder)
     {
+        builder.HasKey(s => new { s.SquadId, s.ProjectId });
+
+        builder.Property(s => s.ProjectId)
+            .HasColumnName("project_id");
+        
+        builder.Property(s => s.SquadId)
+            .HasColumnName("squad_id");
+        
         var configuration = new SquadProjectConfiguration<SquadProjectAggregate>();
         configuration.Configure(builder);
         

@@ -5,8 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseSquadProject
 {
-    public int SquadId { get; set; }
-    public int ProjectId { get; set; }
     public DateTime StartedOn { get; set; }
     public DateTime? EndedOn { get; set; }
     public DateTime CreatedOn { get; set; }
@@ -17,6 +15,8 @@ public class BaseSquadProject
 
 public class SquadProjectAggregate : BaseSquadProject
 {
+    public int SquadId { get; set; }
+    public int ProjectId { get; set; }
     public virtual SquadAggregate Squad { get; set; }
     public virtual ProjectAggregate Project { get; set; }
 }

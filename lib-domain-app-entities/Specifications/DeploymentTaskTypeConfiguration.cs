@@ -10,12 +10,6 @@ public class DeploymentTaskTypeConfiguration<TTaskType> : IEntityTypeConfigurati
     {
         builder.ToTable("deployment_task_types");
 
-        builder.HasKey(d => d.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-   
-
         builder.Property(d => d.Name)
             .IsRequired()
             .HasMaxLength(45)
@@ -51,6 +45,11 @@ public class DeploymentTaskTypeAggregateConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<DeploymentTaskTypeAggregate> builder)
     {
+        builder.HasKey(d => d.Id);
+        builder.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new DeploymentTaskTypeConfiguration<DeploymentTaskTypeAggregate>();
         configuration.Configure(builder);
     }

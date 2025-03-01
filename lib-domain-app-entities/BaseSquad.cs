@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseSquad
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Code { get; set; } = null!;
     public string? Description { get; set; }
@@ -17,6 +16,7 @@ public class BaseSquad
 
 public class SquadAggregate : BaseSquad
 {
+    public int Id { get; set; }
     public virtual IList<SquadAssociateAggregate> SquadAssociates { get; set; }
     public virtual IList<SquadProjectAggregate> SquadProjects { get; set; }
     public virtual IList<DeploymentAggregate> Deployments { get; set; }

@@ -9,11 +9,6 @@ public class DeploymentItemTaskConfiguration<TDepTask> : IEntityTypeConfiguratio
     public void Configure(EntityTypeBuilder<TDepTask> builder)
     {
         builder.ToTable("deployment_item_tasks");
-
-        builder.HasKey(d => d.Id);
-        builder.Property(d => d.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
         
         builder.Property(d => d.DeploymentItemId)
             .HasColumnName("deployment_item_id");
@@ -63,6 +58,11 @@ public class DeploymentItemTaskAggregateConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<DeploymentItemTaskAggregate> builder)
     {
+        builder.HasKey(d => d.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .HasColumnName("id");
+        
         var configuration = new DeploymentItemTaskConfiguration<DeploymentItemTaskAggregate>();
         configuration.Configure(builder);
         

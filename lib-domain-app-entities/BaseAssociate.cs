@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseAssociate
 {
-    public int Id { get; set; }
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string? MiddleName { get; set; }
@@ -19,6 +18,7 @@ public class BaseAssociate
 
 public class AssociateAggregate : BaseAssociate
 {
+    public int Id { get; set; }
     public virtual IList<SquadAssociateAggregate> SquadAssociates { get; set; }
     public virtual IList<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }
 }

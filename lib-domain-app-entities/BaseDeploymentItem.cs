@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseDeploymentItem
 {
-    public int Id { get; set; }
     public int DeploymentId { get; set; }
     public int ProjectId { get; set; }
     public int Sequence { get; set; }
@@ -21,6 +20,7 @@ public class BaseDeploymentItem
 
 public class DeploymentItemAggregate : BaseDeploymentItem
 {
+    public int Id { get; set; }
     public virtual DeploymentAggregate Deployment { get; set; }
     public virtual ProjectAggregate Project { get; set; }
     public virtual IList<DeploymentItemTaskAggregate> DeploymentItemTasks { get; set; }

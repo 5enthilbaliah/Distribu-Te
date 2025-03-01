@@ -5,7 +5,6 @@ namespace DistribuTe.Domain.AppEntities;
 
 public class BaseDeployment
 {
-    public int Id { get; set; }
     public string Name { get; set; } = null!;
     public int SquadId { get; set; }
     public int EnvironmentId { get; set; }
@@ -23,6 +22,7 @@ public class BaseDeployment
 
 public class DeploymentAggregate : BaseDeployment
 {
+    public int Id { get; set; }
     public virtual SquadAggregate Squad { get; set; }
     public virtual EnvironmentAggregate Environment { get; set; }
     public virtual IList<DeploymentItemAggregate> DeploymentItems { get; set; }
