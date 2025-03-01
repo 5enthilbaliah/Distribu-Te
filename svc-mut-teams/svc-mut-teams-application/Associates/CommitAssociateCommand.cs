@@ -2,9 +2,10 @@
 
 using Domain.Entities;
 using MediatR;
+using Models;
 
-public class CommitAssociateCommand : IRequest<bool>
+public class CommitAssociateCommand : IRequest<AssociateVm>
 {
-    public AssociateId Id { get; set; }
-    public Associate Associate { get; set; } = null!;
+    public int Id { get; set; }
+    public AssociateRm Associate { get; set; } = null!;
 }

@@ -2,36 +2,42 @@
 
 using Domain;
 using Domain.Entities;
+using MapsterMapper;
 using MediatR;
+using Models;
 
-public class CommandHandler(ITeamsRepository<Associate, AssociateId> repository, IUnitOfWork unitOfWork)
-    : IRequestHandler<SpawnAssociateCommand, AssociateId>,
-        IRequestHandler<CommitAssociateCommand, bool>,
+public class CommandHandler(ITeamsRepository<Associate, AssociateId> repository, IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<SpawnAssociateCommand, AssociateVm>,
+        IRequestHandler<CommitAssociateCommand, AssociateVm>,
         IRequestHandler<TrashAssociateCommand, bool>
 {
     private readonly ITeamsRepository<Associate, AssociateId> _repository =
         repository ?? throw new ArgumentNullException(nameof(repository));
-
     private readonly IUnitOfWork _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
-
-    public async Task<AssociateId> Handle(SpawnAssociateCommand request, CancellationToken cancellationToken)
+    public async Task<AssociateVm> Handle(SpawnAssociateCommand request, CancellationToken cancellationToken)
     {
-        _repository.SpawnOne(request.Associate);
+        var entity = _mapper.Map<Associate>(request.Associate);
+        _repository.SpawnOne(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return request.Associate.Id;
+        return _mapper.Map<AssociateVm>(entity);
     }
 
-    public async Task<bool> Handle(CommitAssociateCommand request, CancellationToken cancellationToken)
+    public async Task<AssociateVm> Handle(CommitAssociateCommand request, CancellationToken cancellationToken)
     {
-        _repository.CommitOne(request.Id, request.Associate);
+        var associateId = new AssociateId(request.Id);
+        var entity = _mapper.Map<Associate>(request.Associate);
+        entity.Id = associateId;
+        _repository.CommitOne(associateId, entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return true;
+        return _mapper.Map<AssociateVm>(entity);
     }
 
     public async Task<bool> Handle(TrashAssociateCommand request, CancellationToken cancellationToken)
     {
-        _repository.TrashOne(request.Id);
+        var associateId = new AssociateId(request.Id);
+        _repository.TrashOne(associateId);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return true;
     }

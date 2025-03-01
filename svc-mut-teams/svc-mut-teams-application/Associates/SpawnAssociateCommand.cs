@@ -2,8 +2,9 @@
 
 using Domain.Entities;
 using MediatR;
+using Models;
 
-public class SpawnAssociateCommand : IRequest<AssociateId>
+public class SpawnAssociateCommand : IRequest<AssociateVm>
 {
-    public Associate Associate { get; set; } = null!;
+    public AssociateRm Associate { get; set; } = null!;
 }

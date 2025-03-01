@@ -5,5 +5,5 @@ using MediatR;
 
 public class TrashAssociateCommand : IRequest<bool>
 {
-    public AssociateId Id { get; set; }
+    public int Id { get; set; }
 }
