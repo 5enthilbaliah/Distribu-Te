@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class SquadAssociateConfiguration<TSqdAssociate> : IEntityTypeConfiguration<TSqdAssociate>
+public class BaseSquadAssociateConfiguration<TSqdAssociate> : IEntityTypeConfiguration<TSqdAssociate>
     where TSqdAssociate : BaseSquadAssociate
 {
     public void Configure(EntityTypeBuilder<TSqdAssociate> builder)
@@ -52,7 +52,7 @@ public class SquadAssociateAggregateConfiguration : IEntityTypeConfiguration<Squ
         builder.Property(s => s.SquadId)
             .HasColumnName("squad_id");
         
-        var configuration = new SquadAssociateConfiguration<SquadAssociateAggregate>();
+        var configuration = new BaseSquadAssociateConfiguration<SquadAssociateAggregate>();
         configuration.Configure(builder);
         
         builder.HasOne(a => a.Associate)

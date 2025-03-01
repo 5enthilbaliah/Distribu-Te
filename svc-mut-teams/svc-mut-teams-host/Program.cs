@@ -32,7 +32,7 @@ var swaggerSettings = configuration.GetSection(nameof(SwaggerSettings)).Get<Swag
 app.UseSwagger(opt =>
 {
     opt.RouteTemplate = swaggerSettings.JsonRoute;
-    opt.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+    opt.PreSerializeFilters.Add((swaggerDoc, _) =>
     {
         swaggerDoc.Servers = 
         [

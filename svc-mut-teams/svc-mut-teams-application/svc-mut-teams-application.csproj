@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\lib-domain-app-entities\lib-domain-app-entities.csproj" />
       <ProjectReference Include="..\..\lib-fw-all\lib-fw-modulez\lib-fw-modulez.csproj" />
       <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />
     </ItemGroup>

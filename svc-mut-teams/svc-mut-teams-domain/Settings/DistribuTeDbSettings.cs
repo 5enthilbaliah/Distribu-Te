@@ -2,6 +2,6 @@
 
 public class DistribuTeDbSettings
 {
-    public string ConnectionString { get; set; } = null!;
-    public int TimeoutInSeconds { get; set; }
+    public string ConnectionString { get; init; } = null!;
+    public int TimeoutInSeconds { get; init; }
 }

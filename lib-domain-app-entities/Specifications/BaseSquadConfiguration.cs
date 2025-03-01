@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class SquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
+public class BaseSquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
     where TSquad : BaseSquad
 {
     public void Configure(EntityTypeBuilder<TSquad> builder)
@@ -60,7 +60,7 @@ public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggrega
             .ValueGeneratedOnAdd()
             .HasColumnName("id");
         
-        var configuration = new SquadConfiguration<SquadAggregate>();
+        var configuration = new BaseSquadConfiguration<SquadAggregate>();
         configuration.Configure(builder);
     }
 }

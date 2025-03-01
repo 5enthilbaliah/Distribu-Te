@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class AssociateConfiguration<TAssociate> : IEntityTypeConfiguration<TAssociate>
+public class BaseAssociateConfiguration<TAssociate> : IEntityTypeConfiguration<TAssociate>
     where TAssociate : BaseAssociate
 {
     public void Configure(EntityTypeBuilder<TAssociate> builder)
@@ -70,7 +70,7 @@ public class AssociateAggregateConfiguration : IEntityTypeConfiguration<Associat
             .ValueGeneratedOnAdd()
             .HasColumnName("id");
         
-        var configuration = new AssociateConfiguration<AssociateAggregate>();
+        var configuration = new BaseAssociateConfiguration<AssociateAggregate>();
         configuration.Configure(builder);
     }
 }
