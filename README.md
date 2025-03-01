@@ -55,6 +55,9 @@ dotnet ef migrations script 20250224060729_ProjectForeignKeys 20250224054930_Dep
 dotnet ef migrations script 20250224060729_ProjectForeignKeys 20250224142118_TaskTypesForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250224142118_TaskTypesForeignKeys.sql"
 dotnet ef migrations script 20250224142118_TaskTypesForeignKeys 20250224060729_ProjectForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250224142118_TaskTypesForeignKeys.sql"
 
+dotnet ef migrations script 20250224142118_TaskTypesForeignKeys 20250301152854_AddUniqueContraints --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\execution-script\20250301152854_AddUniqueContraints.sql" 
+dotnet ef migrations script 20250301152854_AddUniqueContraints 20250224142118_TaskTypesForeignKeys --idempotent --context DistribuTeDbContext --output "E:\Distribu-Te\lib-infra-app-database\migrations\rollback-script\20250301152854_AddUniqueContraints.sql"
+
 ## lib-fw-workflowz
 use case management
 

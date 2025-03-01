@@ -22,6 +22,11 @@ public class SquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
             .HasColumnName("code")
             .HasColumnType("varchar(20)");
         
+        builder.HasIndex(a => a.Code)
+            .IsUnique();
+        builder.HasIndex(a => a.Name)
+            .IsUnique();
+        
         builder.Property(s => s.Description)
             .HasMaxLength(200)
             .HasColumnName("description")

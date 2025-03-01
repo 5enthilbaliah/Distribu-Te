@@ -15,6 +15,9 @@ public class DeploymentConfiguration<TDeploy> : IEntityTypeConfiguration<TDeploy
             .HasMaxLength(45)
             .HasColumnName("name")
             .HasColumnType("varchar(45)");
+        
+        builder.HasIndex(a => a.Name)
+            .IsUnique();
 
         builder.Property(d => d.SquadId)
             .HasColumnName("squad_id");

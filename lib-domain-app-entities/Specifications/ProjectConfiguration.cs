@@ -22,6 +22,11 @@ public class ProjectConfiguration<TProject> : IEntityTypeConfiguration<TProject>
             .HasColumnName("code")
             .HasColumnType("varchar(20)");
         
+        builder.HasIndex(a => a.Code)
+            .IsUnique();
+        builder.HasIndex(a => a.Name)
+            .IsUnique();
+        
         builder.Property(p => p.Description)
             .HasMaxLength(200)
             .HasColumnName("description")

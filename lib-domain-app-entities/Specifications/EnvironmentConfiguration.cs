@@ -21,6 +21,11 @@ public class EnvironmentConfiguration<TEnv> : IEntityTypeConfiguration<TEnv>
             .HasMaxLength(20)
             .HasColumnName("code")
             .HasColumnType("varchar(20)");
+        
+        builder.HasIndex(a => a.Code)
+            .IsUnique();
+        builder.HasIndex(a => a.Name)
+            .IsUnique();
 
         builder.Property(e => e.CreatedOn)
             .HasColumnType("datetime2(7)")

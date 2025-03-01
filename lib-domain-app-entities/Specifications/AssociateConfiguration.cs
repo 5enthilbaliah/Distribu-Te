@@ -26,12 +26,15 @@ public class AssociateConfiguration<TAssociate> : IEntityTypeConfiguration<TAsso
             .HasMaxLength(25)
             .HasColumnName("middle_name")
             .HasColumnType("varchar(45)");
-        
+
         builder.Property(a => a.EmailId)
             .IsRequired()
             .HasMaxLength(45)
             .HasColumnName("email_id")
             .HasColumnType("varchar(45)");
+
+        builder.HasIndex(a => a.EmailId)
+            .IsUnique();
 
         builder.Property(a => a.Gender)
             .IsRequired()
