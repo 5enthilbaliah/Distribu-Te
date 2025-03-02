@@ -1,5 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Associates.Models;
 
+using System.Text.Json.Serialization;
+
 public class AssociateRm
 {
     public string FirstName { get; set; } = null!;

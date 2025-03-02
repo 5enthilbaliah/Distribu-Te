@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using Odata;
 
 [ExcludeFromCodeCoverage]
 public class ControllerServiceModule : DependencyServiceModule
@@ -22,12 +23,12 @@ public class ControllerServiceModule : DependencyServiceModule
     private IEdmModel GetEdmModel()
     {
         var odataBuilder = new ODataConventionModelBuilder();
-        odataBuilder.EntitySet<AssociateVm>("associates");
+        var associate = odataBuilder.EntitySet<AssociateVm>("associates");
         odataBuilder.EntitySet<SquadVm>("squads");
         odataBuilder.EntitySet<SquadAssociateVm>("squad-associates");
-            
-        odataBuilder.EntityType<SquadAssociateVm>()
-            .HasKey(x => new { x.SquadId, x.AssociateId });
+        
+        // odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateVm>();
+        odataBuilder.AddOdataConfigurations<SquadAssociateVmConfiguration, SquadAssociateVm>();
 
         return odataBuilder.GetEdmModel();
     }
@@ -46,6 +47,8 @@ public class ControllerServiceModule : DependencyServiceModule
             {
                 // Default enum serialization on return to a string
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                // opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
             });
     }
 }
