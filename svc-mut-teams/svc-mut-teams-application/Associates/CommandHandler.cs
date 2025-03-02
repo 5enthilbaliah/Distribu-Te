@@ -21,7 +21,7 @@ public class CommandHandler(ITeamsRepository<Associate, AssociateId> repository,
     {
         var entity = _mapper.Map<Associate>(request.Associate);
         _repository.SpawnOne(entity);
-        await _unitOfWork.SaveChangesAsync("", cancellationToken);
+        await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<AssociateVm>(entity);
     }
 
@@ -32,7 +32,7 @@ public class CommandHandler(ITeamsRepository<Associate, AssociateId> repository,
         change.Id = associateId;
         await _repository.CommitOneAsync(change, update =>  change.Adapt(update),
             cancellationToken);
-        await _unitOfWork.SaveChangesAsync("", cancellationToken);
+        await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<AssociateVm>(change);
     }
 

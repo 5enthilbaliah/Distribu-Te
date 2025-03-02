@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using Domain;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) : ITeamsRepository<TEntity, TId>
@@ -37,15 +36,3 @@ internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext contex
             DbContext.Set<TEntity>().Remove(entity);
     }
 }
-
-internal sealed class AssociateTeamsRepository(TeamDatabaseContext context) 
-    : TeamsRepository<Associate, AssociateId>(context)
-{ }
-
-internal sealed class SquadTeamsRepository(TeamDatabaseContext context) 
-    : TeamsRepository<Squad, SquadId>(context)
-{ }
-
-internal sealed class SquadAssociateTeamsRepository(TeamDatabaseContext context) 
-    : TeamsRepository<SquadAssociate, SquadAssociateId>(context)
-{ }

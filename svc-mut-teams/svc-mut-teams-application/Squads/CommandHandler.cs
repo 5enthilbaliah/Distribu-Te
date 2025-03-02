@@ -22,7 +22,7 @@ public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOf
     {
         var entity = _mapper.Map<Squad>(request.Squad);
         _repository.SpawnOne(entity);
-        await _unitOfWork.SaveChangesAsync("", cancellationToken);
+        await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<SquadVm>(entity);
     }
 
@@ -33,7 +33,7 @@ public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOf
         change.Id = squadId;
         await _repository.CommitOneAsync(change, update =>  change.Adapt(update),
             cancellationToken);
-        await _unitOfWork.SaveChangesAsync("", cancellationToken);
+        await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<SquadVm>(change);
     }
 
