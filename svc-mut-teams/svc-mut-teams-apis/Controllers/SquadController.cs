@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("protected/squads")]
+[Route("odata/protected/squads")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
 public class SquadController(IMediator mediator) : ControllerBase

@@ -1,0 +1,99 @@
+_type: export
+__export_format: 4
+__export_date: 2025-03-02T21:02:02.207Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: req_8ffea64afdc34d9b872d93bf4f13b6f6
+    parentId: fld_43b9d962f28b4084aac99b668e7ddd0c
+    modified: 1740949228263
+    created: 1740947716102
+    url: "{{ _.mutators.teams.base_url }}associates"
+    name: spawn associate
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "firstName": "test",
+          "lastName": "test",
+          "middleName": null,
+          "gender": "M",
+          "emailId": "test1@test.com"
+        }
+    parameters:
+      - id: pair_42a2c1ee93c24fee9949092cb22bd1bf
+        name: $select
+        value: firstName,lastName
+        description: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1740947716102
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_43b9d962f28b4084aac99b668e7ddd0c
+    parentId: wrk_54cd9883e00a43128a4cb626c1c9acb7
+    modified: 1740947830952
+    created: 1740947713192
+    name: teams_mutators
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1740947713192
+    _type: request_group
+  - _id: wrk_54cd9883e00a43128a4cb626c1c9acb7
+    parentId: null
+    modified: 1740947420180
+    created: 1740947420180
+    name: DistribuTe
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: env_add78ff39264413d1745fc076b063c55696f39ff
+    parentId: wrk_54cd9883e00a43128a4cb626c1c9acb7
+    modified: 1740947452461
+    created: 1740947420183
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1740947420183
+    _type: environment
+  - _id: jar_add78ff39264413d1745fc076b063c55696f39ff
+    parentId: wrk_54cd9883e00a43128a4cb626c1c9acb7
+    modified: 1740947420185
+    created: 1740947420185
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: env_ee250a961c474241a70af5854ca1fbe6
+    parentId: env_add78ff39264413d1745fc076b063c55696f39ff
+    modified: 1740949165765
+    created: 1740947490504
+    name: docker
+    data:
+      mutators:
+        teams:
+          base_url: https://localhost:7101/odata/protected/
+    dataPropertyOrder:
+      "&":
+        - mutators
+      "&~|mutators":
+        - teams
+      "&~|mutators~|teams":
+        - base_url
+    color: null
+    isPrivate: false
+    metaSortKey: 1740947490504
+    _type: environment
