@@ -18,6 +18,7 @@ public class AssociateConfiguration : IEntityTypeConfiguration<Associate>
             
         builder.Property(a => a.Id)
             .HasConversion(converter)
+            .HasColumnName("id")
             .ValueGeneratedOnAdd();
         
         var configuration = new BaseAssociateConfiguration<Associate>();

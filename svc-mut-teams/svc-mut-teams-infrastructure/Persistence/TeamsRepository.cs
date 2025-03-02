@@ -2,10 +2,11 @@
 
 using Domain;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) : ITeamsRepository<TEntity, TId>
     where TEntity : class, IEntity<TId>
-    where TId : struct, IEquatable<TId>
+    where TId : class
 {
     protected readonly TeamDatabaseContext DbContext = context ?? throw new ArgumentNullException(nameof(context));
         
@@ -14,15 +15,23 @@ internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext contex
         DbContext.Set<TEntity>().Add(entity);
     }
 
-    public void CommitOne(TId id, TEntity entity)
+    public virtual async Task CommitOneAsync(TEntity mutation, Func<TEntity, TEntity> adapter,
+        CancellationToken cancellationToken = default)
     {
-        if (id.Equals(entity.Id))
-            DbContext.Set<TEntity>().Update(entity);
+        var entity = await DbContext.Set<TEntity>()
+            .SingleOrDefaultAsync(x => x.Id == mutation.Id, cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+
+        if (entity == null)
+            return;
+        
+        adapter(entity);
     }
 
-    public void TrashOne(TId id)
+    public virtual async Task TrashOneAsync(TId id, CancellationToken cancellationToken = default)
     {
-        var entity = DbContext.Set<TEntity>().FirstOrDefault(x => x.Id.Equals(id));
+        var entity = await DbContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id, 
+            cancellationToken);
         
         if (entity != null)
             DbContext.Set<TEntity>().Remove(entity);

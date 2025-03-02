@@ -2,9 +2,13 @@
 
 using DistribuTe.Domain.AppEntities;
 
-public readonly record struct SquadAssociateId(SquadId SquadId, AssociateId AssociateId);
+public record SquadAssociateId(SquadId SquadId, AssociateId AssociateId);
 
-public class SquadAssociate : BaseSquadAssociate, IEntity<SquadAssociateId>
+public class SquadAssociate : BaseSquadAssociate, IEntity<SquadAssociateId>, IAuditableEntity
 {
     public SquadAssociateId Id { get; set; }
+
+    public AssociateId AssociateId { get; set; }
+
+    public SquadId SquadId { get; set; }
 }

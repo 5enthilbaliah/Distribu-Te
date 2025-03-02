@@ -2,9 +2,9 @@
 
 using DistribuTe.Domain.AppEntities;
 
-public readonly record struct SquadId(int Value);
+public record SquadId(int Value);
 
-public class Squad : BaseSquad, IEntity<SquadId>
+public class Squad : BaseSquad, IEntity<SquadId>, IAuditableEntity
 {
     public SquadId Id { get; set; }
 }

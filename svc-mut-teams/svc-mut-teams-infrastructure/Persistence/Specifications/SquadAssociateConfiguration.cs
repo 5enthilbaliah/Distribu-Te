@@ -16,17 +16,17 @@ public class SquadAssociateConfiguration : IEntityTypeConfiguration<SquadAssocia
         var squadConverter = new ValueConverter<SquadId, int>(
             id => id.Value, 
             value => new SquadId(value));
-        
-        builder.HasKey(s => s.Id);
-        var complexPropBuilder = builder.ComplexProperty(s => s.Id);
-        complexPropBuilder
-            .Property(s => s.AssociateId)
-            .HasColumnName("associate_id")
-            .HasConversion(associateConverter);
-        complexPropBuilder
-            .Property(s => s.SquadId)
+
+        builder.Ignore(c => c.Id);
+
+        builder.HasKey(x => new { x.SquadId, x.AssociateId });
+        builder.Property(x => x.SquadId)
             .HasColumnName("squad_id")
             .HasConversion(squadConverter);
+        
+        builder.Property(x => x.AssociateId)
+            .HasColumnName("associate_id")
+            .HasConversion(associateConverter);
         
         var configuration = new BaseSquadAssociateConfiguration<SquadAssociate>();
         configuration.Configure(builder);

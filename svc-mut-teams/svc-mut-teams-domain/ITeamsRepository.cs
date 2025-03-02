@@ -2,9 +2,10 @@
 
 public interface ITeamsRepository<TEntity, TId>
     where TEntity : class, IEntity<TId>
-    where TId : struct, IEquatable<TId>
+    where TId : class
 {
     void SpawnOne(TEntity entity);
-    void CommitOne(TId id, TEntity entity);
-    void TrashOne(TId id);
+    Task CommitOneAsync(TEntity mutation, Func<TEntity, TEntity> adapter,
+        CancellationToken cancellationToken = default);
+    Task TrashOneAsync(TId id, CancellationToken cancellationToken = default);
 }

@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Domain;
 
 public interface IEntity<TId>
-    where TId : struct
+    where TId : class
 {
     public TId Id { get; set; }
 }

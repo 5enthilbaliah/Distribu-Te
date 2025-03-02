@@ -12,5 +12,9 @@ public class AssociateMapperConfig : IRegister
         
         config.NewConfig<Associate, AssociateVm>()
             .Map(dest => dest.Id, src => src.Id.Value);
+        
+        config.NewConfig<Associate, Associate>()
+            .Ignore(dest => dest.CreatedBy)
+            .Ignore(dest => dest.CreatedOn);
     }
 }
