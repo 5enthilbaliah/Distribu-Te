@@ -12,4 +12,13 @@ public static class ServiceCollectionExtensions
         module.Register(services, environment, configuration);
         return services;
     }
+
+    public static WebApplication Pipe<TPipeline>(this WebApplication app,
+        IWebHostEnvironment environment, IConfiguration configuration)
+        where TPipeline : IMiddlewarePipeline, new()
+    {
+        var pipeline = new TPipeline();
+        pipeline.Setup(app, environment, configuration);
+        return app;
+    }
 }
