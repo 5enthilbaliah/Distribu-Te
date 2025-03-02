@@ -10,10 +10,9 @@ public class UserTrackBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (request is not IRequest<TRequest> requestRequest)
+        if (request is not IUserTrackable trackable)
             return await next();
-        
-        var trackable  = requestRequest as IUserTrackable;
+
         trackable!.User = "test-user";
         
         return await next();

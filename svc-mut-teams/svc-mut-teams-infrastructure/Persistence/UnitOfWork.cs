@@ -35,8 +35,8 @@ public class UnitOfWork(TeamDatabaseContext context) : IUnitOfWork
                 ((IAuditableEntity)entityEntry.Entity).ModifiedOn = DateTime.UtcNow;
                 ((IAuditableEntity)entityEntry.Entity).ModifiedBy = mutator;
             }
-
-            await _context.SaveChangesAsync(cancellationToken);
         }
+        
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

@@ -1,18 +1,20 @@
-﻿services: 
+﻿services:
   distribu-te-mssql-db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
     container_name: distribu-te-mssql-db
     environment:
-      MSSQL_SA_PASSWORD:  "d3pl0yNow!"
-      ACCEPT_EULA:  Y
+      MSSQL_SA_PASSWORD: "d3pl0yNow!"
+      ACCEPT_EULA: Y
     ports:
       - 1433:1433
     volumes:
       - distribu-te-vol-mssql-data:/var/opt/mssql/data
       - distribu-te-vol-mssql-log:/var/opt/mssql/log
       - distribu-te-vol-mssql-secrets:/var/opt/mssql/secrets
-      
+    networks:
+      - net-distribu-te
+
 networks:
   net-distribu-te:
     driver: bridge

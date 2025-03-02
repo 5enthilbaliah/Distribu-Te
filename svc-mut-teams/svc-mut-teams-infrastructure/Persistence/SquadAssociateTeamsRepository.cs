@@ -9,8 +9,14 @@ internal sealed class SquadAssociateTeamsRepository(TeamDatabaseContext context)
     public override async Task CommitOneAsync(SquadAssociate mutation, Func<SquadAssociate, SquadAssociate> adapter, 
         CancellationToken cancellationToken = default)
     {
-        await Task.FromResult(0);
-        throw new NotImplementedException("Do not use:: SquadAssociateTeamsRepository commitOneAsync is not implemented.");
+        var entity = await DbContext.SquadAssociates
+            .SingleOrDefaultAsync(x => x.SquadId == mutation.SquadId && x.AssociateId == mutation.AssociateId, 
+                cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        if (entity == null)
+            return;
+        
+        adapter(entity);
     }
 
     public override async Task TrashOneAsync(SquadAssociateId id, CancellationToken cancellationToken = default)

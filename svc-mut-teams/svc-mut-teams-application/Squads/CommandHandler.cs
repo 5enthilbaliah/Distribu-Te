@@ -21,6 +21,7 @@ public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOf
     public async Task<SquadVm> Handle(SpawnSquadCommand request, CancellationToken cancellationToken)
     {
         var entity = _mapper.Map<Squad>(request.Squad);
+        
         _repository.SpawnOne(entity);
         await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<SquadVm>(entity);
@@ -31,6 +32,7 @@ public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOf
         var squadId = new SquadId(request.Id);
         var change = _mapper.Map<Squad>(request.Squad);
         change.Id = squadId;
+        
         await _repository.CommitOneAsync(change, update =>  change.Adapt(update),
             cancellationToken);
         await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
@@ -40,6 +42,7 @@ public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOf
     public async Task<bool> Handle(TrashSquadCommand request, CancellationToken cancellationToken)
     {
         var squadId = new SquadId(request.Id);
+        
         await _repository.TrashOneAsync(squadId, cancellationToken);
         await _unitOfWork.SaveChangesAsync("", cancellationToken);
         return true;

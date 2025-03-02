@@ -29,6 +29,22 @@ public class SquadAssociateController(IMediator mediator) : ControllerBase
     }
     
     [Route("{squadId:int}-{associateId:int}")]
+    [HttpPut]
+    [ProducesResponseType(typeof(SquadAssociateVm), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> CommitAsync(int squadId, int associateId, [FromBody] SquadAssociateRm squadAssociate, 
+        CancellationToken ct = default)
+    {
+        var result = await _mediator.Send(new CommitSquadAssociateCommand
+        {
+            SquadAssociate = squadAssociate,
+            AssociateId = associateId,
+            SquadId = squadId,
+        }, ct).ConfigureAwait(false);
+        
+        return Ok(result);
+    }
+    
+    [Route("{squadId:int}-{associateId:int}")]
     [HttpDelete]
     [ProducesResponseType(typeof(SquadAssociateVm), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> TrashAsync(int squadId, int associateId, CancellationToken ct = default)
