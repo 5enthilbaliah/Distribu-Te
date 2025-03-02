@@ -2,8 +2,10 @@
 
 using Domain.Entities;
 using MediatR;
+using Shared;
 
-public class TrashAssociateCommand : IRequest<bool>
+public class TrashAssociateCommand : IRequest<bool>, IUserTrackable
 {
     public int Id { get; set; }
+    public string? User { get; set; }
 }

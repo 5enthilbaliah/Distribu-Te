@@ -30,8 +30,6 @@ public class CommandHandler(ITeamsRepository<Associate, AssociateId> repository,
         var associateId = new AssociateId(request.Id);
         var change = _mapper.Map<Associate>(request.Associate);
         change.Id = associateId;
-        change.ModifiedBy = "test";
-        change.ModifiedOn = DateTime.Now;
         await _repository.CommitOneAsync(change, update =>  change.Adapt(update),
             cancellationToken);
         await _unitOfWork.SaveChangesAsync("", cancellationToken);
