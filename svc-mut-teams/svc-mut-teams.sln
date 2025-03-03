@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-app-entities", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-teams-infrastructure", "svc-mut-teams-infrastructure\svc-mut-teams-infrastructure.csproj", "{F28F944B-6B7D-440E-A9E1-665C999D395E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-odata", "..\lib-fw-all\lib-fw-odata\lib-fw-odata.csproj", "{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,7 @@ Global
 		{4BA1097B-8E10-4A90-9E10-AA624EDCF522} = {77A114BD-2BB1-4ABB-BF03-3DA2ED26DBF5}
 		{B2665903-F1B8-4352-86D0-12999504FF3A} = {77A114BD-2BB1-4ABB-BF03-3DA2ED26DBF5}
 		{F28F944B-6B7D-440E-A9E1-665C999D395E} = {105C0594-D218-4F4B-8CA7-28C36D32251A}
+		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2} = {FE3472E6-3F50-49A7-BB60-AA9604BDA372}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D2E78836-78A8-42C0-BE6C-E2E399C492F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,5 +79,9 @@ Global
 		{F28F944B-6B7D-440E-A9E1-665C999D395E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F28F944B-6B7D-440E-A9E1-665C999D395E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F28F944B-6B7D-440E-A9E1-665C999D395E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

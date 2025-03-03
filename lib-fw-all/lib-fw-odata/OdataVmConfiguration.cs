@@ -1,5 +1,4 @@
-// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Odata;
+namespace DistribuTe.Framework.OData;
 
 using Microsoft.OData.ModelBuilder;
 

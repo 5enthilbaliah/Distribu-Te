@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-workflowz", "lib-fw-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "lib-fw-modulez\lib-fw-modulez.csproj", "{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-odata", "lib-fw-odata\lib-fw-odata.csproj", "{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -8,6 +8,7 @@ using Application.Associates.Models;
 using Application.SquadAssociates.Models;
 using Application.Squads.Models;
 using Framework.ModuleZ.Implementations;
+using Framework.OData;
 using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
@@ -15,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
-using Microsoft.OData.ModelBuilder.Config;
 using Odata;
 
 [ExcludeFromCodeCoverage]
@@ -48,7 +48,7 @@ public class ControllerServiceModule : DependencyServiceModule
             }).AddOData(opt =>
             {
                 opt.Select()
-                    .AddRouteComponents("odata/protected", GetEdmModel());
+                    .AddRouteComponents("protected", GetEdmModel());
             });
     }
 }

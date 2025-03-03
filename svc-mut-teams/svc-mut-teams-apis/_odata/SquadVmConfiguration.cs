@@ -2,6 +2,7 @@
 namespace DistribuTe.Mutators.Teams.Apis.Odata;
 
 using Application.Squads.Models;
+using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
 public class SquadVmConfiguration : OdataVmConfiguration<SquadVm>

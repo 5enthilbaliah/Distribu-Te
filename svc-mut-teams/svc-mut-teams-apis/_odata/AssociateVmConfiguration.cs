@@ -2,6 +2,7 @@
 namespace DistribuTe.Mutators.Teams.Apis.Odata;
 
 using Application.Associates.Models;
+using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
 public class AssociateVmConfiguration : OdataVmConfiguration<AssociateVm>
