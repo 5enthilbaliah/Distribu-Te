@@ -15,21 +15,22 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using Microsoft.OData.ModelBuilder.Config;
 using Odata;
 
 [ExcludeFromCodeCoverage]
 public class ControllerServiceModule : DependencyServiceModule
 {
-    private IEdmModel GetEdmModel()
+    static IEdmModel GetEdmModel()
     {
         var odataBuilder = new ODataConventionModelBuilder();
-        var associate = odataBuilder.EntitySet<AssociateVm>("associates");
+        odataBuilder.EntitySet<AssociateVm>("associates");
         odataBuilder.EntitySet<SquadVm>("squads");
         odataBuilder.EntitySet<SquadAssociateVm>("squad-associates");
         
-        // odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateVm>();
+        odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateVm>();
+        odataBuilder.AddOdataConfigurations<SquadVmConfiguration, SquadVm>();
         odataBuilder.AddOdataConfigurations<SquadAssociateVmConfiguration, SquadAssociateVm>();
-
         return odataBuilder.GetEdmModel();
     }
     
@@ -38,17 +39,16 @@ public class ControllerServiceModule : DependencyServiceModule
     {
         services.AddControllers()
             .AddApplicationPart(typeof(RequestContext).Assembly)
-            .AddOData(opt =>
-            {
-                opt.Select()
-                    .AddRouteComponents("odata/protected", GetEdmModel());
-
-            }).AddJsonOptions(opt =>
+            .AddJsonOptions(opt =>
             {
                 // Default enum serialization on return to a string
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-                // opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+                opt.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+                opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
+            }).AddOData(opt =>
+            {
+                opt.Select()
+                    .AddRouteComponents("odata/protected", GetEdmModel());
             });
     }
 }
