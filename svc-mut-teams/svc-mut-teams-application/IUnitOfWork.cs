@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Domain;
+﻿namespace DistribuTe.Mutators.Teams.Application;
 
 public interface IUnitOfWork
 {

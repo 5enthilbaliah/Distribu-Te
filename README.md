@@ -64,3 +64,14 @@ use case management
 ## lib-utl-http-fluent
 
 ## lib-fw-modulez
+
+## lib-fw-odata
+
+## svc-mut-teams
+- Generic repository pattern
+- Odata implemented
+- snake case 
+
+What next?
+- Validation at mediatr
+- Domain exception handling

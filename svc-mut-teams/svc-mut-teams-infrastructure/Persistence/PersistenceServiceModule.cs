@@ -1,6 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
-using Domain;
+using Application;
 using Domain.Entities;
 using Domain.Settings;
 using Framework.ModuleZ.Implementations;

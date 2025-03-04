@@ -1,4 +1,6 @@
-﻿namespace DistribuTe.Mutators.Teams.Domain;
+﻿namespace DistribuTe.Mutators.Teams.Application;
+
+using Domain;
 
 public interface ITeamsRepository<TEntity, TId>
     where TEntity : class, IEntity<TId>

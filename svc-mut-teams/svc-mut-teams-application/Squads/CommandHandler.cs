@@ -1,11 +1,11 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Squads;
 
-using Domain;
 using Domain.Entities;
 using Mapster;
 using MapsterMapper;
 using MediatR;
 using Models;
+using Shared;
 
 public class CommandHandler(ITeamsRepository<Squad, SquadId> repository, IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<SpawnSquadCommand, SquadVm>,
