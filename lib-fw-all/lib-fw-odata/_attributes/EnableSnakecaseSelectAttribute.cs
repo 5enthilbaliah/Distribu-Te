@@ -2,7 +2,9 @@
 namespace DistribuTe.Framework.OData.Attributes;
 
 using System.Text.RegularExpressions;
+using System.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.OData.Query;
 
@@ -15,17 +17,15 @@ public class HandleSnakeSelectAttribute : EnableQueryAttribute
     {
         var request = actionExecutedContext.HttpContext.Request;
         var querystring = request.QueryString.Value;
-
+        
         if (!string.IsNullOrEmpty(querystring))
         {
-            var matches = Regex.Matches(querystring, "[&%24]*select=\\s*[(\\w+),]+");
-            if (matches.Count > 0)
+            var queryStringCollection = HttpUtility.ParseQueryString(querystring);
+            var selectPredicate = queryStringCollection.Get("$select");
+
+            if (!string.IsNullOrEmpty(selectPredicate))
             {
-                foreach (Match match in matches)
-                {
-                    var replaceWith = match.Value.Replace("_", "");
-                    querystring = querystring.Replace(match.Value, replaceWith);
-                }
+                querystring = querystring.Replace(selectPredicate, selectPredicate.Replace("_", ""));
                 request.QueryString = new QueryString(querystring);
             }
         }
