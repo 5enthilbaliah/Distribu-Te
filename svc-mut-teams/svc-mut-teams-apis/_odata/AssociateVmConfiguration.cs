@@ -1,13 +1,13 @@
 // ReSharper disable once CheckNamespace
 namespace DistribuTe.Mutators.Teams.Apis.Odata;
 
-using Application.Associates.Models;
+using Application.Associates.DataContracts;
 using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
-public class AssociateVmConfiguration : OdataVmConfiguration<AssociateVm>
+public class AssociateVmConfiguration : OdataVmConfiguration<AssociateResponse>
 {
-    public override void Configure(EntityTypeConfiguration<AssociateVm> typeConfiguration)
+    public override void Configure(EntityTypeConfiguration<AssociateResponse> typeConfiguration)
     {
         typeConfiguration.Property(a => a.Id)
             .Name = "id";

@@ -1,12 +1,12 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Squads;
 
+using DataContracts;
 using MediatR;
-using Models;
 using Shared;
 
-public class CommitSquadCommand : IRequest<SquadVm>, IUserTrackable
+public class CommitSquadCommand : IRequest<SquadResponse>, IUserTrackable
 {
     public int Id { get; set; }
-    public SquadRm Squad { get; set; } = null!;
+    public SquadRequest Squad { get; set; } = null!;
     public string? User { get; set; }
 }

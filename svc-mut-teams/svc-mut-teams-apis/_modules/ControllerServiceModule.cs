@@ -4,9 +4,9 @@ namespace DistribuTe.Mutators.Teams.Apis.Modules;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Application.Associates.Models;
-using Application.SquadAssociates.Models;
-using Application.Squads.Models;
+using Application.Associates.DataContracts;
+using Application.SquadAssociates.DataContracts;
+using Application.Squads.DataContracts;
 using Framework.ModuleZ.Implementations;
 using Framework.OData;
 using Helpers;
@@ -24,21 +24,24 @@ public class ControllerServiceModule : DependencyServiceModule
     static IEdmModel GetEdmModel()
     {
         var odataBuilder = new ODataConventionModelBuilder();
-        odataBuilder.EntitySet<AssociateVm>("associates");
-        odataBuilder.EntitySet<SquadVm>("squads");
-        odataBuilder.EntitySet<SquadAssociateVm>("squad-associates");
+        odataBuilder.EntitySet<AssociateResponse>("associates");
+        odataBuilder.EntitySet<SquadResponse>("squads");
+        odataBuilder.EntitySet<SquadAssociateResponse>("squad-associates");
         
-        odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateVm>();
-        odataBuilder.AddOdataConfigurations<SquadVmConfiguration, SquadVm>();
-        odataBuilder.AddOdataConfigurations<SquadAssociateVmConfiguration, SquadAssociateVm>();
+        odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateResponse>();
+        odataBuilder.AddOdataConfigurations<SquadVmConfiguration, SquadResponse>();
+        odataBuilder.AddOdataConfigurations<SquadAssociateVmConfiguration, SquadAssociateResponse>();
         return odataBuilder.GetEdmModel();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
-        services.AddControllers()
-            .AddApplicationPart(typeof(RequestContext).Assembly)
+        services.AddControllers(config =>
+            {
+                // clear default model validation - handle this in application layer
+                config.ModelValidatorProviders.Clear();
+            }).AddApplicationPart(typeof(RequestContext).Assembly)
             .AddJsonOptions(opt =>
             {
                 // Default enum serialization on return to a string

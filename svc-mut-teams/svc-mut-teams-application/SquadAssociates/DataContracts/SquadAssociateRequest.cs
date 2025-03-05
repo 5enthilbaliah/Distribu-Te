@@ -1,6 +1,6 @@
-﻿namespace DistribuTe.Mutators.Teams.Application.SquadAssociates.Models;
+﻿namespace DistribuTe.Mutators.Teams.Application.SquadAssociates.DataContracts;
 
-public class SquadAssociateRm
+public class SquadAssociateRequest
 {
     public int SquadId { get; set; }
     public int AssociateId { get; set; }

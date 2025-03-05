@@ -2,7 +2,7 @@
 
 using System.Net;
 using Application.Squads;
-using Application.Squads.Models;
+using Application.Squads.DataContracts;
 using Asp.Versioning;
 using Framework.OData.Attributes;
 using MediatR;
@@ -18,9 +18,9 @@ public class SquadController(IMediator mediator) : ControllerBase
     
     [Route("")]
     [HttpPost]
-    [ProducesResponseType(typeof(SquadVm), (int)HttpStatusCode.Created)]
+    [ProducesResponseType(typeof(SquadResponse), (int)HttpStatusCode.Created)]
     [HandleSnakeSelect()]
-    public async Task<IActionResult> SpawnAsync([FromBody] SquadRm squad, CancellationToken ct = default)
+    public async Task<IActionResult> SpawnAsync([FromBody] SquadRequest squad, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new SpawnSquadCommand
         {
@@ -32,9 +32,9 @@ public class SquadController(IMediator mediator) : ControllerBase
     
     [Route("{id:int}")]
     [HttpPut]
-    [ProducesResponseType(typeof(SquadVm), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(SquadResponse), (int)HttpStatusCode.OK)]
     [HandleSnakeSelect()]
-    public async Task<IActionResult> CommitAsync(int id, [FromBody] SquadRm squad, CancellationToken ct = default)
+    public async Task<IActionResult> CommitAsync(int id, [FromBody] SquadRequest squad, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new CommitSquadCommand
         {
@@ -47,7 +47,7 @@ public class SquadController(IMediator mediator) : ControllerBase
     
     [Route("{id:int}")]
     [HttpDelete]
-    [ProducesResponseType(typeof(SquadVm), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(SquadResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> TrashAsync(int id, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new TrashSquadCommand

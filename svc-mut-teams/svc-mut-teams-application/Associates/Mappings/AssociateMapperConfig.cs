@@ -1,19 +1,20 @@
-﻿namespace DistribuTe.Mutators.Teams.Application.Squads.Models;
+﻿namespace DistribuTe.Mutators.Teams.Application.Associates.Mappings;
 
+using DataContracts;
 using Domain.Entities;
 using Mapster;
 
-public class SquadMapperConfig : IRegister
+public class AssociateMapperConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<SquadRm, Squad>()
+        config.NewConfig<AssociateRequest, Associate>()
             .Ignore(dest => dest.Id);
         
-        config.NewConfig<Squad, SquadVm>()
+        config.NewConfig<Associate, AssociateResponse>()
             .Map(dest => dest.Id, src => src.Id.Value);
         
-        config.NewConfig<Squad, Squad>()
+        config.NewConfig<Associate, Associate>()
             .Ignore(dest => dest.CreatedBy)
             .Ignore(dest => dest.CreatedOn);
     }

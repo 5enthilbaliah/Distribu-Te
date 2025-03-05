@@ -1,11 +1,11 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.SquadAssociates;
 
+using DataContracts;
 using MediatR;
-using Models;
 using Shared;
 
-public class SpawnSquadAssociateCommand : IRequest<SquadAssociateVm>, IUserTrackable
+public class SpawnSquadAssociateCommand : IRequest<SquadAssociateResponse>, IUserTrackable
 {
-    public SquadAssociateRm SquadAssociate { get; set; } = null!;
+    public SquadAssociateRequest SquadAssociate { get; set; } = null!;
     public string? User { get; set; }
 }

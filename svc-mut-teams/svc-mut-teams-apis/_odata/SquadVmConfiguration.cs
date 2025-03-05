@@ -1,13 +1,13 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace DistribuTe.Mutators.Teams.Apis.Odata;
 
-using Application.Squads.Models;
+using Application.Squads.DataContracts;
 using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
-public class SquadVmConfiguration : OdataVmConfiguration<SquadVm>
+public class SquadVmConfiguration : OdataVmConfiguration<SquadResponse>
 {
-    public override void Configure(EntityTypeConfiguration<SquadVm> typeConfiguration)
+    public override void Configure(EntityTypeConfiguration<SquadResponse> typeConfiguration)
     {
         typeConfiguration.Property(a => a.Id)
             .Name = "id";

@@ -2,7 +2,7 @@
 
 using System.Net;
 using Application.Associates;
-using Application.Associates.Models;
+using Application.Associates.DataContracts;
 using Asp.Versioning;
 using Framework.OData.Attributes;
 using MediatR;
@@ -18,9 +18,9 @@ public class AssociateController(IMediator mediator) : ControllerBase
     
     [Route("")]
     [HttpPost]
-    [ProducesResponseType(typeof(AssociateVm), (int)HttpStatusCode.Created)]
+    [ProducesResponseType(typeof(AssociateResponse), (int)HttpStatusCode.Created)]
     [HandleSnakeSelect()]
-    public async Task<IActionResult> SpawnAsync([FromBody] AssociateRm associate, CancellationToken ct = default)
+    public async Task<IActionResult> SpawnAsync([FromBody] AssociateRequest associate, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new SpawnAssociateCommand
         {
@@ -32,9 +32,9 @@ public class AssociateController(IMediator mediator) : ControllerBase
 
     [Route("{id:int}")]
     [HttpPut]
-    [ProducesResponseType(typeof(AssociateVm), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(AssociateResponse), (int)HttpStatusCode.OK)]
     [HandleSnakeSelect()]
-    public async Task<IActionResult> CommitAsync(int id, [FromBody] AssociateRm associate, CancellationToken ct = default)
+    public async Task<IActionResult> CommitAsync(int id, [FromBody] AssociateRequest associate, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new CommitAssociateCommand
         {
@@ -47,7 +47,7 @@ public class AssociateController(IMediator mediator) : ControllerBase
     
     [Route("{id:int}")]
     [HttpDelete]
-    [ProducesResponseType(typeof(AssociateVm), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(AssociateResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> TrashAsync(int id, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new TrashAssociateCommand

@@ -1,12 +1,12 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Associates;
 
+using DataContracts;
 using MediatR;
-using Models;
 using Shared;
 
-public class CommitAssociateCommand : IRequest<AssociateVm>, IUserTrackable
+public class CommitAssociateCommand : IRequest<AssociateResponse>, IUserTrackable
 {
     public int Id { get; set; }
-    public AssociateRm Associate { get; set; } = null!;
+    public AssociateRequest Associate { get; set; } = null!;
     public string? User { get; set; }
 }
