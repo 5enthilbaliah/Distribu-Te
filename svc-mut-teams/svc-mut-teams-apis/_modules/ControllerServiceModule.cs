@@ -28,9 +28,9 @@ public class ControllerServiceModule : DependencyServiceModule
         odataBuilder.EntitySet<SquadResponse>("squads");
         odataBuilder.EntitySet<SquadAssociateResponse>("squad-associates");
         
-        odataBuilder.AddOdataConfigurations<AssociateVmConfiguration, AssociateResponse>();
-        odataBuilder.AddOdataConfigurations<SquadVmConfiguration, SquadResponse>();
-        odataBuilder.AddOdataConfigurations<SquadAssociateVmConfiguration, SquadAssociateResponse>();
+        odataBuilder.AddOdataConfigurations<AssociateResponseConfiguration, AssociateResponse>();
+        odataBuilder.AddOdataConfigurations<SquadResponseConfiguration, SquadResponse>();
+        odataBuilder.AddOdataConfigurations<SquadAssociateResponseConfiguration, SquadAssociateResponse>();
         return odataBuilder.GetEdmModel();
     }
     

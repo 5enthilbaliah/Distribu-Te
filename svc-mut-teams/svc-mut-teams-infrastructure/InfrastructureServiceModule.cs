@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure;
 
+using Application.Shared;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ public class InfrastructureServiceModule : DependencyServiceModule
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddMemoryCache();
     }
 }

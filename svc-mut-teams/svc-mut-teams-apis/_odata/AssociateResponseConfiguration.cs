@@ -5,7 +5,7 @@ using Application.Associates.DataContracts;
 using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
-public class AssociateVmConfiguration : OdataVmConfiguration<AssociateResponse>
+public class AssociateResponseConfiguration : OdataResponseConfiguration<AssociateResponse>
 {
     public override void Configure(EntityTypeConfiguration<AssociateResponse> typeConfiguration)
     {

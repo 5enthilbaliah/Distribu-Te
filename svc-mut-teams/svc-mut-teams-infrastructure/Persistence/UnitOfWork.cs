@@ -1,13 +1,15 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using Application;
+using Application.Shared;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
-public class UnitOfWork(TeamDatabaseContext context) : IUnitOfWork
+public class UnitOfWork(TeamDatabaseContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork
 {
     private readonly TeamDatabaseContext _context = context ?? throw new ArgumentNullException(nameof(context));
-
+    private readonly IDateTimeProvider  _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
+    
     public async Task SaveChangesAsync(string mutator = "Anonymous", CancellationToken cancellationToken = default)
     {
         var entries = _context.ChangeTracker.Entries()
@@ -20,7 +22,7 @@ public class UnitOfWork(TeamDatabaseContext context) : IUnitOfWork
             // the CreatedAt and CreatedBy properties
             if (entityEntry.State == EntityState.Added)
             {
-                ((IAuditableEntity)entityEntry.Entity).CreatedOn = DateTime.UtcNow;
+                ((IAuditableEntity)entityEntry.Entity).CreatedOn = _dateTimeProvider.UtcNow;
                 ((IAuditableEntity)entityEntry.Entity).CreatedBy = mutator;
             }
             else
@@ -33,7 +35,7 @@ public class UnitOfWork(TeamDatabaseContext context) : IUnitOfWork
 
                 // In any case we always want to set the properties
                 // ModifiedAt and ModifiedBy
-                ((IAuditableEntity)entityEntry.Entity).ModifiedOn = DateTime.UtcNow;
+                ((IAuditableEntity)entityEntry.Entity).ModifiedOn = _dateTimeProvider.UtcNow;
                 ((IAuditableEntity)entityEntry.Entity).ModifiedBy = mutator;
             }
         }

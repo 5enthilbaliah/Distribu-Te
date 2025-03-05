@@ -4,11 +4,11 @@ using Microsoft.OData.ModelBuilder;
 
 public static class OdataConfigurationExtensions
 {
-    public static void AddOdataConfigurations<TConf, TViewModel>(this ODataConventionModelBuilder builder)
-        where TViewModel : class
-        where TConf : OdataVmConfiguration<TViewModel>, new()
+    public static void AddOdataConfigurations<TConf, TResponse>(this ODataConventionModelBuilder builder)
+        where TResponse : class
+        where TConf : OdataResponseConfiguration<TResponse>, new()
     {
         var config = new TConf();
-        config.Configure(builder.EntityType<TViewModel>());
+        config.Configure(builder.EntityType<TResponse>());
     }
 }

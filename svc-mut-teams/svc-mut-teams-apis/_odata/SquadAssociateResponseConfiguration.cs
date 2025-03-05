@@ -5,7 +5,7 @@ using Application.SquadAssociates.DataContracts;
 using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 
-public class SquadAssociateVmConfiguration : OdataVmConfiguration<SquadAssociateResponse>
+public class SquadAssociateResponseConfiguration : OdataResponseConfiguration<SquadAssociateResponse>
 {
     public override void Configure(EntityTypeConfiguration<SquadAssociateResponse> typeConfiguration)
     {
