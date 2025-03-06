@@ -24,11 +24,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-teams-host", "svc-m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-teams-domain", "svc-mut-teams-domain\svc-mut-teams-domain.csproj", "{4BA1097B-8E10-4A90-9E10-AA624EDCF522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-app-entities", "..\lib-domain-app-entities\lib-domain-app-entities.csproj", "{B2665903-F1B8-4352-86D0-12999504FF3A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-teams-infrastructure", "svc-mut-teams-infrastructure\svc-mut-teams-infrastructure.csproj", "{F28F944B-6B7D-440E-A9E1-665C999D395E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-odata", "..\lib-fw-all\lib-fw-odata\lib-fw-odata.csproj", "{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-team-entities", "..\lib-domain-all\lib-domain-team-entities\lib-domain-team-entities.csproj", "{E6188CEB-7347-4DEA-A15F-F1375A9159E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +49,7 @@ Global
 		{B2665903-F1B8-4352-86D0-12999504FF3A} = {77A114BD-2BB1-4ABB-BF03-3DA2ED26DBF5}
 		{F28F944B-6B7D-440E-A9E1-665C999D395E} = {105C0594-D218-4F4B-8CA7-28C36D32251A}
 		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2} = {FE3472E6-3F50-49A7-BB60-AA9604BDA372}
+		{E6188CEB-7347-4DEA-A15F-F1375A9159E4} = {77A114BD-2BB1-4ABB-BF03-3DA2ED26DBF5}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D2E78836-78A8-42C0-BE6C-E2E399C492F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -83,5 +84,9 @@ Global
 		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE8BAFDA-D3CE-4BD5-89EB-E1FA1F9EF6A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6188CEB-7347-4DEA-A15F-F1375A9159E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6188CEB-7347-4DEA-A15F-F1375A9159E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6188CEB-7347-4DEA-A15F-F1375A9159E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6188CEB-7347-4DEA-A15F-F1375A9159E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

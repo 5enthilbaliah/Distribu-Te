@@ -1,6 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Domain.Entities;
 
-using DistribuTe.Domain.AppEntities;
+using DistribuTe.Domain.TeamEntities;
 
 public record SquadAssociateId(SquadId SquadId, AssociateId AssociateId);
 

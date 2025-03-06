@@ -1,6 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence.Specifications;
 
-using DistribuTe.Domain.AppEntities.Specifications;
+using DistribuTe.Domain.TeamEntities.Specifications;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
