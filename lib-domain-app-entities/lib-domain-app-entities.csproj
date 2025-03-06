@@ -12,5 +12,9 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\lib-infra-app-database\lib-domain-team-entities\lib-domain-team-entities.csproj" />
+    </ItemGroup>
+
 
 </Project>

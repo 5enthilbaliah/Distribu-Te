@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Domain.AppEntities.Specifications;
+﻿namespace DistribuTe.Domain.TeamEntities.Specifications;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -48,19 +48,5 @@ public class BaseSquadConfiguration<TSquad> : IEntityTypeConfiguration<TSquad>
             .HasMaxLength(200)
             .HasColumnName("modified_by")
             .HasColumnType("varchar(200)");
-    }
-}
-
-public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggregate>
-{
-    public void Configure(EntityTypeBuilder<SquadAggregate> builder)
-    {
-        builder.HasKey(s => s.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-        
-        var configuration = new BaseSquadConfiguration<SquadAggregate>();
-        configuration.Configure(builder);
     }
 }

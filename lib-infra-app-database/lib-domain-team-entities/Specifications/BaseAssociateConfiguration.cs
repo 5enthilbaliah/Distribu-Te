@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Domain.AppEntities.Specifications;
+﻿namespace DistribuTe.Domain.TeamEntities.Specifications;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -58,19 +58,5 @@ public class BaseAssociateConfiguration<TAssociate> : IEntityTypeConfiguration<T
             .HasMaxLength(45)
             .HasColumnName("modified_by")
             .HasColumnType("varchar(45)");
-    }
-}
-
-public class AssociateAggregateConfiguration : IEntityTypeConfiguration<AssociateAggregate>
-{
-    public void Configure(EntityTypeBuilder<AssociateAggregate> builder)
-    {
-        builder.HasKey(a => a.Id);
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName("id");
-        
-        var configuration = new BaseAssociateConfiguration<AssociateAggregate>();
-        configuration.Configure(builder);
     }
 }
