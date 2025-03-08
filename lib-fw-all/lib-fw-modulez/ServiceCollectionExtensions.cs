@@ -1,6 +1,8 @@
-﻿namespace DistribuTe.Mutators.Teams.Host;
+﻿namespace DistribuTe.Framework.ModuleZ;
 
-using Framework.ModuleZ;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
@@ -11,14 +13,5 @@ public static class ServiceCollectionExtensions
         var module = new TModule();
         module.Register(services, environment, configuration);
         return services;
-    }
-
-    public static WebApplication Pipe<TPipeline>(this WebApplication app,
-        IWebHostEnvironment environment, IConfiguration configuration)
-        where TPipeline : IMiddlewarePipeline, new()
-    {
-        var pipeline = new TPipeline();
-        pipeline.Setup(app, environment, configuration);
-        return app;
     }
 }

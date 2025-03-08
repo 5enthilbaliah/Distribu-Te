@@ -11,12 +11,12 @@ public class ApiServiceModule : DependencyServiceModule
 {
     public ApiServiceModule()
     {
-        AddModule<IdentityServiceModule>();
-        AddModule<AuthenticationServiceModule>();
-        AddModule<ApiVersionServiceModule>();
-        AddModule<CorsServiceModule>();
-        AddModule<ControllerServiceModule>();
-        AddModule<ApiDocumentationServiceModule>();
+        PrependModule<IdentityServiceModule>();
+        PrependModule<AuthenticationServiceModule>();
+        PrependModule<ApiVersionServiceModule>();
+        PrependModule<CorsServiceModule>();
+        PrependModule<ControllerServiceModule>();
+        PrependModule<ApiDocumentationServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

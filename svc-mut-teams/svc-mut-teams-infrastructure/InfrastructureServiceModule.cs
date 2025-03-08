@@ -11,7 +11,7 @@ public class InfrastructureServiceModule : DependencyServiceModule
 {
     public InfrastructureServiceModule()
     {
-        AddModule<PersistenceServiceModule>();
+        PrependModule<PersistenceServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
