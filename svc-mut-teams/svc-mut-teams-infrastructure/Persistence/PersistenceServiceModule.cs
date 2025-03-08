@@ -22,9 +22,13 @@ public class PersistenceServiceModule : DependencyServiceModule
                 mssqlOpt.CommandTimeout(dbSettings.TimeoutInSeconds);
             }));
 
-        services.AddScoped<ITeamsRepository<Associate, AssociateId>, AssociateTeamsRepository>();
-        services.AddScoped<ITeamsRepository<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
-        services.AddScoped<ITeamsRepository<Squad, SquadId>, SquadTeamsRepository>();
+        services.AddScoped<ITeamsMutator<Associate, AssociateId>, AssociateTeamsMutator>();
+        services.AddScoped<ITeamsMutator<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsMutator>();
+        services.AddScoped<ITeamsMutator<Squad, SquadId>, SquadTeamsMutator>();
+        
+        services.AddScoped<ITeamsReader<Associate, AssociateId>, AssociateTeamsReader>();
+        services.AddScoped<ITeamsReader<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsReader>();
+        services.AddScoped<ITeamsReader<Squad, SquadId>, SquadTeamsReader>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
