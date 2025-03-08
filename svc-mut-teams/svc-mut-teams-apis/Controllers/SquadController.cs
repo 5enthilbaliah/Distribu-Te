@@ -7,6 +7,7 @@ using Asp.Versioning;
 using Framework.OData.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 [ApiController]
 [Route("protected/squads")]
@@ -19,7 +20,7 @@ public class SquadController(IMediator mediator) : ControllerBase
     [Route("")]
     [HttpPost]
     [ProducesResponseType(typeof(SquadResponse), (int)HttpStatusCode.Created)]
-    [HandleSnakeSelect()]
+    [EnableQuery()]
     public async Task<IActionResult> SpawnAsync([FromBody] SquadRequest squad, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new SpawnSquadCommand
@@ -33,7 +34,7 @@ public class SquadController(IMediator mediator) : ControllerBase
     [Route("{id:int}")]
     [HttpPut]
     [ProducesResponseType(typeof(SquadResponse), (int)HttpStatusCode.OK)]
-    [HandleSnakeSelect()]
+    [EnableQuery()]
     public async Task<IActionResult> CommitAsync(int id, [FromBody] SquadRequest squad, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new CommitSquadCommand

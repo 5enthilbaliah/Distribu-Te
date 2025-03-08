@@ -12,18 +12,18 @@ public class AssociateResponseConfiguration : OdataResponseConfiguration<Associa
         typeConfiguration.Property(a => a.Id)
             .Name = "id";
         
-        typeConfiguration.Property(a => a.FirstName)
+        typeConfiguration.Property(a => a.First_Name)
             .Name = "first_name";
         
-        typeConfiguration.Property(a => a.LastName)
+        typeConfiguration.Property(a => a.Last_Name)
             .Name = "last_name";
         
-        typeConfiguration.Property(a => a.MiddleName)
+        typeConfiguration.Property(a => a.Middle_Name)
             .Name = "middle_name";
-
-        typeConfiguration.Property(a => a.EmailId)
+        
+        typeConfiguration.Property(a => a.Email_Id)
             .Name = "email_id";
-
+        
         typeConfiguration.Property(a => a.Gender)
             .Name = "gender";
     }

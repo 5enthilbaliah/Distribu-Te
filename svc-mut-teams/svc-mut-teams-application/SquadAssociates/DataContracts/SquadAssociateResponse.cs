@@ -1,10 +1,11 @@
-﻿namespace DistribuTe.Mutators.Teams.Application.SquadAssociates.DataContracts;
+﻿// ReSharper disable InconsistentNaming
+namespace DistribuTe.Mutators.Teams.Application.SquadAssociates.DataContracts;
 
 public class SquadAssociateResponse
 {
-    public int SquadId { get; set; }
-    public int AssociateId { get; set; }
-    public DateTime StartedOn { get; set; }
-    public DateTime? EndedOn { get; set; }
+    public int Squad_Id { get; set; }
+    public int Associate_Id { get; set; }
+    public DateTime Started_On { get; set; }
+    public DateTime? Ended_On { get; set; }
     public decimal Capacity { get; set; }
 }

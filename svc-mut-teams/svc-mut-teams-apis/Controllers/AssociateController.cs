@@ -7,6 +7,7 @@ using Asp.Versioning;
 using Framework.OData.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 [ApiController]
 [Route("protected/associates")]
@@ -19,7 +20,7 @@ public class AssociateController(IMediator mediator) : ControllerBase
     [Route("")]
     [HttpPost]
     [ProducesResponseType(typeof(AssociateResponse), (int)HttpStatusCode.Created)]
-    [HandleSnakeSelect()]
+    [EnableQuery()]
     public async Task<IActionResult> SpawnAsync([FromBody] AssociateRequest associate, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new SpawnAssociateCommand
@@ -33,7 +34,7 @@ public class AssociateController(IMediator mediator) : ControllerBase
     [Route("{id:int}")]
     [HttpPut]
     [ProducesResponseType(typeof(AssociateResponse), (int)HttpStatusCode.OK)]
-    [HandleSnakeSelect()]
+    [EnableQuery()]
     public async Task<IActionResult> CommitAsync(int id, [FromBody] AssociateRequest associate, CancellationToken ct = default)
     {
         var result = await _mediator.Send(new CommitAssociateCommand
