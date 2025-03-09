@@ -6,15 +6,18 @@ using ErrorOr;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Shared;
 
 public class CommandHandler(ITeamsMutator<Associate, AssociateId> mutator, 
-    IUnitOfWork unitOfWork, IMapper mapper)
+    IExistingEntityMarker<Associate, AssociateId> entityMarker, IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<SpawnAssociateCommand, ErrorOr<AssociateResponse>>,
         IRequestHandler<CommitAssociateCommand, ErrorOr<AssociateResponse>>,
         IRequestHandler<TrashAssociateCommand, ErrorOr<bool>>
 {
     private readonly ITeamsMutator<Associate, AssociateId> _mutator =
         mutator ?? throw new ArgumentNullException(nameof(mutator));
+    private readonly IExistingEntityMarker<Associate, AssociateId> _entityMarker = 
+        entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));
     private readonly IUnitOfWork _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
@@ -29,24 +32,21 @@ public class CommandHandler(ITeamsMutator<Associate, AssociateId> mutator,
 
     public async Task<ErrorOr<AssociateResponse>> Handle(CommitAssociateCommand request, CancellationToken cancellationToken)
     {
-        var associateId = new AssociateId(request.Id);
         var change = _mapper.Map<Associate>(request.Associate);
-        change.Id = associateId;
+        change.Id = _entityMarker.Id!;
         
-        var toMutate = request.ToMutate;
+        var toMutate = _entityMarker.Entity!;
         change.Adapt(toMutate);
         
-        _mutator.CommitOne(toMutate!);
+        _mutator.CommitOne(toMutate);
         await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return _mapper.Map<AssociateResponse>(change);
     }
 
     public async Task<ErrorOr<bool>> Handle(TrashAssociateCommand request, CancellationToken cancellationToken)
     {
-        var associateId = new AssociateId(request.Id);
-
-        var existing = request.ToDelete;
-        _mutator.TrashOne(existing!);
+        var existing = _entityMarker.Entity!;
+        _mutator.TrashOne(existing);
 
         await _unitOfWork.SaveChangesAsync("", cancellationToken);
         return true;

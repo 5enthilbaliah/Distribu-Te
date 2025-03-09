@@ -4,12 +4,16 @@ using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
 using MediatR;
+using Shared;
 
-public class TrashAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader) : 
+public class TrashAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader,
+    IExistingEntityMarker<Associate, AssociateId> entityMarker) : 
     IPipelineBehavior<TrashAssociateCommand, ErrorOr<bool>>
 {
     private readonly ITeamsReader<Associate, AssociateId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly IExistingEntityMarker<Associate, AssociateId> _entityMarker = 
+        entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));
     
     public async Task<ErrorOr<bool>> Handle(TrashAssociateCommand request, 
         RequestHandlerDelegate<ErrorOr<bool>> next, CancellationToken cancellationToken)
@@ -20,7 +24,8 @@ public class TrashAssociateCommandValidationBehavior(ITeamsReader<Associate, Ass
         if (existing is null)
             return Errors.Associates.NotFound;
         
-        request.ToDelete = existing;
+        _entityMarker.Id = associateId;
+        _entityMarker.Entity = existing;
         
         return await next();
     }

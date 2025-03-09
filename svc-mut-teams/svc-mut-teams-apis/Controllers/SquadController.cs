@@ -4,16 +4,14 @@ using System.Net;
 using Application.Squads;
 using Application.Squads.DataContracts;
 using Asp.Versioning;
-using Framework.OData.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
-[ApiController]
 [Route("protected/squads")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class SquadController(IMediator mediator) : ControllerBase
+public class SquadController(IMediator mediator) : DistribuTeController
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     
@@ -28,7 +26,10 @@ public class SquadController(IMediator mediator) : ControllerBase
             Squad = squad
         }, ct).ConfigureAwait(false);
         
-        return StatusCode((int)HttpStatusCode.Created, result);
+        return result.Match(
+            validResult => StatusCode((int)HttpStatusCode.Created, validResult),
+            Problem
+        );
     }
     
     [Route("{id:int}")]
@@ -43,7 +44,10 @@ public class SquadController(IMediator mediator) : ControllerBase
             Id = id,
         }, ct).ConfigureAwait(false);
         
-        return Ok(result);
+        return result.Match(
+            Ok,
+            Problem
+        );
     }
     
     [Route("{id:int}")]
@@ -56,6 +60,9 @@ public class SquadController(IMediator mediator) : ControllerBase
             Id = id,
         }, ct).ConfigureAwait(false);
         
-        return Ok(result);
+        return result.Match(
+            _ => NoContent(),
+            Problem
+        );
     }
 }

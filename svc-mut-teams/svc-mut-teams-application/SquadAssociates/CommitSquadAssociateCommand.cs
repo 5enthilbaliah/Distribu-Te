@@ -1,10 +1,11 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.SquadAssociates;
 
 using DataContracts;
+using ErrorOr;
 using MediatR;
 using Shared;
 
-public class CommitSquadAssociateCommand : IRequest<SquadAssociateResponse>, IUserTrackable
+public class CommitSquadAssociateCommand : IRequest<ErrorOr<SquadAssociateResponse>>, IUserTrackable
 {
     public int SquadId { get; set; }
     public int AssociateId { get; set; }

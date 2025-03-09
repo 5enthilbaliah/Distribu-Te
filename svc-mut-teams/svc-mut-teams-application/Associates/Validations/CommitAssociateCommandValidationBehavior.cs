@@ -6,13 +6,17 @@ using Domain.Errors;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Shared;
 
 public class CommitAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader,
-    IValidator<AssociateRequest> validator) : AssociateRequestValidationBehavior(validator),
+    IValidator<AssociateRequest> validator, IExistingEntityMarker<Associate, AssociateId> entityMarker) : 
+    DistribuTeRequestValidationBehavior<AssociateRequest>(validator),
     IPipelineBehavior<CommitAssociateCommand, ErrorOr<AssociateResponse>>
 {
     private readonly ITeamsReader<Associate, AssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
+    private readonly IExistingEntityMarker<Associate, AssociateId> _entityMarker = 
+        entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));
 
 
     public async Task<ErrorOr<AssociateResponse>> Handle(CommitAssociateCommand request,
@@ -28,7 +32,8 @@ public class CommitAssociateCommandValidationBehavior(ITeamsReader<Associate, As
         if (existing is null)
             return Errors.Associates.NotFound;
 
-        request.ToMutate = existing;
+        _entityMarker.Id = associateId;
+        _entityMarker.Entity = existing;
 
         var response = await next();
         return response;

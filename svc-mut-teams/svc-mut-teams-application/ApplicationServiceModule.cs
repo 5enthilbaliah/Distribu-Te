@@ -11,12 +11,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared;
+using SquadAssociates.Validations;
+using Squads.Validations;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
     public ApplicationServiceModule()
     {
         AppendModule<AssociateValidationServiceModule>();
+        AppendModule<SquadValidationServiceModule>();
+        AppendModule<SquadAssociateValidationServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

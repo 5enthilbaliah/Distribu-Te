@@ -8,5 +8,7 @@ public static partial class Errors
     {
         public static Error NotFound = Error.NotFound("squad_associate.not_found",
             "Squad associate combination not found.");
+        public static Error DuplicateAllocation = Error.Conflict("squad.duplicate_allocation",
+            "Squad allocation already exists for the associate.");
     }
 }

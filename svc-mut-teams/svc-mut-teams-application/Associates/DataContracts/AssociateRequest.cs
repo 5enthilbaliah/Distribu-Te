@@ -1,8 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace DistribuTe.Mutators.Teams.Application.Associates.DataContracts;
 
-using System.Text.Json.Serialization;
-
 public class AssociateRequest
 {
     public string First_Name { get; set; } = null!;

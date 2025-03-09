@@ -6,9 +6,10 @@ using Domain.Errors;
 using ErrorOr;
 using FluentValidation;
 using MediatR;
+using Shared;
 
 public class SpawnAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader,
-    IValidator<AssociateRequest> validator) : AssociateRequestValidationBehavior(validator),
+    IValidator<AssociateRequest> validator) : DistribuTeRequestValidationBehavior<AssociateRequest>(validator),
     IPipelineBehavior<SpawnAssociateCommand, ErrorOr<AssociateResponse>>
 {
     private readonly ITeamsReader<Associate, AssociateId> _reader = 

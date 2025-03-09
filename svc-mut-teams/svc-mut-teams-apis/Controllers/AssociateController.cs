@@ -4,7 +4,6 @@ using System.Net;
 using Application.Associates;
 using Application.Associates.DataContracts;
 using Asp.Versioning;
-using Framework.OData.Attributes;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -62,7 +61,7 @@ public class AssociateController(IMediator mediator) : DistribuTeController
         }, ct).ConfigureAwait(false);
         
         return result.Match(
-            validResult => Ok(validResult),
+            _ => NoContent(),
             Problem
         );
     }

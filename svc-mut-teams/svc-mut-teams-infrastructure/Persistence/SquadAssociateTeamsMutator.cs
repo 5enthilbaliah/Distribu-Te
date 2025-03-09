@@ -14,7 +14,7 @@ internal sealed class SquadAssociateTeamsReader(TeamDatabaseContext context)
         CancellationToken cancellationToken = default)
     {
         return await DbContext.SquadAssociates
-            .SingleOrDefaultAsync(x => x.SquadId == id.SquadId && x.AssociateId == id.AssociateId,
-                cancellationToken: cancellationToken);
+            .SingleOrDefaultAsync(x => x.SquadId == id.SquadId && x.AssociateId == id.AssociateId
+                && !x.EndedOn.HasValue, cancellationToken: cancellationToken);
     }
 }

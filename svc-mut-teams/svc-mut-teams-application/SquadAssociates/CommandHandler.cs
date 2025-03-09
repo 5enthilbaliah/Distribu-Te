@@ -2,24 +2,26 @@
 
 using DataContracts;
 using Domain.Entities;
+using ErrorOr;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Shared;
 
 public class CommandHandler(ITeamsMutator<SquadAssociate, SquadAssociateId> mutator, 
-    IUnitOfWork unitOfWork, IMapper mapper, ITeamsReader<SquadAssociate, SquadAssociateId> reader)
-    : IRequestHandler<SpawnSquadAssociateCommand, SquadAssociateResponse>, 
-        IRequestHandler<CommitSquadAssociateCommand, SquadAssociateResponse>,
-        IRequestHandler<TrashSquadAssociateCommand, bool>
+    IExistingEntityMarker<SquadAssociate, SquadAssociateId> entityMarker, IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<SpawnSquadAssociateCommand, ErrorOr<SquadAssociateResponse>>, 
+        IRequestHandler<CommitSquadAssociateCommand, ErrorOr<SquadAssociateResponse>>,
+        IRequestHandler<TrashSquadAssociateCommand, ErrorOr<bool>>
 {
     private readonly ITeamsMutator<SquadAssociate, SquadAssociateId> _mutator =
         mutator ?? throw new ArgumentNullException(nameof(mutator));
+    private readonly IExistingEntityMarker<SquadAssociate, SquadAssociateId> _entityMarker = 
+        entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));
     private readonly IUnitOfWork _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-    private readonly ITeamsReader<SquadAssociate, SquadAssociateId> _reader = 
-        reader ?? throw new ArgumentNullException(nameof(reader));
     
-    public async Task<SquadAssociateResponse> Handle(SpawnSquadAssociateCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<SquadAssociateResponse>> Handle(SpawnSquadAssociateCommand request, CancellationToken cancellationToken)
     {
         var entity = _mapper.Map<SquadAssociate>(request.SquadAssociate);
         
@@ -28,17 +30,14 @@ public class CommandHandler(ITeamsMutator<SquadAssociate, SquadAssociateId> muta
         return _mapper.Map<SquadAssociateResponse>(entity);
     }
     
-    public async Task<SquadAssociateResponse> Handle(CommitSquadAssociateCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<SquadAssociateResponse>> Handle(CommitSquadAssociateCommand request, CancellationToken cancellationToken)
     {
-        var associateId = new AssociateId(request.AssociateId);
-        var squadId = new SquadId(request.SquadId);
-        var squadAssociateId = new SquadAssociateId(squadId, associateId);
         var change = _mapper.Map<SquadAssociate>(request.SquadAssociate);
-        change.AssociateId = associateId;
-        change.SquadId = squadId;
-        change.Id = squadAssociateId;
+        change.AssociateId = _entityMarker.Id!.AssociateId;
+        change.SquadId = _entityMarker.Id.SquadId;
+        change.Id = _entityMarker.Id;
         
-        var toMutate = await _reader.PickAsync(squadAssociateId, cancellationToken);
+        var toMutate = _entityMarker.Entity!;
         change.Adapt(toMutate);
         
         _mutator.CommitOne(toMutate!);
@@ -46,13 +45,9 @@ public class CommandHandler(ITeamsMutator<SquadAssociate, SquadAssociateId> muta
         return _mapper.Map<SquadAssociateResponse>(change);
     }
 
-    public async Task<bool> Handle(TrashSquadAssociateCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<bool>> Handle(TrashSquadAssociateCommand request, CancellationToken cancellationToken)
     {
-        var squadId = new SquadId(request.SquadId);
-        var associateId = new AssociateId(request.AssociateId);
-        var squadAssociateId = new SquadAssociateId(squadId, associateId);
-        
-        var existing = await _reader.PickAsync(squadAssociateId, cancellationToken);
+        var existing = _entityMarker.Entity!;
         _mutator.TrashOne(existing!);
 
         await _unitOfWork.SaveChangesAsync("", cancellationToken);

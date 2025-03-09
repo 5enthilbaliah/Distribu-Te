@@ -1,6 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using Application;
+using Application.Shared;
 using Domain.Entities;
 using Domain.Settings;
 using Framework.ModuleZ.Implementations;
@@ -30,6 +31,8 @@ public class PersistenceServiceModule : DependencyServiceModule
         services.AddScoped<ITeamsReader<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsReader>();
         services.AddScoped<ITeamsReader<Squad, SquadId>, SquadTeamsReader>();
 
+        services.AddScoped(typeof(IExistingEntityMarker<,>), typeof(ExistingEntityMarker<,>));
+        
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
