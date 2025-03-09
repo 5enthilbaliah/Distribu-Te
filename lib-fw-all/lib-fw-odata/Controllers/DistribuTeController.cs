@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers;
+﻿namespace DistribuTe.Framework.OData.Controllers;
 
 using ErrorOr;
 using Microsoft.AspNetCore.Http;

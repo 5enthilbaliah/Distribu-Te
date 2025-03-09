@@ -34,4 +34,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\svc-mut-teams-apis\svc-mut-teams-apis.csproj" />
+    </ItemGroup>
+
 </Project>

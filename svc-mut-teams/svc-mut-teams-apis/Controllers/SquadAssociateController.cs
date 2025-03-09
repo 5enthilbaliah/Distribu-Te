@@ -5,6 +5,7 @@ using Application.SquadAssociates;
 using Application.SquadAssociates.DataContracts;
 using Asp.Versioning;
 using ErrorOr;
+using Framework.OData.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;

@@ -6,9 +6,9 @@ public record SquadAssociateId(SquadId SquadId, AssociateId AssociateId);
 
 public class SquadAssociate : BaseSquadAssociate, IEntity<SquadAssociateId>, IAuditableEntity
 {
-    public SquadAssociateId Id { get; set; }
+    public SquadAssociateId Id { get; set; } = null!;
 
-    public AssociateId AssociateId { get; set; }
+    public AssociateId AssociateId { get; set; } = null!;
 
-    public SquadId SquadId { get; set; }
+    public SquadId SquadId { get; set; } = null!;
 }

@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers;
+﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers.Errors;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;

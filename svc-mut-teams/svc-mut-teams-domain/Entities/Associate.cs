@@ -6,5 +6,5 @@ public record AssociateId(int Value);
 
 public class Associate : BaseAssociate, IEntity<AssociateId>, IAuditableEntity
 {
-    public AssociateId Id { get; set; }
+    public AssociateId Id { get; set; }  = null!;
 }

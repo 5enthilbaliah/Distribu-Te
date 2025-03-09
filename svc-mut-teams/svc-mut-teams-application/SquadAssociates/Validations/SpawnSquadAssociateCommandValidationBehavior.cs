@@ -5,8 +5,8 @@ using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
 using FluentValidation;
+using Framework.AppEssentials.Validations;
 using MediatR;
-using Shared;
 
 public class SpawnSquadAssociateCommandValidationBehavior(ITeamsReader<SquadAssociate, SquadAssociateId> reader,
     IValidator<SquadAssociateRequest> validator, ITeamsReader<Squad, SquadId> squadReader,

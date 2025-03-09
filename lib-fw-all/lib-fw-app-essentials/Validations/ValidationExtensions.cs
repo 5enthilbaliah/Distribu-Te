@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Application.Shared;
+﻿namespace DistribuTe.Framework.AppEssentials.Validations;
 
 using ErrorOr;
 using FluentValidation.Results;
