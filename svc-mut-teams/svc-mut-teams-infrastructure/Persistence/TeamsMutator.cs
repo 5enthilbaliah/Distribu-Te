@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
+using System.Linq.Expressions;
 using Application;
 using Domain;
 using Microsoft.EntityFrameworkCore;
@@ -36,5 +37,10 @@ internal abstract class TeamsReader<TEntity, TId>(TeamDatabaseContext context) :
     {
         return await DbContext.Set<TEntity>()
             .SingleOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
+    }
+
+    public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<TEntity>().AnyAsync(predicate, cancellationToken);
     }
 }

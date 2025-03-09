@@ -1,7 +1,9 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application;
 
 using System.Reflection;
+using Associates.Validations;
 using Behaviors;
+using FluentValidation;
 using Framework.ModuleZ.Implementations;
 using Mapster;
 using MediatR;
@@ -12,6 +14,11 @@ using Shared;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
+    public ApplicationServiceModule()
+    {
+        AppendModule<AssociateValidationServiceModule>();
+    }
+    
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
@@ -23,5 +30,7 @@ public class ApplicationServiceModule : DependencyServiceModule
         TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetAssembly(typeof(ApplicationServiceModule))!);
         services.AddSingleton(mapsterConfig);
         services.AddMapster();
+        
+        services.AddValidatorsFromAssembly(typeof(ApplicationServiceModule).Assembly);
     }
 }

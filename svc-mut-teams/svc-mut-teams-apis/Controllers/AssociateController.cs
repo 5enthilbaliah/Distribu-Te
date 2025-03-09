@@ -9,11 +9,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
-[ApiController]
 [Route("protected/associates")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class AssociateController(IMediator mediator) : ControllerBase
+public class AssociateController(IMediator mediator) : DistribuTeController
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     
@@ -27,8 +26,11 @@ public class AssociateController(IMediator mediator) : ControllerBase
         {
             Associate = associate,
         }, ct).ConfigureAwait(false);
-        
-        return StatusCode((int)HttpStatusCode.Created, result);
+
+        return result.Match(
+            validResult => StatusCode((int)HttpStatusCode.Created, validResult),
+            Problem
+        );
     }
 
     [Route("{id:int}")]
@@ -43,7 +45,10 @@ public class AssociateController(IMediator mediator) : ControllerBase
             Id = id,
         }, ct).ConfigureAwait(false);
         
-        return Ok(result);
+        return result.Match(
+            Ok,
+            Problem
+        );
     }
     
     [Route("{id:int}")]
@@ -56,6 +61,9 @@ public class AssociateController(IMediator mediator) : ControllerBase
             Id = id,
         }, ct).ConfigureAwait(false);
         
-        return Ok(result);
+        return result.Match(
+            validResult => Ok(validResult),
+            Problem
+        );
     }
 }
