@@ -23,13 +23,14 @@ public class PersistenceServiceModule : DependencyServiceModule
                 mssqlOpt.CommandTimeout(dbSettings.TimeoutInSeconds);
             }));
 
-        services.AddScoped<ITeamsMutator<Associate, AssociateId>, AssociateTeamsMutator>();
-        services.AddScoped<ITeamsMutator<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsMutator>();
-        services.AddScoped<ITeamsMutator<Squad, SquadId>, SquadTeamsMutator>();
+        // TODO:: find a way to register the same repository for both mutators and readers
+        services.AddScoped<ITeamsMutator<Associate, AssociateId>, AssociateTeamsRepository>();
+        services.AddScoped<ITeamsMutator<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
+        services.AddScoped<ITeamsMutator<Squad, SquadId>, SquadTeamsRepository>();
         
-        services.AddScoped<ITeamsReader<Associate, AssociateId>, AssociateTeamsReader>();
-        services.AddScoped<ITeamsReader<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsReader>();
-        services.AddScoped<ITeamsReader<Squad, SquadId>, SquadTeamsReader>();
+        services.AddScoped<ITeamsReader<Associate, AssociateId>, AssociateTeamsRepository>();
+        services.AddScoped<ITeamsReader<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
+        services.AddScoped<ITeamsReader<Squad, SquadId>, SquadTeamsRepository>();
 
         services.AddScoped(typeof(IExistingEntityMarker<,>), typeof(ExistingEntityMarker<,>));
         

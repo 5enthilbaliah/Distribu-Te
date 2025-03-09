@@ -24,4 +24,7 @@ public class RequestContext(IHttpContextAccessor accessor) : IRequestContext
 
     public string UserIdentity => User?.Identity?.Name ?? DEFAULT_USER_NAME;
     public string UserEmail => User?.FindFirstValue(ClaimTypes.Email) ?? string.Empty;
+    
+    
+    public string HttpMethod => Current.Request.Method;
 }

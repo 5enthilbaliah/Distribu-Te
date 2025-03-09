@@ -2,10 +2,6 @@
 
 using Domain.Entities;
 
-internal sealed class AssociateTeamsMutator(TeamDatabaseContext context) 
-    : TeamsMutator<Associate, AssociateId>(context)
+internal sealed class AssociateTeamsRepository(TeamDatabaseContext context) 
+    : TeamsRepository<Associate, AssociateId>(context)
 { }
-
-internal sealed class AssociateTeamsReader(TeamDatabaseContext context)
-    : TeamsReader<Associate, AssociateId>(context)
-{}

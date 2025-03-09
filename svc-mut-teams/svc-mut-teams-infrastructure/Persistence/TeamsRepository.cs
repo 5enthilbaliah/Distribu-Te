@@ -5,7 +5,8 @@ using Application;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
-internal abstract class TeamsMutator<TEntity, TId>(TeamDatabaseContext context) : ITeamsMutator<TEntity, TId>
+internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) : 
+    ITeamsMutator<TEntity, TId>, ITeamsReader<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {
@@ -25,14 +26,7 @@ internal abstract class TeamsMutator<TEntity, TId>(TeamDatabaseContext context) 
     {
         DbContext.Set<TEntity>().Remove(entity);
     }
-}
-
-internal abstract class TeamsReader<TEntity, TId>(TeamDatabaseContext context) : ITeamsReader<TEntity, TId>
-    where TEntity : class, IEntity<TId>
-    where TId : class
-{
-    protected readonly TeamDatabaseContext DbContext = context ?? throw new ArgumentNullException(nameof(context));
-
+    
     public virtual async Task<TEntity?> PickAsync(TId id, CancellationToken cancellationToken = default)
     {
         return await DbContext.Set<TEntity>()

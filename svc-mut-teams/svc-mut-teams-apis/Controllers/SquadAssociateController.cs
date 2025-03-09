@@ -4,6 +4,7 @@ using System.Net;
 using Application.SquadAssociates;
 using Application.SquadAssociates.DataContracts;
 using Asp.Versioning;
+using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -39,6 +40,15 @@ public class SquadAssociateController(IMediator mediator) : DistribuTeController
     public async Task<IActionResult> CommitAsync(int squadId, int associateId, [FromBody] SquadAssociateRequest squadAssociate, 
         CancellationToken ct = default)
     {
+        var errors = new List<Error>();
+        if (squadId != squadAssociate.Squad_Id)
+            errors.Add(Errors.Errors.SquadAssociateEndpoints.MismatchSquadId);
+        if (associateId != squadAssociate.Associate_Id)
+            errors.Add(Errors.Errors.SquadAssociateEndpoints.MismatchAssociateId);
+        
+        if (errors.Count != 0)
+            return Problem(errors);
+        
         var result = await _mediator.Send(new CommitSquadAssociateCommand
         {
             SquadAssociate = squadAssociate,
