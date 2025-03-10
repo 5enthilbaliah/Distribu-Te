@@ -3,7 +3,9 @@
 using System.Security.Claims;
 using Application.Shared;
 using FluentAssertions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Apis.Helpers;
@@ -164,5 +166,49 @@ public class RequestContextTests
         
         // Assert
         sut!.UserEmail.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void HttpMethod_ReturnsRequestMethod()
+    {
+        // Arrange
+        var httpContext = Substitute.For<HttpContext>();
+        var httpRequest = Substitute.For<HttpRequest>();
+        httpRequest.Method.Returns("POST");
+        httpContext.Request.Returns(httpRequest);
+        _httpContextAccessor.HttpContext.Returns(httpContext);
+        
+        // Act
+        var sut  = _serviceProvider.GetService<IRequestContext>();
+        
+        // Assert
+        sut!.HttpMethod.Should().Be("POST");
+    }
+
+    [Fact]
+    public void Features_ReturnsRequestFeatures()
+    {
+        // Arrange
+        var httpContext = Substitute.For<HttpContext>();
+        var httpRequest = Substitute.For<HttpRequest>();
+        var featureCollection = Substitute.For<IFeatureCollection>();
+        
+        featureCollection.Get<IExceptionHandlerFeature>().Returns(new ExceptionHandlerFeature
+        {
+            Path = "/test",
+            Error = new Exception("this is test exception")
+        });
+        httpRequest.Method.Returns("POST");
+        httpContext.Request.Returns(httpRequest);
+        httpContext.Features.Returns(featureCollection);
+        _httpContextAccessor.HttpContext.Returns(httpContext);
+
+        // Act
+        var sut  = _serviceProvider.GetService<IRequestContext>();
+        var result = sut!.GetFeature<IExceptionHandlerFeature>();
+        
+        // Assert
+        result.Should().NotBeNull();
+        result.Path.Should().Be("/test");
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers.Errors;
 
+using Application.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,13 @@ public class ErrorsController : ControllerBase
 {
     [Route("error-development")]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment hostEnvironment)
+    public IActionResult HandleErrorDevelopment([FromServices] IHostEnvironment hostEnvironment,
+        [FromServices] IRequestContext requestContext)
     {
         if (!hostEnvironment.IsDevelopment())
             return NotFound();
 
-        var exceptionHandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>()!;
-
+        var exceptionHandlerFeature = requestContext.GetFeature<IExceptionHandlerFeature>()!;
         return Problem(
             detail: exceptionHandlerFeature.Error.StackTrace,
             title: exceptionHandlerFeature.Error.Message,
