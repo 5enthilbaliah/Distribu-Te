@@ -1,7 +1,7 @@
-﻿namespace DistribuTe.Mutators.Teams.Tests.Apis.Controllers;
+﻿namespace DistribuTe.Mutators.Teams.UnitTests.Apis.Controllers;
 
-using Application.Associates;
-using Application.Associates.DataContracts;
+using Application.Squads;
+using Application.Squads.DataContracts;
 using AutoFixture;
 using ErrorOr;
 using FluentAssertions;
@@ -10,46 +10,45 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Apis.Controllers;
-using Xunit.Abstractions;
 
-public class AssociateControllerTests
+public class SquadControllerTests
 {
     private readonly ServiceProvider _serviceProvider;
     private readonly IMediator _mediator = Substitute.For<IMediator>();
 
-    public AssociateControllerTests()
+    public SquadControllerTests()
     {
         var services = new ServiceCollection();
         services.AddScoped(_ => _mediator);
-        services.AddScoped<AssociateController>();
+        services.AddScoped<SquadController>();
         
         _serviceProvider = services.BuildServiceProvider();
     }
-
+    
     [Fact]
-    public void AssociateController_NullArgument_ThrowsArgumentNullException()
+    public void SquadController_NullArgument_ThrowsArgumentNullException()
     {
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        Action act = () => new AssociateController(null);
+        Action act = () => new SquadController(null);
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         
         act.Should().Throw<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'mediator')");
     }
-
+    
     [Fact]
     public async Task SpawnAsync_ValidRequest_ReturnsCreatedResponse()
     {
         // Arrange
         var fixture = new Fixture();
-        var request = fixture.Create<AssociateRequest>();
-        var response = fixture.Create<AssociateResponse>();
+        var request = fixture.Create<SquadRequest>();
+        var response = fixture.Create<SquadResponse>();
         
-        _mediator.Send(Arg.Any<SpawnAssociateCommand>(), Arg.Any<CancellationToken>())
+        _mediator.Send(Arg.Any<SpawnSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(response);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
+        var sut = _serviceProvider.GetService<SquadController>();
         var result = await sut!.SpawnAsync(request, CancellationToken.None);
         
         // Assert
@@ -65,20 +64,20 @@ public class AssociateControllerTests
     {
         // Arrange
         var fixture = new Fixture();
-        var request = fixture.Create<AssociateRequest>();
+        var request = fixture.Create<SquadRequest>();
         var error = Error.Validation("test", "this is a test");
         
-        _mediator.Send(Arg.Any<SpawnAssociateCommand>(), Arg.Any<CancellationToken>())
+        _mediator.Send(Arg.Any<SpawnSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(error);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
+        var sut = _serviceProvider.GetService<SquadController>();
         var result = await sut!.SpawnAsync(request, CancellationToken.None);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();
         var actualResult = result as ObjectResult;
-        actualResult!.StatusCode.Should().Be(400);
+        actualResult!.Value.Should().BeOfType<ValidationProblemDetails>();
     }
     
     [Fact]
@@ -86,15 +85,15 @@ public class AssociateControllerTests
     {
         // Arrange
         var fixture = new Fixture();
-        var request = fixture.Create<AssociateRequest>();
-        var response = fixture.Create<AssociateResponse>();
-        var associateId = 3;
-        _mediator.Send(Arg.Any<CommitAssociateCommand>(), Arg.Any<CancellationToken>())
+        var request = fixture.Create<SquadRequest>();
+        var response = fixture.Create<SquadResponse>();
+        var squadId = 3;
+        _mediator.Send(Arg.Any<CommitSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(response);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
-        var result = await sut!.CommitAsync(associateId, request, CancellationToken.None);
+        var sut = _serviceProvider.GetService<SquadController>();
+        var result = await sut!.CommitAsync(squadId, request, CancellationToken.None);
         
         // Assert
         result.Should().BeOfType<OkObjectResult>();
@@ -107,33 +106,33 @@ public class AssociateControllerTests
     {
         // Arrange
         var fixture = new Fixture();
-        var request = fixture.Create<AssociateRequest>();
+        var request = fixture.Create<SquadRequest>();
         var error = Error.Validation("test", "this is a test");
-        var associateId = 3;
-        _mediator.Send(Arg.Any<CommitAssociateCommand>(), Arg.Any<CancellationToken>())
+        var squadId = 3;
+        _mediator.Send(Arg.Any<CommitSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(error);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
-        var result = await sut!.CommitAsync(associateId, request, CancellationToken.None);
+        var sut = _serviceProvider.GetService<SquadController>();
+        var result = await sut!.CommitAsync(squadId, request, CancellationToken.None);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();
         var actualResult = result as ObjectResult;
-        actualResult!.StatusCode.Should().Be(400);
+        actualResult!.Value.Should().BeOfType<ValidationProblemDetails>();
     }
     
     [Fact]
     public async Task TrashAsync_ValidId_ReturnsNoContentResponse()
     {
         // Arrange
-        var associateId = 3;
-        _mediator.Send(Arg.Any<TrashAssociateCommand>(), Arg.Any<CancellationToken>())
+        var squadId = 3;
+        _mediator.Send(Arg.Any<TrashSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(true);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
-        var result = await sut!.TrashAsync(associateId, CancellationToken.None);
+        var sut = _serviceProvider.GetService<SquadController>();
+        var result = await sut!.TrashAsync(squadId, CancellationToken.None);
         
         // Assert
         result.Should().BeOfType<NoContentResult>();
@@ -143,18 +142,18 @@ public class AssociateControllerTests
     public async Task TrashAsync_InvalidId_ReturnsProblemResponse()
     {
         // Arrange
-        var associateId = 3;
+        var squadId = 3;
         var error = Error.Validation("test", "this is a test");
-        _mediator.Send(Arg.Any<TrashAssociateCommand>(), Arg.Any<CancellationToken>())
+        _mediator.Send(Arg.Any<TrashSquadCommand>(), Arg.Any<CancellationToken>())
             .Returns(error);
         
         // Act
-        var sut = _serviceProvider.GetService<AssociateController>();
-        var result = await sut!.TrashAsync(associateId, CancellationToken.None);
+        var sut = _serviceProvider.GetService<SquadController>();
+        var result = await sut!.TrashAsync(squadId, CancellationToken.None);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();
         var actualResult = result as ObjectResult;
-        actualResult!.StatusCode.Should().Be(400);
+        actualResult!.Value.Should().BeOfType<ValidationProblemDetails>();
     }
 }

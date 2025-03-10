@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[ExcludeFromCodeCoverage]
-public class ApiVersionServiceModule : DependencyServiceModule
+internal class ApiVersionServiceModule : DependencyServiceModule
 {
+    [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {

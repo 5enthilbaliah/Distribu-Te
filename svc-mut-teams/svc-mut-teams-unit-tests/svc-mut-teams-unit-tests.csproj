@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>DistribuTe.Mutators.Teams.Tests</RootNamespace>
+        <RootNamespace>DistribuTe.Mutators.Teams.UnitTests</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 

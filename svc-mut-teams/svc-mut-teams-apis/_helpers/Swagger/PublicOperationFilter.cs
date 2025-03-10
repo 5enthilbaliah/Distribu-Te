@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 public class PublicOperationFilter : IOperationFilter
 {
     // ReSharper disable once InconsistentNaming
-    private const string HEADER_API_KEY = "x-api-key";
+    public const string HEADER_API_KEY = "x-api-key";
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {

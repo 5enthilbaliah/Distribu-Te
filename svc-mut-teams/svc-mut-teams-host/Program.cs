@@ -20,7 +20,7 @@ builder.Services.AddDependencyModule<DomainServiceModule>(environment, configura
     .AddDependencyModule<ApplicationServiceModule>(environment, configuration)
     .AddDependencyModule<InfrastructureServiceModule>(environment, configuration)
     .AddDependencyModule<ApiServiceModule>(environment, configuration)
-    // override the problem details factory here
+    //TOMARE:: override the problem details factory here - order matters
     .AddDependencyModule<ErrorServiceModule>(environment, configuration);
 
 var app = builder.Build();
@@ -28,7 +28,7 @@ await app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
     .Pipe<ApiDocumentationPipeline>(environment, configuration)
     .Pipe<CorsPipeline>(environment, configuration)
     .Pipe<AuthenticationPipeline>(environment, configuration)
-    // custom error handling pipeline
+    //TOMARE:: custom error handling pipeline here - order matters
     .Pipe<ErrorHandlePipeline>(environment, configuration)
     .Pipe<MvcPipeline>(environment, configuration)
     .RunAsync();

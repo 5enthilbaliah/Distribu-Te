@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[ExcludeFromCodeCoverage]
-public class AuthenticationServiceModule : DependencyServiceModule
+internal class AuthenticationServiceModule : DependencyServiceModule
 {
+    [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {

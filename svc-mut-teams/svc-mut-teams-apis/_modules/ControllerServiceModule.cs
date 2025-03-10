@@ -19,7 +19,7 @@ using Microsoft.OData.ModelBuilder;
 using Odata;
 
 [ExcludeFromCodeCoverage]
-public class ControllerServiceModule : DependencyServiceModule
+internal class ControllerServiceModule : DependencyServiceModule
 {
     static IEdmModel GetEdmModel()
     {

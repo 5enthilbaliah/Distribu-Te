@@ -67,11 +67,11 @@ use case management
 
 ## lib-fw-odata
 
+## lib-fw-app-essentials
+
 ## svc-mut-teams
 - Generic repository pattern
 - Odata implemented
 - snake case 
 
-What next?
-- Validation at mediatr
-- Domain exception handling
+All libraries would go into the nuget package repository

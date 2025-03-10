@@ -1,4 +1,5 @@
-﻿namespace DistribuTe.Mutators.Teams.Apis.Modules;
+﻿// ReSharper disable once CheckNamespace
+namespace DistribuTe.Mutators.Teams.Apis.Modules;
 
 using System.Diagnostics.CodeAnalysis;
 using Framework.ModuleZ.Implementations;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Settings;
 
-public class ApiDocumentationServiceModule : DependencyServiceModule
+internal class ApiDocumentationServiceModule : DependencyServiceModule
 {
     [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[ExcludeFromCodeCoverage]
-public class CorsServiceModule : DependencyServiceModule
+internal class CorsServiceModule : DependencyServiceModule
 {
+    [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
