@@ -48,7 +48,7 @@ public class CommandHandler(ITeamsMutator<Associate, AssociateId> mutator,
         var existing = _entityMarker.Entity!;
         _mutator.TrashOne(existing);
 
-        await _unitOfWork.SaveChangesAsync("", cancellationToken);
+        await _unitOfWork.SaveChangesAsync(request.User!, cancellationToken);
         return true;
     }
 }

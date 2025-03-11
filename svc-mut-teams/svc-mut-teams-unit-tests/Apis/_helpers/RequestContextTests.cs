@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Apis._helpers;
 
 using System.Security.Claims;
-using Application.Shared;
 using FluentAssertions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Apis.Helpers;
+using Teams.Application.Shared;
 
 public class RequestContextTests
 {

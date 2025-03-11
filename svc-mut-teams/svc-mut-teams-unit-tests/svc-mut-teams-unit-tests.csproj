@@ -36,6 +36,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\svc-mut-teams-apis\svc-mut-teams-apis.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-application\svc-mut-teams-application.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-host\svc-mut-teams-host.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-infrastructure\svc-mut-teams-infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

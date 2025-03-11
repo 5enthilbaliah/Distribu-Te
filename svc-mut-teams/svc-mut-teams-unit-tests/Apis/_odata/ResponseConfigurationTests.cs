@@ -1,13 +1,13 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace DistribuTe.Mutators.Teams.UnitTests.Apis.Odata;
 
-using Application.Associates.DataContracts;
-using Application.SquadAssociates.DataContracts;
-using Application.Squads.DataContracts;
 using FluentAssertions;
 using Framework.OData;
 using Microsoft.OData.ModelBuilder;
 using Teams.Apis.Odata;
+using Teams.Application.Associates.DataContracts;
+using Teams.Application.SquadAssociates.DataContracts;
+using Teams.Application.Squads.DataContracts;
 
 public class ResponseConfigurationTests
 {

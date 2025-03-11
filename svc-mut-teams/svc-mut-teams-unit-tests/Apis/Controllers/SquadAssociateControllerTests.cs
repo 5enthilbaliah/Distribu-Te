@@ -1,7 +1,5 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Apis.Controllers;
 
-using Application.SquadAssociates;
-using Application.SquadAssociates.DataContracts;
 using AutoFixture;
 using ErrorOr;
 using FluentAssertions;
@@ -10,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Apis.Controllers;
+using Teams.Application.SquadAssociates;
+using Teams.Application.SquadAssociates.DataContracts;
 
 public class SquadAssociateControllerTests
 {
