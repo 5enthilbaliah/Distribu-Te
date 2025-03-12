@@ -5,12 +5,8 @@ using Helpers;
 using Microsoft.EntityFrameworkCore;
 using Specifications;
 
-public class TeamDatabaseContext : DbContext
+public class TeamDatabaseContext(DbContextOptions<TeamDatabaseContext> options) : DbContext(options)
 {
-    public TeamDatabaseContext(DbContextOptions<TeamDatabaseContext> options)
-        : base(options)
-    {}
-    
     public DbSet<Associate> Associates { get; set; }
     public DbSet<Squad> Squads { get; set; }
     public DbSet<SquadAssociate> SquadAssociates { get; set; }
