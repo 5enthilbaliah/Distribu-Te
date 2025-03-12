@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Application.Associates.Validations;
 
 using AutoFixture;
-using Domain.Entities;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,6 +11,7 @@ using Teams.Application.Associates;
 using Teams.Application.Associates.DataContracts;
 using Teams.Application.Associates.Validations;
 using Teams.Application.Shared;
+using Teams.Domain.Entities;
 
 public class CommitAssociateCommandValidationBehaviorTests
 {

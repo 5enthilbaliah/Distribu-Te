@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Application.Squads.Validations;
 
 using AutoFixture;
-using Domain.Entities;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
@@ -9,6 +8,7 @@ using Teams.Application;
 using Teams.Application.Shared;
 using Teams.Application.Squads;
 using Teams.Application.Squads.Validations;
+using Teams.Domain.Entities;
 
 public class TrashSquadCommandValidationBehaviorTests
 {

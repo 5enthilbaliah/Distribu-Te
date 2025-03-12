@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Application.Associates;
 
 using AutoFixture;
-using Domain.Entities;
 using FluentAssertions;
 using Mapster;
 using MapsterMapper;
@@ -11,6 +10,7 @@ using Teams.Application;
 using Teams.Application.Associates;
 using Teams.Application.Associates.Mappings;
 using Teams.Application.Shared;
+using Teams.Domain.Entities;
 
 public class CommandHandlerTests
 {

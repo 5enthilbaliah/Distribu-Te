@@ -9,7 +9,7 @@ using Teams.Application.Squads.Validations;
 public class SquadRequestValidatorTests
 {
     [Fact]
-    public void AssociateRequestValidator_Validation_Fails()
+    public void SquadRequestValidator_Validation_Fails()
     {
         // Arrange
         var fixture = new Fixture();

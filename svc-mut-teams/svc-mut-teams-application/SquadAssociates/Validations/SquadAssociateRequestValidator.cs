@@ -9,7 +9,9 @@ public class SquadAssociateRequestValidator : AbstractValidator<SquadAssociateRe
     {
         RuleFor(a => a.Squad_Id).GreaterThan(0);
         RuleFor(a => a.Associate_Id).GreaterThan(0);
-        RuleFor(a => a.Capacity).GreaterThanOrEqualTo(0);
+        RuleFor(a => a.Capacity)
+            .GreaterThanOrEqualTo(0)
+            .LessThanOrEqualTo(1);
         RuleFor(a => a.Started_On).NotEmpty();
         RuleFor(a => a.Ended_On)
             .GreaterThan(a => a.Started_On)

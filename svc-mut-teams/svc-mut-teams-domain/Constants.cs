@@ -1,5 +1,8 @@
 ﻿namespace DistribuTe.Mutators.Teams.Domain;
 
+using System.Diagnostics.CodeAnalysis;
+
+[ExcludeFromCodeCoverage]
 public static class Constants
 {
     public static string AuthorizationKey => "Authorization";

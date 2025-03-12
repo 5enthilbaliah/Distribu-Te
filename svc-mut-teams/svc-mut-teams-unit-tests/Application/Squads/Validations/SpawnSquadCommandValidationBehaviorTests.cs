@@ -2,7 +2,6 @@
 
 using System.Linq.Expressions;
 using AutoFixture;
-using Domain.Entities;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,6 +11,7 @@ using Teams.Application;
 using Teams.Application.Squads;
 using Teams.Application.Squads.DataContracts;
 using Teams.Application.Squads.Validations;
+using Teams.Domain.Entities;
 using LambdaCompare = Framework.TestEssentials.LambdaCompare.Lambda;
 
 public class SpawnSquadCommandValidationBehaviorTests

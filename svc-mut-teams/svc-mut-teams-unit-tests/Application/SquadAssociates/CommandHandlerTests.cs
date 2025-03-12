@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.UnitTests.Application.Squads;
+﻿namespace DistribuTe.Mutators.Teams.UnitTests.Application.SquadAssociates;
 
 using AutoFixture;
 using FluentAssertions;
@@ -8,17 +8,17 @@ using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
 using Teams.Application.Shared;
-using Teams.Application.Squads;
-using Teams.Application.Squads.Mappings;
+using Teams.Application.SquadAssociates;
+using Teams.Application.SquadAssociates.Mappings;
 using Teams.Domain.Entities;
 
 public class CommandHandlerTests
 {
     private readonly ServiceProvider _serviceProvider;
-    private readonly ITeamsMutator<Squad, SquadId> _teamsMutator = 
-        Substitute.For<ITeamsMutator<Squad, SquadId>>();
-    private readonly IExistingEntityMarker<Squad, SquadId> _entityMarker =
-        Substitute.For<IExistingEntityMarker<Squad, SquadId>>();
+    private readonly ITeamsMutator<SquadAssociate, SquadAssociateId> _teamsMutator = 
+        Substitute.For<ITeamsMutator<SquadAssociate, SquadAssociateId>>();
+    private readonly IExistingEntityMarker<SquadAssociate, SquadAssociateId> _entityMarker =
+        Substitute.For<IExistingEntityMarker<SquadAssociate, SquadAssociateId>>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
 
     public CommandHandlerTests()
@@ -29,7 +29,7 @@ public class CommandHandlerTests
         services.AddScoped(_ => _entityMarker);
         services.AddScoped(_ => _unitOfWork);
         var mapsterConfig = TypeAdapterConfig.GlobalSettings;
-        var config = new SquadMapperConfig();
+        var config = new SquadAssociateMapperConfig();
         config.Register(mapsterConfig);
         services.AddSingleton(mapsterConfig);
         services.AddMapster();
@@ -62,13 +62,13 @@ public class CommandHandlerTests
     }
     
     [Fact]
-    public async Task Handle_SpawnSquadCommand_ReturnsSquadResponse()
+    public async Task Handle_SpawnSquadAssociateCommand_ReturnsSquadAssociateResponse()
     {
         // Arrange
         var fixture = new Fixture();
-        var command = fixture.Create<SpawnSquadCommand>();
+        var command = fixture.Create<SpawnSquadAssociateCommand>();
 
-        _teamsMutator.SpawnOne(Arg.Any<Squad>());
+        _teamsMutator.SpawnOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         
@@ -81,15 +81,17 @@ public class CommandHandlerTests
     }
     
     [Fact]
-    public async Task Handle_CommitSquadCommand_ReturnsSquadResponse()
+    public async Task Handle_CommitSquadAssociateCommand_ReturnsSquadAssociateResponse()
     {
         // Arrange
         var fixture = new Fixture();
-        var command = fixture.Create<CommitSquadCommand>();
-        var entity = fixture.Create<Squad>();
+        var command = fixture.Create<CommitSquadAssociateCommand>();
+        var entity = fixture.Create<SquadAssociate>();
+        entity.Id = new SquadAssociateId(entity.SquadId, entity.AssociateId);
 
         _entityMarker.Entity.Returns(entity);
-        _teamsMutator.CommitOne(Arg.Any<Squad>());
+        _entityMarker.Id.Returns(entity.Id);
+        _teamsMutator.CommitOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         
@@ -102,15 +104,15 @@ public class CommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_TrashSquadCommand_ReturnsTrue()
+    public async Task Handle_TrashSquadAssociateCommand_ReturnsTrue()
     {
         // Arrange
         var fixture = new Fixture();
-        var command = fixture.Create<TrashSquadCommand>();
-        var entity = fixture.Create<Squad>();
+        var command = fixture.Create<TrashSquadAssociateCommand>();
+        var entity = fixture.Create<SquadAssociate>();
         
         _entityMarker.Entity.Returns(entity);
-        _teamsMutator.TrashOne(Arg.Any<Squad>());
+        _teamsMutator.TrashOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         

@@ -2,7 +2,6 @@
 
 using System.Linq.Expressions;
 using AutoFixture;
-using Domain.Entities;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -12,6 +11,7 @@ using Teams.Application;
 using Teams.Application.Associates;
 using Teams.Application.Associates.DataContracts;
 using Teams.Application.Associates.Validations;
+using Teams.Domain.Entities;
 
 public class SpawnAssociateCommandValidationBehaviorTests
 {
