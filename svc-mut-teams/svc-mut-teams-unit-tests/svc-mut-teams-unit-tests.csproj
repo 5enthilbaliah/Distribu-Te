@@ -35,6 +35,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\lib-fw-all\lib-fw-test-essentials\lib-fw-test-essentials.csproj" />
       <ProjectReference Include="..\svc-mut-teams-apis\svc-mut-teams-apis.csproj" />
       <ProjectReference Include="..\svc-mut-teams-application\svc-mut-teams-application.csproj" />
       <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />

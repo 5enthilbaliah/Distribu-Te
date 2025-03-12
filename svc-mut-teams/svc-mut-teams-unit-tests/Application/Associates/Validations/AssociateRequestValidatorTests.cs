@@ -2,6 +2,7 @@
 
 using AutoFixture;
 using FluentValidation.TestHelper;
+using Framework.TestEssentials.AutoFixture;
 using Teams.Application.Associates.DataContracts;
 using Teams.Application.Associates.Validations;
 
@@ -11,7 +12,7 @@ public class AssociateRequestValidatorTests
     public void AssociateRequestValidator_Validation_Fails()
     {
         // Arrange
-        var longString = string.Join("", new Fixture().CreateMany<char>(100).ToArray());
+        var longString = new Fixture().GenerateLengthLimitedString(100);
         var request1 = new AssociateRequest
         {
             First_Name = string.Empty,

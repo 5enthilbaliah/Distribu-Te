@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit-tests", "unit-tests", "{9A72D386-1A24-416F-BF0F-630C636323C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-test-essentials", "..\lib-fw-all\lib-fw-test-essentials\lib-fw-test-essentials.csproj", "{7FC27496-63FA-466A-9208-E9C84CA115B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,7 @@ Global
 		{EA65AF12-6207-4D05-81DC-3260F17A9905} = {FE3472E6-3F50-49A7-BB60-AA9604BDA372}
 		{9A72D386-1A24-416F-BF0F-630C636323C0} = {87D1CE10-9D69-48FB-A8A0-A78AB3D42936}
 		{96F52A08-7B50-41BB-A042-0FBD73767A4B} = {9A72D386-1A24-416F-BF0F-630C636323C0}
+		{7FC27496-63FA-466A-9208-E9C84CA115B1} = {9A72D386-1A24-416F-BF0F-630C636323C0}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D2E78836-78A8-42C0-BE6C-E2E399C492F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -105,5 +108,9 @@ Global
 		{EA65AF12-6207-4D05-81DC-3260F17A9905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA65AF12-6207-4D05-81DC-3260F17A9905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA65AF12-6207-4D05-81DC-3260F17A9905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC27496-63FA-466A-9208-E9C84CA115B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC27496-63FA-466A-9208-E9C84CA115B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC27496-63FA-466A-9208-E9C84CA115B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC27496-63FA-466A-9208-E9C84CA115B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
