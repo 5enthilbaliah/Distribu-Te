@@ -5,11 +5,19 @@ using Helpers;
 using Microsoft.EntityFrameworkCore;
 using Specifications;
 
-public class TeamDatabaseContext(DbContextOptions<TeamDatabaseContext> options) : DbContext(options)
+public class TeamDatabaseContext : DbContext
 {
-    public DbSet<Associate> Associates { get; set; }
-    public DbSet<Squad> Squads { get; set; }
-    public DbSet<SquadAssociate> SquadAssociates { get; set; }
+    // Needed for unit testing
+    public TeamDatabaseContext()
+    {}
+
+    public TeamDatabaseContext(DbContextOptions<TeamDatabaseContext> options)
+        : base(options)
+    { }
+
+    public virtual DbSet<Associate> Associates { get; set; }
+    public virtual DbSet<Squad> Squads { get; set; }
+    public virtual DbSet<SquadAssociate> SquadAssociates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

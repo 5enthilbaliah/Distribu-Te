@@ -1,4 +1,7 @@
-﻿namespace DistribuTe.Mutators.Teams.Infrastructure;
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo(assemblyName: "svc-mut-teams-unit-tests")]
+namespace DistribuTe.Mutators.Teams.Infrastructure;
 
 using Application.Shared;
 using Framework.ModuleZ.Implementations;
