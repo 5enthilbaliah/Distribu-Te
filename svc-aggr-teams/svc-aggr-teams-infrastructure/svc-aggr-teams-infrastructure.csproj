@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\lib-domain-all\lib-domain-team-entities\lib-domain-team-entities.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj" />
+    </ItemGroup>
+
 </Project>
