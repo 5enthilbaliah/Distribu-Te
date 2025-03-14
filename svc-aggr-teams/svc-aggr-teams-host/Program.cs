@@ -1,4 +1,5 @@
 using DistribuTe.Aggregates.Teams.Domain;
+using DistribuTe.Aggregates.Teams.Infrastructure;
 using DistribuTe.Framework.ModuleZ;
 using DistribuTe.Framework.OData.ErrorHandling;
 
@@ -14,7 +15,7 @@ builder.Configuration
     
 builder.Services.AddDependencyModule<DomainServiceModule>(environment, configuration)
     // .AddDependencyModule<ApplicationServiceModule>(environment, configuration)
-    // .AddDependencyModule<InfrastructureServiceModule>(environment, configuration)
+    .AddDependencyModule<InfrastructureServiceModule>(environment, configuration)
     // .AddDependencyModule<ApiServiceModule>(environment, configuration)
     //TOMARE:: override the problem details factory here - order matters
     .AddDependencyModule<ErrorServiceModule>(environment, configuration);
