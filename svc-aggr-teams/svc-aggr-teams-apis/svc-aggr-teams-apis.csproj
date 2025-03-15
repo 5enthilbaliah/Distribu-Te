@@ -10,6 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\lib-fw-all\lib-fw-api-essentials\lib-fw-api-essentials.csproj" />
       <ProjectReference Include="..\..\lib-fw-all\lib-fw-odata\lib-fw-odata.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-application\svc-aggr-teams-application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
