@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Apis.Settings;
+﻿namespace DistribuTe.Framework.ApiEssentials.Swagger;
 
 public class SwaggerSettings
 {

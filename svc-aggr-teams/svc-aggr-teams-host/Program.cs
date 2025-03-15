@@ -1,3 +1,5 @@
+using DistribuTe.Aggregates.Teams.Apis;
+using DistribuTe.Aggregates.Teams.Application;
 using DistribuTe.Aggregates.Teams.Domain;
 using DistribuTe.Aggregates.Teams.Infrastructure;
 using DistribuTe.Framework.ModuleZ;
@@ -12,12 +14,14 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{environment}.json", optional: true)
     .AddEnvironmentVariables();
-    
+
 builder.Services.AddDependencyModule<DomainServiceModule>(environment, configuration)
-    // .AddDependencyModule<ApplicationServiceModule>(environment, configuration)
+    .AddDependencyModule<ApplicationServiceModule>(environment, configuration)
     .AddDependencyModule<InfrastructureServiceModule>(environment, configuration)
-    // .AddDependencyModule<ApiServiceModule>(environment, configuration)
+    .AddDependencyModule<ApiServiceModule>(environment, configuration)
     //TOMARE:: override the problem details factory here - order matters
     .AddDependencyModule<ErrorServiceModule>(environment, configuration);
-    
+
 var app = builder.Build();
+await app.Setup(environment, configuration)
+    .RunAsync();

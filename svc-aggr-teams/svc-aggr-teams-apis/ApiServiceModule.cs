@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Apis;
+﻿namespace DistribuTe.Aggregates.Teams.Apis;
 
 using Framework.ApiEssentials;
 using Framework.ApiEssentials.Auth;

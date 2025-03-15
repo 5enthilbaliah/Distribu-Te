@@ -24,11 +24,5 @@ builder.Services.AddDependencyModule<DomainServiceModule>(environment, configura
     .AddDependencyModule<ErrorServiceModule>(environment, configuration);
 
 var app = builder.Build();
-await app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
-    .Pipe<ApiDocumentationPipeline>(environment, configuration)
-    .Pipe<CorsPipeline>(environment, configuration)
-    .Pipe<AuthenticationPipeline>(environment, configuration)
-    //TOMARE:: custom error handling pipeline here - order matters
-    .Pipe<ErrorHandlePipeline>(environment, configuration)
-    .Pipe<MvcPipeline>(environment, configuration)
+await app.Setup(environment, configuration)
     .RunAsync();

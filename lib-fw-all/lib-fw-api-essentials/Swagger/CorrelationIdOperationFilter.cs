@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Helpers.Swagger;
+﻿namespace DistribuTe.Framework.ApiEssentials.Swagger;
 
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;

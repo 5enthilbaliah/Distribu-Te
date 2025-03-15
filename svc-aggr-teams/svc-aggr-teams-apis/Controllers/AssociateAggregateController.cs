@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 public class AssociateAggregateController(IMediator mediator) : DistribuTeController
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-    
-    
+
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok("test");
+    }
 }

@@ -1,11 +1,10 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Pipelines;
+﻿namespace DistribuTe.Framework.ApiEssentials.Auth;
 
 using System.Diagnostics.CodeAnalysis;
-using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using ModuleZ;
 
 [ExcludeFromCodeCoverage]
 public class CorsPipeline : IMiddlewarePipeline

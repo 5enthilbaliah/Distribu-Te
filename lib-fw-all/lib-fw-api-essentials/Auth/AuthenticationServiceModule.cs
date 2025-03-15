@@ -1,15 +1,14 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Modules;
+﻿namespace DistribuTe.Framework.ApiEssentials.Auth;
 
 using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
-using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ModuleZ.Implementations;
 
-internal class AuthenticationServiceModule : DependencyServiceModule
+public class AuthenticationServiceModule : DependencyServiceModule
 {
     [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

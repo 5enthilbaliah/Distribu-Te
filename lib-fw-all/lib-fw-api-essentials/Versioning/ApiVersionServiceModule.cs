@@ -1,14 +1,13 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Modules;
+﻿namespace DistribuTe.Framework.ApiEssentials.Versioning;
 
 using System.Diagnostics.CodeAnalysis;
 using Asp.Versioning;
-using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ModuleZ.Implementations;
 
-internal class ApiVersionServiceModule : DependencyServiceModule
+public class ApiVersionServiceModule : DependencyServiceModule
 {
     [ExcludeFromCodeCoverage]
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

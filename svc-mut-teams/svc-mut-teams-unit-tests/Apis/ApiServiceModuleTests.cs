@@ -5,13 +5,14 @@ using System.Text.Json;
 using Asp.Versioning;
 using AutoFixture;
 using FluentAssertions;
+using Framework.ApiEssentials;
+using Framework.ApiEssentials.Swagger;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using Teams.Apis;
-using Teams.Apis.Settings;
 
 public class ApiServiceModuleTests
 {

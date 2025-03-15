@@ -1,11 +1,10 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Helpers;
+﻿namespace DistribuTe.Framework.ApiEssentials.Identities;
 
 using System.Security.Claims;
-using Application.Shared;
-using Helpers.Swagger;
+using AppEssentials;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+using Swagger;
 
 public class RequestContext(IHttpContextAccessor accessor) : IRequestContext
 {

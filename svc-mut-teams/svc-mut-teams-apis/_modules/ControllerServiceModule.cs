@@ -9,7 +9,6 @@ using Application.SquadAssociates.DataContracts;
 using Application.Squads.DataContracts;
 using Framework.ModuleZ.Implementations;
 using Framework.OData;
-using Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +40,7 @@ internal class ControllerServiceModule : DependencyServiceModule
             {
                 // clear default model validation - handle this in application layer
                 config.ModelValidatorProviders.Clear();
-            }).AddApplicationPart(typeof(RequestContext).Assembly)
+            }).AddApplicationPart(typeof(ControllerServiceModule).Assembly)
             .AddJsonOptions(opt =>
             {
                 // Default enum serialization on return to a string
