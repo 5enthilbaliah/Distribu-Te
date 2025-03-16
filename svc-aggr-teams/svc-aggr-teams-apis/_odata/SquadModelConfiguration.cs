@@ -1,7 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
-using Application.Squads;
+using Application.Squads.DataContracts;
 using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 

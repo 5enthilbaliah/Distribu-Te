@@ -17,9 +17,10 @@ public abstract class WhereClauseMapper<TEntity, TId>
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EndsWithChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> ContainsChecks { get; }
 
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression(IWhereClauseFacade? whereClauseFacade)
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(IWhereClauseFacade<TWhereClause>? whereClauseFacade)
+        where TWhereClause : IWhereClause
     {
-        if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count != 0)
+        if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)
             return null;
         
         var expressions = new List<Expression<Func<TEntity, bool>>>();

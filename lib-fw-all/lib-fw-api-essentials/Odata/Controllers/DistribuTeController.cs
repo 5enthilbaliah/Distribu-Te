@@ -15,9 +15,10 @@ public class DistribuTeController : ControllerBase
         {
             modelStateDict.AddModelError(error.Code, error.Description);
         }
+
         return ValidationProblem(modelStateDict);
     }
-    
+
     private IActionResult Problem(Error error)
     {
         var statusCode = error.Type switch
@@ -30,14 +31,14 @@ public class DistribuTeController : ControllerBase
 
         return Problem(statusCode: statusCode, title: error.Description);
     }
-    
+
     protected IActionResult Problem(List<Error> errors)
     {
         if (errors.Count == 0)
         {
             return Problem();
         }
-        
+
         if (errors.All(error => error.Type == ErrorType.Validation))
         {
             return ValidationProblem(errors);

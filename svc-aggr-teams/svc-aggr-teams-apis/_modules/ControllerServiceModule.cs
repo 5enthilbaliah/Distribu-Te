@@ -4,11 +4,13 @@ namespace DistribuTe.Aggregates.Teams.Apis.Modules;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Application.Associates;
+using Application.Associates.DataContracts;
 using Application.Base;
-using Application.SquadAssociates;
-using Application.Squads;
+using Application.SquadAssociates.DataContracts;
+using Application.Squads.DataContracts;
 using Framework.ApiEssentials.Odata;
+using Framework.ApiEssentials.Odata.Implementations;
+using Framework.AppEssentials.Implementations;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
@@ -71,5 +73,9 @@ public class ControllerServiceModule : DependencyServiceModule
                     .AddRouteComponents("protected", GetEdmModel())
                     .AddRouteComponents("protected/aggregates", GetAggregateEdmModel());
             });
+        
+        services.AddTransient(_ => new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<AssociateModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<AssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
     }
 }

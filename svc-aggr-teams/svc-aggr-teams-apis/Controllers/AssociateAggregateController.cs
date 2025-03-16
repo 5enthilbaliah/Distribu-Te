@@ -1,11 +1,12 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Apis.Controllers;
 
 using Application.Associates;
-using Application.Shared;
+using Application.Associates.DataContracts;
 using Asp.Versioning;
+using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
 using Framework.ApiEssentials.Odata.Implementations;
-using Framework.AppEssentials;
+using Framework.AppEssentials.Implementations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -13,21 +14,27 @@ using Microsoft.AspNetCore.OData.Query;
 [Route("protected/aggregates/associates")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class AssociateAggregateController(IMediator mediator) : DistribuTeController
+public class AssociateAggregateController(ISender sender, OdataFilterVisitor<WhereClauseItem> visitor,
+    IOdataNavigator<AssociateModel, WhereClauseItem> navigator) : 
+    DistribuTeAggregateController<AssociateModel>(visitor, navigator)
 {
-    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
 
     [HttpGet]
     [Route("")]
-    public async Task<IEnumerable<AssociateModel>> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
+    [EnableQuery()]
+    public async Task<IActionResult> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
-
-        var visitor = new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne);
-        queryOptions.Filter.FilterClause.Expression.Accept(visitor);
-        var facade = new WhereClauseFacade(visitor.FilterOptions
-            .Select(IWhereClause (x) => x).ToList());
-        await Task.CompletedTask;
-        return new List<AssociateModel>();
+        var facade = GenerateWhereClauseFacadeFrom(queryOptions);
+        var result = await _sender.Send(new SearchAssociatesQuery
+        {
+            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!
+        }, cancellationToken);
+        
+        return result.Match(
+            Ok,
+            Problem
+        );
     }
 }

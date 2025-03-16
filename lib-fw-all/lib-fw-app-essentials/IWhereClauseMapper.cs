@@ -7,7 +7,8 @@ public interface IWhereClauseMapper<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {
-    Expression<Func<TEntity, bool>>? MapAsSearchExpression(IWhereClauseFacade? whereClauseFacade);
+    Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(IWhereClauseFacade<TWhereClause>? whereClauseFacade)
+        where TWhereClause : IWhereClause;
     
     Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EqualityChecks { get; }
     Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> GreaterThanChecks { get; }

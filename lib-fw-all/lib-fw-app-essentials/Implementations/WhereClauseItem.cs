@@ -1,8 +1,6 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Aggregates.Teams.Application.Shared;
+﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
 
 using System.Collections.ObjectModel;
-using Framework.AppEssentials;
 
 public class WhereClauseItem : IWhereClause
 {
@@ -39,14 +37,13 @@ public class WhereClauseItem : IWhereClause
     }
 }
 
-public class WhereClauseFacade(IList<IWhereClause> items) : IWhereClauseFacade
+public class WhereClauseFacade(ReadOnlyCollection<WhereClauseItem> whereClauses) : IWhereClauseFacade<WhereClauseItem>
 {
-    public ReadOnlyCollection<IWhereClause> WhereClauses => items.AsReadOnly();
-    public Dictionary<string, ReadOnlyCollection<IWhereClause>> InnerWhereClauses { get; } = new();
+    public ReadOnlyCollection<WhereClauseItem> WhereClauses => whereClauses;
+    public Dictionary<string, ReadOnlyCollection<WhereClauseItem>> InnerWhereClauses { get; } = new();
 
-    public void AddInnerWhereClauses(string projection, ReadOnlyCollection<IWhereClause> clauses)
+    public void AddInnerWhereClauses(string projection, ReadOnlyCollection<WhereClauseItem> clauses)
     {
         InnerWhereClauses.Add(projection, clauses);
     }
 }
-

@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace DistribuTe.Aggregates.Teams.Application.Associates;
+namespace DistribuTe.Aggregates.Teams.Application.Associates.DataContracts;
 
 using Base;
 using Framework.AppEssentials;

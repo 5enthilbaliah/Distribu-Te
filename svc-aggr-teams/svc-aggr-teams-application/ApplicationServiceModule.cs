@@ -1,6 +1,7 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Application;
 
 using System.Reflection;
+using Associates;
 using FluentValidation;
 using Framework.ModuleZ.Implementations;
 using Mapster;
@@ -11,6 +12,10 @@ using Shared;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
+    public ApplicationServiceModule ()
+    {
+        PrependModule<AssociateServiceModule>();
+    }
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {

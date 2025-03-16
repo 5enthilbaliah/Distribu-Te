@@ -10,7 +10,7 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
 {
     private readonly Func<TWhereClause> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
-    public IWhereClauseFacade ApplyNavigations(IWhereClauseFacade facade, ODataQueryOptions<TModel> queryOptions)
+    public IWhereClauseFacade<TWhereClause> ApplyNavigations(IWhereClauseFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions)
     {
         if (queryOptions.SelectExpand is not { SelectExpandClause: not null }
             || !queryOptions.SelectExpand.SelectExpandClause.SelectedItems.Any()) return facade;
@@ -27,8 +27,7 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
             selectedItem.FilterOption.Expression.Accept(visitor);
                 
             facade.AddInnerWhereClauses(selectedItem.NavigationSource.Name.ToLower(),
-                visitor.FilterOptions.Select(x => x as IWhereClause)
-                    .ToList().AsReadOnly());
+                visitor.FilterOptions);
         }
 
         return facade;
