@@ -3,8 +3,15 @@ namespace DistribuTe.Framework.OData.Attributes;
 
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.OData.Common;
+using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing;
+using Microsoft.OData.Edm;
+using Microsoft.OData.UriParser;
 
 public class EnableQueryRestrictedModeAttribute : EnableQueryAttribute
 {
@@ -27,11 +34,25 @@ public class EnableQueryRestrictedModeAttribute : EnableQueryAttribute
         // TODO:: check for override
         MaxTop = 100;
     }
+    
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        base.OnActionExecuting(context);
+    }
 
     protected virtual ODataQueryOptions GenerateNewQueryOptions(ODataQueryOptions queryOptions)
     {
         throw new NotImplementedException("This method is not implemented. Should never be called.");
     }
+    
+    protected override ODataQueryOptions CreateQueryOptionsOnExecuting(ActionExecutingContext actionExecutingContext)
+    {
+        var options = base.CreateQueryOptionsOnExecuting(actionExecutingContext);
+        
+        return options;
+    }
+
+
 
     public override IQueryable ApplyQuery(IQueryable queryable, ODataQueryOptions queryOptions)
     {

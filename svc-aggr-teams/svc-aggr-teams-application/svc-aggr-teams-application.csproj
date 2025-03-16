@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\lib-fw-all\lib-fw-app-essentials\lib-fw-app-essentials.csproj" />
       <ProjectReference Include="..\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj" />
     </ItemGroup>
 

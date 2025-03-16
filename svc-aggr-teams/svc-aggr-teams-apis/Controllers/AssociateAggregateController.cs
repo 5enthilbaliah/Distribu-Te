@@ -1,9 +1,12 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Apis.Controllers;
 
 using Application.Associates;
+using Application.Shared;
 using Asp.Versioning;
+using Framework.ApiEssentials.Odata.Implementations;
 using Framework.OData.Attributes;
 using Framework.OData.Controllers;
+using Framework.OData.Implementations;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +14,6 @@ using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
 
 public class EnableQueryRestrictedModeAttribute<T> : EnableQueryRestrictedModeAttribute 
-    where T : ControllerBase
 {
     protected override ODataQueryOptions GenerateNewQueryOptions(ODataQueryOptions queryOptions)
     {
@@ -37,13 +39,14 @@ public class AssociateAggregateController(IMediator mediator) : DistribuTeContro
 
     [HttpGet]
     [Route("")]
-    [EnableQueryRestrictedMode<AssociateAggregateController>()]
-    public async Task<IActionResult> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
+    //[EnableQueryRestrictedMode<AssociateModel>()]
+    public async Task<IEnumerable<AssociateModel>> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
 
-
+        var visitor = new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne);
+        queryOptions.Filter.FilterClause.Expression.Accept(visitor);
         await Task.CompletedTask;
-        return Ok(new List<AssociateModel>());
+        return new List<AssociateModel>();
     }
 }
