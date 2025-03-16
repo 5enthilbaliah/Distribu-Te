@@ -5,7 +5,7 @@ using AppEssentials;
 using Microsoft.OData.UriParser;
 
 public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
-    where T : IWhereClauseItem
+    where T : IWhereClauseSettable
 {
     private readonly Func<T> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     

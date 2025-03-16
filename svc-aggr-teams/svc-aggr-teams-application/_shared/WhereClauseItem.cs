@@ -1,22 +1,18 @@
-﻿namespace DistribuTe.Aggregates.Teams.Application.Shared;
+﻿// ReSharper disable once CheckNamespace
+namespace DistribuTe.Aggregates.Teams.Application.Shared;
 
 using System.Collections.ObjectModel;
 using Framework.AppEssentials;
 
-public class WhereClauseGenerator<T>
-    where T : IWhereClauseItem, new()
-{
-    public static T SpawnOne() => new T();
-}
-
-public class WhereClauseItem : IWhereClauseItem
+public class WhereClauseItem : IWhereClauseGettable, IWhereClauseSettable
 {
     public string? FieldName { get; private set; } 
     public Operators? Operator { get; private set; }
     public string? Value { get; private set; }
+    
     public void SetFieldName(string fieldName)
     {
-        FieldName = fieldName;
+        FieldName = fieldName.ToLower();
     }
 
     public void SetOperator(string op)
@@ -41,4 +37,9 @@ public class WhereClauseItem : IWhereClauseItem
     {
         Value = value.Trim(['\'']);
     }
+}
+
+public class WhereClauseFacade(IList<IWhereClauseGettable> items) : IWhereClauseFacade
+{
+    public ReadOnlyCollection<IWhereClauseGettable> WhereClauses => items.AsReadOnly();
 }

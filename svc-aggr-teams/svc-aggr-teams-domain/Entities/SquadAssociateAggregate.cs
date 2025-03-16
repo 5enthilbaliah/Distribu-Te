@@ -1,6 +1,7 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Domain.Entities;
 
 using DistribuTe.Domain.TeamEntities;
+using Framework.DomainEssentials;
 
 public record SquadAssociateId(SquadId SquadId, AssociateId AssociateId);
 

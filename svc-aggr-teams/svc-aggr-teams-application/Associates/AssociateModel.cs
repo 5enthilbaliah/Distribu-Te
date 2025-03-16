@@ -2,8 +2,9 @@
 namespace DistribuTe.Aggregates.Teams.Application.Associates;
 
 using Base;
+using Framework.AppEssentials;
 
-public class AssociateModel
+public class AssociateModel : IModel
 {
     public int Id { get; set; }
     public string First_Name { get; set; } = null!;
@@ -13,4 +14,6 @@ public class AssociateModel
     public string Email_Id { get; set; } = null!;
     
     public IList<SquadAssociateElement>? Squad_Associates { get; set; }
+
+    public string ModelIdentifier => $"{Id}";
 }

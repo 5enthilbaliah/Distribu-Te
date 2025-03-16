@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Aggregates.Teams.Domain;
+﻿namespace DistribuTe.Framework.DomainEssentials;
 
 public interface IEntity<TId>
     where TId : class

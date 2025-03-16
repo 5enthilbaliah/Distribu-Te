@@ -12,4 +12,8 @@
       <PackageReference Include="FluentValidation" Version="11.11.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\lib-fw-domain-essentials\lib-fw-domain-essentials.csproj" />
+    </ItemGroup>
+
 </Project>

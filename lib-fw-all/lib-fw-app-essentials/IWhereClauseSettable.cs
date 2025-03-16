@@ -1,5 +1,7 @@
 ﻿namespace DistribuTe.Framework.AppEssentials;
 
+using System.Collections.ObjectModel;
+
 public enum Operators
 {
     EqualTo,
@@ -13,13 +15,21 @@ public enum Operators
     Contains
 }
 
-public interface IWhereClauseItem
+public interface IWhereClauseSettable
 {
-    string? FieldName { get; }
-    Operators? Operator { get; }
-    string? Value { get; }
-
     void SetFieldName(string fieldName);
     void SetOperator(string op);
     void SetValue(string value);
+}
+
+public interface IWhereClauseGettable
+{
+    string? FieldName { get; } 
+    Operators? Operator { get; }
+    string? Value { get; }
+}
+
+public interface IWhereClauseFacade
+{
+    ReadOnlyCollection<IWhereClauseGettable> WhereClauses { get; }
 }
