@@ -5,12 +5,12 @@ using AppEssentials;
 using Microsoft.OData.UriParser;
 
 public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
-    where T : IWhereClauseSettable
+    where T : IWhereClause
 {
     private readonly Func<T> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
     private T _current = generator();
-    private List<T> _filterOptions = [];
+    private readonly List<T> _filterOptions = [];
 
     public ReadOnlyCollection<T> FilterOptions => _filterOptions.AsReadOnly();
 

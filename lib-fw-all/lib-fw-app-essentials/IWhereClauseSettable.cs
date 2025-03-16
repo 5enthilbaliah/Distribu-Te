@@ -15,21 +15,21 @@ public enum Operators
     Contains
 }
 
-public interface IWhereClauseSettable
+public interface IWhereClause
 {
+    string? FieldName { get; } 
+    Operators? Operator { get; }
+    string? Value { get; }
+    
     void SetFieldName(string fieldName);
     void SetOperator(string op);
     void SetValue(string value);
 }
 
-public interface IWhereClauseGettable
-{
-    string? FieldName { get; } 
-    Operators? Operator { get; }
-    string? Value { get; }
-}
-
 public interface IWhereClauseFacade
 {
-    ReadOnlyCollection<IWhereClauseGettable> WhereClauses { get; }
+    ReadOnlyCollection<IWhereClause> WhereClauses { get; }
+    Dictionary<string, ReadOnlyCollection<IWhereClause>> InnerWhereClauses { get; }
+    
+    void AddInnerWhereClauses(string projection, ReadOnlyCollection<IWhereClause> clauses);
 }

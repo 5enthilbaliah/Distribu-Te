@@ -2,7 +2,7 @@
 namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
 using Application.SquadAssociates;
-using Framework.OData;
+using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 
 public class SquadAssociateModelConfiguration : OdataResponseConfiguration<SquadAssociateModel>
@@ -25,9 +25,9 @@ public class SquadAssociateModelConfiguration : OdataResponseConfiguration<Squad
         typeConfiguration.Property(a => a.Capacity)
             .Name = "capacity";
         
-        // typeConfiguration.HasOptional(x => x.Squad)
-        //     .Name = "squad";
-        // typeConfiguration.HasOptional(x => x.Associate)
-        //     .Name = "associate";
+        typeConfiguration.HasOptional(x => x.Squad)
+            .Name = "squad";
+        typeConfiguration.HasOptional(x => x.Associate)
+            .Name = "associate";
     }
 }

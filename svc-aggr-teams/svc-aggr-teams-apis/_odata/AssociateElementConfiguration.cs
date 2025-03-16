@@ -2,7 +2,7 @@
 namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
 using Application.Base;
-using Framework.OData;
+using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 
 public class AssociateElementConfiguration : OdataResponseConfiguration<AssociateElement>

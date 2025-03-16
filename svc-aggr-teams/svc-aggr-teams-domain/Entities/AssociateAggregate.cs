@@ -3,7 +3,28 @@
 using DistribuTe.Domain.TeamEntities;
 using Framework.DomainEssentials;
 
-public record AssociateId(int Value);
+public record AssociateId(int Value)
+{
+    public static bool operator>(AssociateId a, AssociateId b)
+    {
+        return a.Value > b.Value;
+    }
+    
+    public static bool operator<(AssociateId a, AssociateId b)
+    {
+        return a.Value < b.Value;
+    }
+    
+    public static bool operator>=(AssociateId a, AssociateId b)
+    {
+        return a.Value >= b.Value;
+    }
+    
+    public static bool operator<=(AssociateId a, AssociateId b)
+    {
+        return a.Value <= b.Value;
+    }
+}
 
 public class AssociateAggregate : BaseAssociate, IEntity<AssociateId>
 {

@@ -2,7 +2,7 @@
 namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
 using Application.Squads;
-using Framework.OData;
+using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 
 public class SquadModelConfiguration : OdataResponseConfiguration<SquadModel>

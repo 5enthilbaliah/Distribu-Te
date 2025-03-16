@@ -7,7 +7,7 @@ public abstract class WhereClauseMapper<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {
-    protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EqualityChecks { get; }
+    protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EqualChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> GreaterThanChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> GreaterThanEqualChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> LesserThanChecks { get; }
@@ -29,7 +29,7 @@ public abstract class WhereClauseMapper<TEntity, TId>
             switch (whereClause.Operator)
             {
                 case Operators.EqualTo:
-                    expressions.Add(EqualityChecks[whereClause.FieldName!](whereClause.Value!));
+                    expressions.Add(EqualChecks[whereClause.FieldName!](whereClause.Value!));
                     break;
                 case Operators.NotEqualTo:
                     expressions.Add(NotEqualChecks[whereClause.FieldName!](whereClause.Value!));

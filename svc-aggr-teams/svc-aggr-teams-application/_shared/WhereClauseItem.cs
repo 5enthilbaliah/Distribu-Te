@@ -4,7 +4,7 @@ namespace DistribuTe.Aggregates.Teams.Application.Shared;
 using System.Collections.ObjectModel;
 using Framework.AppEssentials;
 
-public class WhereClauseItem : IWhereClauseGettable, IWhereClauseSettable
+public class WhereClauseItem : IWhereClause
 {
     public string? FieldName { get; private set; } 
     public Operators? Operator { get; private set; }
@@ -39,7 +39,14 @@ public class WhereClauseItem : IWhereClauseGettable, IWhereClauseSettable
     }
 }
 
-public class WhereClauseFacade(IList<IWhereClauseGettable> items) : IWhereClauseFacade
+public class WhereClauseFacade(IList<IWhereClause> items) : IWhereClauseFacade
 {
-    public ReadOnlyCollection<IWhereClauseGettable> WhereClauses => items.AsReadOnly();
+    public ReadOnlyCollection<IWhereClause> WhereClauses => items.AsReadOnly();
+    public Dictionary<string, ReadOnlyCollection<IWhereClause>> InnerWhereClauses { get; } = new();
+
+    public void AddInnerWhereClauses(string projection, ReadOnlyCollection<IWhereClause> clauses)
+    {
+        InnerWhereClauses.Add(projection, clauses);
+    }
 }
+
