@@ -9,12 +9,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shared;
+using SquadAssociates;
+using Squads;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
     public ApplicationServiceModule ()
     {
         PrependModule<AssociateServiceModule>();
+        PrependModule<SquadAssociateServiceModule>();
+        PrependModule<SquadServiceModule>();
     }
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
