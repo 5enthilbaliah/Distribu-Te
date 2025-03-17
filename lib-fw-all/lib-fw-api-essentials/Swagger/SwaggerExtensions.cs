@@ -47,7 +47,9 @@ public static class SwaggerExtensions
     }
 
     public static void ConfigureSwagger(this IServiceCollection services, IWebHostEnvironment environment, 
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         IConfiguration configuration, string title = "DistribuTe api", string version = "v1", string docPathPattern = null)
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     {
         services.AddEndpointsApiExplorer();
         var svcSettings = new ServiceSettings();

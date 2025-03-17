@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Apis.Controllers;
 
+using System.Net;
 using Application.Associates;
 using Application.Associates.DataContracts;
 using Asp.Versioning;
@@ -22,14 +23,33 @@ public class AssociateAggregateController(ISender sender, OdataFilterVisitor<Whe
 
     [HttpGet]
     [Route("")]
+    [ProducesResponseType(typeof(IList<AssociateModel>), (int)HttpStatusCode.OK)]
     [EnableQuery()]
     public async Task<IActionResult> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
-        var facade = GenerateWhereClauseFacadeFrom(queryOptions);
-        var result = await _sender.Send(new SearchAssociatesQuery
+        var result = await _sender.Send(new YieldAssociatesQuery
         {
             WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!
+        }, cancellationToken);
+        
+        return result.Match(
+            Ok,
+            Problem
+        );
+    }
+
+    [Route("{id:int}")]
+    [HttpGet]
+    [ProducesResponseType(typeof(AssociateModel), (int)HttpStatusCode.OK)]
+    [EnableQuery()]
+    public async Task<IActionResult> GetByIdAsync(int id, ODataQueryOptions<AssociateModel> queryOptions,
+        CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(new PickAssociateQuery
+        {
+            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!,
+            Id = id
         }, cancellationToken);
         
         return result.Match(

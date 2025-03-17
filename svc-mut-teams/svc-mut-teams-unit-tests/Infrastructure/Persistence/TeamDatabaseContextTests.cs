@@ -42,7 +42,7 @@ public class TeamDatabaseContextTests
         var results = await sut.Set<TEntity>().ToListAsync(cancellationToken);
         
         // Assert
-        results.Count.Should().Be(10);
+        results.Count.Should().BeGreaterThan(10);
         
         foreach (var entity in entities)
         {

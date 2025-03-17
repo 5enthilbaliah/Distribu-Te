@@ -2,7 +2,7 @@
 namespace DistribuTe.Mutators.Teams.Apis.Odata;
 
 using Application.Associates.DataContracts;
-using Framework.OData;
+using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 
 public class AssociateResponseConfiguration : OdataResponseConfiguration<AssociateResponse>

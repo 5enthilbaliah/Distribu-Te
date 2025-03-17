@@ -65,13 +65,15 @@ use case management
 
 ## lib-fw-modulez
 
-## lib-fw-odata
-
 ## lib-fw-app-essentials
 
+## lib-fw-api-essentials
+
+## lib-fw-domain-essentials
+
 ## svc-mut-teams
-- Generic repository pattern
-- Odata implemented
-- snake case 
+
+## svc-aggr-teams
+
 
 All libraries would go into the nuget package repository

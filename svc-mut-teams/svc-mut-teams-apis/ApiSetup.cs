@@ -1,9 +1,9 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis;
 
 using Framework.ApiEssentials.Auth;
+using Framework.ApiEssentials.Odata.ErrorHandling;
 using Framework.ApiEssentials.Swagger;
 using Framework.ModuleZ;
-using Framework.OData.ErrorHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

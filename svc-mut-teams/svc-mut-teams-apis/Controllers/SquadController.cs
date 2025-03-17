@@ -1,11 +1,10 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers;
 
 using System.Net;
-using ErrorOr;
 using Application.Squads;
 using Application.Squads.DataContracts;
 using Asp.Versioning;
-using Framework.OData.Controllers;
+using Framework.ApiEssentials.Odata.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;

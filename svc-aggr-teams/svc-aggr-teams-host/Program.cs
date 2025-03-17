@@ -2,8 +2,8 @@ using DistribuTe.Aggregates.Teams.Apis;
 using DistribuTe.Aggregates.Teams.Application;
 using DistribuTe.Aggregates.Teams.Domain;
 using DistribuTe.Aggregates.Teams.Infrastructure;
+using DistribuTe.Framework.ApiEssentials.Odata.ErrorHandling;
 using DistribuTe.Framework.ModuleZ;
-using DistribuTe.Framework.OData.ErrorHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;

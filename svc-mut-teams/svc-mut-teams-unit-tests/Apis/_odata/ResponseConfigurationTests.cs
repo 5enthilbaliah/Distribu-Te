@@ -2,7 +2,7 @@
 namespace DistribuTe.Mutators.Teams.UnitTests.Apis.Odata;
 
 using FluentAssertions;
-using Framework.OData;
+using Framework.ApiEssentials.Odata;
 using Microsoft.OData.ModelBuilder;
 using Teams.Apis.Odata;
 using Teams.Application.Associates.DataContracts;

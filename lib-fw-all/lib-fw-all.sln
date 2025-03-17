@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-workflowz", "lib-fw-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "lib-fw-modulez\lib-fw-modulez.csproj", "{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-odata", "lib-fw-odata\lib-fw-odata.csproj", "{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "lib-fw-app-essentials\lib-fw-app-essentials.csproj", "{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-test-essentials", "lib-fw-test-essentials\lib-fw-test-essentials.csproj", "{7BE3D837-E974-4D9C-B822-F0FB0B51F093}"
@@ -28,10 +26,6 @@ Global
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C4A6F5B-F770-46E1-95B9-4D293C49C88D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU

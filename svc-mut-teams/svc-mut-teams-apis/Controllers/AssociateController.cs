@@ -4,7 +4,7 @@ using System.Net;
 using Application.Associates;
 using Application.Associates.DataContracts;
 using Asp.Versioning;
-using Framework.OData.Controllers;
+using Framework.ApiEssentials.Odata.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
