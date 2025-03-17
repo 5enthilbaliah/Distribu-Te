@@ -1,6 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application;
 
-using Domain;
+using Framework.DomainEssentials;
 
 public interface ITeamsMutator<TEntity, TId>
     where TEntity : class, IEntity<TId>

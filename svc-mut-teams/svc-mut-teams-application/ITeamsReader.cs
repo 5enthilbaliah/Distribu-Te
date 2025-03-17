@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application;
 
 using System.Linq.Expressions;
-using Domain;
+using Framework.DomainEssentials;
 
 public interface ITeamsReader<TEntity, TId> 
     where TEntity : class, IEntity<TId>

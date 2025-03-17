@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Domain;
+﻿namespace DistribuTe.Framework.DomainEssentials;
 
 public interface IAuditableEntity
 {

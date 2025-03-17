@@ -2,7 +2,7 @@
 
 using System.Linq.Expressions;
 using Application;
-using Domain;
+using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 
 internal abstract class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) : 

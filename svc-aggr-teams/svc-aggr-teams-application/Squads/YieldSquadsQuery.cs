@@ -1,11 +1,11 @@
-﻿namespace DistribuTe.Aggregates.Teams.Application.Associates;
+namespace DistribuTe.Aggregates.Teams.Application.Squads;
 
 using DataContracts;
 using ErrorOr;
 using Framework.AppEssentials.Implementations;
 using MediatR;
 
-public class YieldAssociatesQuery : IRequest<ErrorOr<IList<AssociateModel>>>
+public class YieldSquadsQuery : IRequest<ErrorOr<IList<SquadModel>>>
 {
     public WhereClauseFacade WhereClauseFacade { get; init; } = null!;
     public int Skip { get; set; } = 0;

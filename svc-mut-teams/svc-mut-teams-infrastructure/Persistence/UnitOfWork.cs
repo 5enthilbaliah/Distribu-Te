@@ -2,7 +2,7 @@
 
 using Application;
 using Application.Shared;
-using Domain;
+using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 
 public class UnitOfWork(TeamDatabaseContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork

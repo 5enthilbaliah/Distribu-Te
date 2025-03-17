@@ -2,7 +2,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Application.Shared;
-using Domain;
+using Framework.DomainEssentials;
 
 [ExcludeFromCodeCoverage]
 public class ExistingEntityMarker<TEntity, TId> : IExistingEntityMarker<TEntity, TId>

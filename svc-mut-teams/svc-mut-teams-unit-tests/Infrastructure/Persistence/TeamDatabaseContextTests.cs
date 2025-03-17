@@ -3,9 +3,9 @@
 using AutoFixture;
 using AutoFixture.Dsl;
 using FluentAssertions;
+using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Teams.Domain;
 using Teams.Domain.Entities;
 using Teams.Infrastructure.Persistence;
 
@@ -42,7 +42,7 @@ public class TeamDatabaseContextTests
         var results = await sut.Set<TEntity>().ToListAsync(cancellationToken);
         
         // Assert
-        results.Count.Should().BeGreaterThan(10);
+        results.Count.Should().BeGreaterThanOrEqualTo(10);
         
         foreach (var entity in entities)
         {

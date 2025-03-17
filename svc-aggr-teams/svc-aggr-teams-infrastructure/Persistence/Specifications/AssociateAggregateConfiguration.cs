@@ -24,10 +24,5 @@ public class AssociateAggregateConfiguration : IEntityTypeConfiguration<Associat
         
         var configuration = new BaseAssociateConfiguration<AssociateAggregate>();
         configuration.Configure(builder);
-        
-        builder.HasMany(a => a.SquadAssociates)
-            .WithOne(a => a.Associate)
-            .HasForeignKey(a => a.AssociateId)
-            .HasPrincipalKey(a => a.Id);
     }
 }
