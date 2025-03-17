@@ -13,7 +13,8 @@ public class SquadMapperConfig : IRegister
             .Map(dest => dest.Id, src => src.Id.Value)
             .Map(dest => dest.Name, src => src.Name)
             .Map(dest => dest.Code, src => src.Code)
-            .Map(dest => dest.Description, src => src.Description);
+            .Map(dest => dest.Description, src => src.Description)
+            .Map(dest => dest.Squad_Associates, src => src.SquadAssociates);
         
         config.NewConfig<SquadAggregate, SquadElement>()
             .Map(dest => dest.Id, src => src.Id.Value)

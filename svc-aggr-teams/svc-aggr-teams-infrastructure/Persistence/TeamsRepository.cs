@@ -13,24 +13,28 @@ public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) :
 {
     protected readonly TeamDatabaseContext DbContext = context ?? throw new ArgumentNullException(nameof(context));
     
-    public virtual async Task<TEntity?> PickAsync(TId id, Action<IQueryable<TEntity>>? expander = null, 
+    public virtual async Task<TEntity?> PickAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, 
         CancellationToken cancellationToken = default)
     {
-        return await DbContext.Set<TEntity>()
+        var queryable = DbContext.Set<TEntity>().AsQueryable();
+        if (expander != null)
+            queryable = expander(queryable);
+        
+        return await queryable
             .SingleOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
     public async Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter = null, int skip = 0, int take = 500,
-        Action<IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default)
+        Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default)
     {
         var queryable = DbContext.Set<TEntity>().AsQueryable();
         if (expander != null)
-            expander(queryable);
+            queryable = expander(queryable);
         
         if (filter != null)
-            queryable.Where(filter);
-        queryable.Skip(skip);
-        queryable.Take(take);
+            queryable = queryable.Where(filter);
+        queryable = queryable.Skip(skip);
+        queryable = queryable.Take(take);
         
         return await queryable.ToListAsync(cancellationToken);
     }

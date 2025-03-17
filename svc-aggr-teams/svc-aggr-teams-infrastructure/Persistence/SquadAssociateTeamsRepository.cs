@@ -9,9 +9,13 @@ internal sealed class SquadAssociateTeamsRepository(TeamDatabaseContext context)
 {
     [ExcludeFromCodeCoverage]
     public override async Task<SquadAssociateAggregate?> PickAsync(SquadAssociateId id,
-        Action<IQueryable<SquadAssociateAggregate>>? expander = null, CancellationToken cancellationToken = default)
+        Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>>? expander = null, CancellationToken cancellationToken = default)
     {
-        return await DbContext.SquadAssociates
+        var queryable = DbContext.Set<SquadAssociateAggregate>().AsQueryable();
+        if (expander != null)
+            queryable = expander(queryable);
+        
+        return await queryable
             .SingleOrDefaultAsync(x => x.SquadId == id.SquadId && x.AssociateId == id.AssociateId, 
                 cancellationToken: cancellationToken);
     }

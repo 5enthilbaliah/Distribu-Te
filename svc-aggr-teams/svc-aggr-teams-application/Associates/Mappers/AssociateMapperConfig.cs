@@ -15,7 +15,8 @@ public class AssociateMapperConfig : IRegister
             .Map(dest => dest.Last_Name, src => src.LastName)
             .Map(dest => dest.Middle_Name, src => src.MiddleName)
             .Map(dest => dest.Gender, src => src.Gender)
-            .Map(dest => dest.Email_Id, src => src.EmailId);
+            .Map(dest => dest.Email_Id, src => src.EmailId)
+            .Map(dest => dest.Squad_Associates, src => src.SquadAssociates);
         
         config.NewConfig<AssociateAggregate, AssociateElement>()
             .Map(dest => dest.Id, src => src.Id.Value)

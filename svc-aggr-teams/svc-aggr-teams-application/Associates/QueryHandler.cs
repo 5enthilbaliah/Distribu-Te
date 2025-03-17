@@ -30,25 +30,23 @@ public class QueryHandler(
         CancellationToken cancellationToken)
     {
         var expression = _baseMapper.MapAsSearchExpression(request.WhereClauseFacade);
-        Action<IQueryable<AssociateAggregate>>? expander = null;
+        Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? expander = null;
         
         if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
         {
             expander = (queryable) =>
             {
                 if (!request.WhereClauseFacade.InnerWhereClauses.TryGetValue("squad_associates", out var clause))
-                    return;
+                    return queryable;
                 
                 var squadAssociateExpr = _squadSubMapper.MapAsSearchExpression(clause);
                 if (squadAssociateExpr != null)
                 {
-                    queryable.Include(a => 
+                    return queryable.Include(a => 
                         a.SquadAssociates.AsQueryable().Where(squadAssociateExpr));
                 }
-                else
-                {
-                    queryable.Include(a => a.SquadAssociates);
-                }
+                
+                return queryable.Include(a => a.SquadAssociates);
             };
         }
         
