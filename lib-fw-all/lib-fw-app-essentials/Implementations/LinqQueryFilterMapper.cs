@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using DomainEssentials;
 
-public abstract class WhereClauseMapper<TEntity, TId>
+public abstract class LinqQueryFilterMapper<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {

@@ -6,7 +6,7 @@ using Domain.Entities;
 using Framework.AppEssentials;
 using Framework.AppEssentials.Implementations;
 
-public class SquadWhereClauseMapper : WhereClauseMapper<SquadAggregate, SquadId>
+public class SquadLinqQueryFilterMapper : LinqQueryFilterMapper<SquadAggregate, SquadId>
 {
     private const string ID = "id";
     private const string NAME = "name";

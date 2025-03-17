@@ -12,6 +12,6 @@ public class AssociateServiceModule : DependencyServiceModule
 {
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, IConfiguration configuration)
     {
-        services.AddScoped<WhereClauseMapper<AssociateAggregate, AssociateId>, AssociateWhereClauseMapper>();
+        services.AddScoped<LinqQueryFilterMapper<AssociateAggregate, AssociateId>, AssociateLinqQueryFilterMapper>();
     }
 }

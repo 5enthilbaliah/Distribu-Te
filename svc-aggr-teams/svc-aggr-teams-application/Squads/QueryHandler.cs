@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 public class QueryHandler(
     ITeamsReader<SquadAggregate, SquadId> reader,
-    WhereClauseMapper<SquadAggregate, SquadId> baseMapper,
-    WhereClauseMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
+    LinqQueryFilterMapper<SquadAggregate, SquadId> baseMapper,
+    LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
     IMapper mapper) :
     IRequestHandler<YieldSquadsQuery, ErrorOr<IList<SquadModel>>>,
     IRequestHandler<PickSquadQuery, ErrorOr<SquadModel>>
@@ -20,10 +20,10 @@ public class QueryHandler(
     private readonly ITeamsReader<SquadAggregate, SquadId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
 
-    private readonly WhereClauseMapper<SquadAggregate, SquadId> _baseMapper =
+    private readonly LinqQueryFilterMapper<SquadAggregate, SquadId> _baseMapper =
         baseMapper ?? throw new ArgumentNullException(nameof(baseMapper));
 
-    private readonly WhereClauseMapper<SquadAssociateAggregate, SquadAssociateId> _squadSubMapper =
+    private readonly LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId> _squadSubMapper =
         squadSubMapper ?? throw new ArgumentNullException(nameof(squadSubMapper));
 
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

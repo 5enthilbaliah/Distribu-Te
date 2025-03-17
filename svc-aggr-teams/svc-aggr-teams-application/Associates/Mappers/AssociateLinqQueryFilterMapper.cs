@@ -6,7 +6,7 @@ using Domain.Entities;
 using Framework.AppEssentials;
 using Framework.AppEssentials.Implementations;
 
-public class AssociateWhereClauseMapper : WhereClauseMapper<AssociateAggregate, AssociateId>
+public class AssociateLinqQueryFilterMapper : LinqQueryFilterMapper<AssociateAggregate, AssociateId>
 {
     private const string ID = "id";
     private const string FIRST_NAME = "first_name";
