@@ -28,7 +28,7 @@ public class QueryHandler(
 
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
-    private Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>> FindExpander(WhereClauseFacade facade)
+    private Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>> FindExpander(LinqQueryFacade facade)
     {
         return (queryable) =>
         {
@@ -49,15 +49,17 @@ public class QueryHandler(
     public async Task<ErrorOr<IList<AssociateModel>>> Handle(YieldAssociatesQuery request,
         CancellationToken cancellationToken)
     {
-        var expression = _baseMapper.MapAsSearchExpression(request.WhereClauseFacade);
+        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
         Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? expander = null;
         
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
-        
-        var entities = await _reader.YieldAsync(expression, expander: expander, 
+
+        var skip = request.LinqQueryFacade.Skip;
+        var take = request.LinqQueryFacade.Top;
+        var entities = await _reader.YieldAsync(expression, skip, take, expander: expander, 
             cancellationToken: cancellationToken);
         
         return _mapper.Map<List<AssociateModel>>(entities);
@@ -66,9 +68,9 @@ public class QueryHandler(
     public async Task<ErrorOr<AssociateModel>> Handle(PickAssociateQuery request, CancellationToken cancellationToken)
     {
         Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? expander = null;
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
         
         var entity = await _reader.PickAsync(new AssociateId(request.Id), expander: expander,

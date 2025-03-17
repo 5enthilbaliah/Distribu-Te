@@ -24,7 +24,7 @@ public class QueryHandler(
 
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     
-    private Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>> FindExpander(WhereClauseFacade facade)
+    private Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>> FindExpander(LinqQueryFacade facade)
     {
         return (queryable) =>
         {
@@ -44,15 +44,17 @@ public class QueryHandler(
     
     public async Task<ErrorOr<IList<SquadAssociateModel>>> Handle(YieldSquadAssociatesQuery request, CancellationToken cancellationToken)
     {
-        var expression = _baseMapper.MapAsSearchExpression(request.WhereClauseFacade);
+        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
         Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>>? expander = null;
         
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
         
-        var entities = await _reader.YieldAsync(expression, expander: expander, 
+        var skip = request.LinqQueryFacade.Skip;
+        var take = request.LinqQueryFacade.Top;
+        var entities = await _reader.YieldAsync(expression, skip, take, expander: expander, 
             cancellationToken: cancellationToken);
         
         return _mapper.Map<List<SquadAssociateModel>>(entities);
@@ -61,9 +63,9 @@ public class QueryHandler(
     public async Task<ErrorOr<SquadAssociateModel>> Handle(PickSquadAssociateQuery request, CancellationToken cancellationToken)
     {
         Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>>? expander = null;
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
         
         var squadId = new SquadId(request.SquadId);

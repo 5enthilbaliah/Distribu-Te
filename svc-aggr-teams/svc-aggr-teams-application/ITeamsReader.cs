@@ -9,7 +9,7 @@ public interface ITeamsReader<TEntity, TId>
 {
     Task<TEntity?> PickAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, 
         CancellationToken cancellationToken = default);
-    Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter = null, int skip = 0, int take = 500, 
+    Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter, int skip, int take, 
         Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default);
     Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default);
     Task<long> CountAsync(Expression<Func<TEntity, bool>>? filter, CancellationToken cancellationToken = default);

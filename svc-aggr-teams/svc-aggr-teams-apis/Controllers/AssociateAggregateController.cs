@@ -30,7 +30,7 @@ public class AssociateAggregateController(ISender sender, OdataFilterVisitor<Whe
     {
         var result = await _sender.Send(new YieldAssociatesQuery
         {
-            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!
+            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!
         }, cancellationToken);
         
         return result.Match(
@@ -48,7 +48,7 @@ public class AssociateAggregateController(ISender sender, OdataFilterVisitor<Whe
     {
         var result = await _sender.Send(new PickAssociateQuery
         {
-            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!,
+            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!,
             Id = id
         }, cancellationToken);
         

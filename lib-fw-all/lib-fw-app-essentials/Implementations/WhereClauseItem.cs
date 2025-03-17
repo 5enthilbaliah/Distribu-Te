@@ -1,7 +1,5 @@
 ﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
 
-using System.Collections.ObjectModel;
-
 public class WhereClauseItem : IWhereClause
 {
     public string? FieldName { get; private set; } 
@@ -34,16 +32,5 @@ public class WhereClauseItem : IWhereClause
     public void SetValue(string value)
     {
         Value = value.Trim(['\'']);
-    }
-}
-
-public class WhereClauseFacade(ReadOnlyCollection<WhereClauseItem> whereClauses) : IWhereClauseFacade<WhereClauseItem>
-{
-    public ReadOnlyCollection<WhereClauseItem> WhereClauses => whereClauses;
-    public Dictionary<string, ReadOnlyCollection<WhereClauseItem>> InnerWhereClauses { get; } = new();
-
-    public void AddInnerWhereClauses(string projection, ReadOnlyCollection<WhereClauseItem> clauses)
-    {
-        InnerWhereClauses.Add(projection, clauses);
     }
 }

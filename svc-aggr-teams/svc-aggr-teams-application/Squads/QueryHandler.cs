@@ -28,7 +28,7 @@ public class QueryHandler(
 
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     
-    private Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>> FindExpander(WhereClauseFacade facade)
+    private Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>> FindExpander(LinqQueryFacade facade)
     {
         return (queryable) =>
         {
@@ -49,15 +49,17 @@ public class QueryHandler(
     
     public async Task<ErrorOr<IList<SquadModel>>> Handle(YieldSquadsQuery request, CancellationToken cancellationToken)
     {
-        var expression = _baseMapper.MapAsSearchExpression(request.WhereClauseFacade);
+        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
         Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>>? expander = null;
         
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
         
-        var entities = await _reader.YieldAsync(expression, expander: expander, 
+        var skip = request.LinqQueryFacade.Skip;
+        var take = request.LinqQueryFacade.Top;
+        var entities = await _reader.YieldAsync(expression, skip, take, expander: expander, 
             cancellationToken: cancellationToken);
         
         return _mapper.Map<List<SquadModel>>(entities);
@@ -66,9 +68,9 @@ public class QueryHandler(
     public async Task<ErrorOr<SquadModel>> Handle(PickSquadQuery request, CancellationToken cancellationToken)
     {
         Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>>? expander = null;
-        if (request.WhereClauseFacade.InnerWhereClauses.Count != 0)
+        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.WhereClauseFacade);
+            expander = FindExpander(request.LinqQueryFacade);
         }
         
         var entity = await _reader.PickAsync(new SquadId(request.Id), expander: expander,

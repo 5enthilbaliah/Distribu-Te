@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata.Controllers;
 
+using System.Collections.ObjectModel;
 using AppEssentials;
 using AppEssentials.Implementations;
 using Implementations;
@@ -17,10 +18,16 @@ public class DistribuTeAggregateController<TModel>(
                                                                            throw new ArgumentNullException(
                                                                                nameof(navigator));
 
-    protected IWhereClauseFacade<WhereClauseItem> GenerateWhereClauseFacadeFrom(ODataQueryOptions<TModel> queryOptions)
+    protected ILinqQueryFacade<WhereClauseItem> GenerateWhereClauseFacadeFrom(ODataQueryOptions<TModel> queryOptions)
     {
+        if (queryOptions.Filter == null)
+        {
+            var emptyFacade = new LinqQueryFacade(new List<WhereClauseItem>().AsReadOnly(), queryOptions.Skip?.Value, queryOptions.Top?.Value);
+            return _navigator.ApplyNavigations(emptyFacade, queryOptions);
+        }
+        
         queryOptions.Filter.FilterClause.Expression.Accept(_visitor);
-        var facade = new WhereClauseFacade(visitor.FilterOptions);
+        var facade = new LinqQueryFacade(visitor.FilterOptions, queryOptions.Skip?.Value, queryOptions.Top?.Value);
         
         return _navigator.ApplyNavigations(facade, queryOptions);
     }

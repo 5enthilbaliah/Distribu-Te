@@ -24,7 +24,7 @@ public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) :
             .SingleOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
-    public async Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter = null, int skip = 0, int take = 500,
+    public async Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter, int skip, int take,
         Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default)
     {
         var queryable = DbContext.Set<TEntity>().AsQueryable();

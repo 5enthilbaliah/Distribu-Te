@@ -9,5 +9,5 @@ public interface IOdataNavigator<TModel, TWhereClause>
     where TModel : IModel, new()
     where TWhereClause : IWhereClause
 {
-    IWhereClauseFacade<TWhereClause> ApplyNavigations(IWhereClauseFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions);
+    ILinqQueryFacade<TWhereClause> ApplyNavigations(ILinqQueryFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions);
 }

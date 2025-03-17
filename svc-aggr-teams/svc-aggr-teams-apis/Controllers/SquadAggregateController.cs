@@ -30,7 +30,7 @@ public class SquadAggregateController(ISender sender, OdataFilterVisitor<WhereCl
     {
         var result = await _sender.Send(new YieldSquadsQuery
         {
-            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!
+            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!
         }, cancellationToken);
         
         return result.Match(
@@ -48,7 +48,7 @@ public class SquadAggregateController(ISender sender, OdataFilterVisitor<WhereCl
     {
         var result = await _sender.Send(new PickSquadQuery
         {
-            WhereClauseFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as WhereClauseFacade)!,
+            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!,
             Id = id
         }, cancellationToken);
         

@@ -11,7 +11,7 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
 {
     private readonly Func<TWhereClause> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
-    public IWhereClauseFacade<TWhereClause> ApplyNavigations(IWhereClauseFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions)
+    public ILinqQueryFacade<TWhereClause> ApplyNavigations(ILinqQueryFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions)
     {
         if (queryOptions.SelectExpand is not { SelectExpandClause: not null }
             || !queryOptions.SelectExpand.SelectExpandClause.SelectedItems.Any()) return facade;

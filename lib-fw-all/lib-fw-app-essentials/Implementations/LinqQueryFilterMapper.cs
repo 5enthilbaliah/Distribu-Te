@@ -63,7 +63,7 @@ public abstract class LinqQueryFilterMapper<TEntity, TId>
         return expressions.Count != 0 ? expressions.AsCombinedExpression() : null;
     }
     
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(IWhereClauseFacade<TWhereClause>? whereClauseFacade)
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(ILinqQueryFacade<TWhereClause>? whereClauseFacade)
         where TWhereClause : IWhereClause
     {
         if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)

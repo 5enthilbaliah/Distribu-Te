@@ -8,5 +8,5 @@ using MediatR;
 public class PickAssociateQuery : IRequest<ErrorOr<AssociateModel>>
 {
     public int Id { get; set; }
-    public WhereClauseFacade WhereClauseFacade { get; init; } = null!;
+    public LinqQueryFacade LinqQueryFacade { get; init; } = null!;
 }

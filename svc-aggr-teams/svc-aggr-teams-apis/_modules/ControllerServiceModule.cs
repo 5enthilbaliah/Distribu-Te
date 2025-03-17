@@ -77,5 +77,9 @@ public class ControllerServiceModule : DependencyServiceModule
         services.AddTransient(_ => new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
         services.AddScoped<IOdataNavigator<AssociateModel, WhereClauseItem>>(_ => 
             new OdataNavigator<AssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<SquadModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadAssociateModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<SquadAssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
     }
 }
