@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
 
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using DomainEssentials;
 
@@ -17,15 +18,12 @@ public abstract class WhereClauseMapper<TEntity, TId>
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EndsWithChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> ContainsChecks { get; }
 
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(IWhereClauseFacade<TWhereClause>? whereClauseFacade)
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(ReadOnlyCollection<TWhereClause> whereClauses) 
         where TWhereClause : IWhereClause
     {
-        if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)
-            return null;
-        
         var expressions = new List<Expression<Func<TEntity, bool>>>();
 
-        foreach (var whereClause in whereClauseFacade.WhereClauses)
+        foreach (var whereClause in whereClauses)
         {
             switch (whereClause.Operator)
             {
@@ -63,5 +61,14 @@ public abstract class WhereClauseMapper<TEntity, TId>
         }
         
         return expressions.Count != 0 ? expressions.AsCombinedExpression() : null;
+    }
+    
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(IWhereClauseFacade<TWhereClause>? whereClauseFacade)
+        where TWhereClause : IWhereClause
+    {
+        if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)
+            return null;
+        
+        return MapAsSearchExpression(whereClauseFacade.WhereClauses);
     }
 }

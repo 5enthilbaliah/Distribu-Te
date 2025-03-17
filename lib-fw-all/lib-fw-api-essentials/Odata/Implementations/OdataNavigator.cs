@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata.Implementations;
 
+using System.Collections.ObjectModel;
 using AppEssentials;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.OData.UriParser;
@@ -18,16 +19,24 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
         var selectExpandClause = queryOptions.SelectExpand.SelectExpandClause;
         var selectedItems = selectExpandClause.SelectedItems
             .OfType<ExpandedNavigationSelectItem>()
-            .Where(x => x.FilterOption != null)
+            //.Where(x => x.FilterOption != null)
             .Where(x => x.NavigationSource != null);
 
         foreach (var selectedItem in selectedItems)
         {
-            var visitor = new OdataFilterVisitor<TWhereClause>(_generator);
-            selectedItem.FilterOption.Expression.Accept(visitor);
+            var navigationSource = selectedItem.NavigationSource.Name.ToLower();
+            if (selectedItem.FilterOption is not null)
+            {
+                var visitor = new OdataFilterVisitor<TWhereClause>(_generator);
+                selectedItem.FilterOption.Expression.Accept(visitor);
                 
-            facade.AddInnerWhereClauses(selectedItem.NavigationSource.Name.ToLower(),
-                visitor.FilterOptions);
+                facade.AddInnerWhereClauses(navigationSource,
+                    visitor.FilterOptions);
+                
+                continue;
+            }
+            
+            facade.AddInnerWhereClauses(navigationSource, new List<TWhereClause>().AsReadOnly());
         }
 
         return facade;

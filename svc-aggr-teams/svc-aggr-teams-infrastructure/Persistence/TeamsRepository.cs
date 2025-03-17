@@ -24,7 +24,9 @@ public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) :
         Action<IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default)
     {
         var queryable = DbContext.Set<TEntity>().AsQueryable();
-        expander?.Invoke(queryable);
+        if (expander != null)
+            expander(queryable);
+        
         if (filter != null)
             queryable.Where(filter);
         queryable.Skip(skip);
