@@ -15,7 +15,7 @@ public class RequestContext(IHttpContextAccessor accessor) : IRequestContext
     public const string DEFAULT_USER_NAME = "Anonymous";
     // ReSharper disable once InconsistentNaming
     public const string HEADER_CORRELATION_ID = CorrelationIdOperationFilter.HEADER_CORRELATION_ID;
-    
+
     public HttpContext Current => _accessor.HttpContext!;
     public ClaimsPrincipal? User => Current?.User;
     public IFeatureCollection? Features => Current?.Features;
@@ -32,5 +32,11 @@ public class RequestContext(IHttpContextAccessor accessor) : IRequestContext
     public TFeature? GetFeature<TFeature>()
     {
         return Features == null ? default : Features.Get<TFeature>();
+    }
+    
+    public void Set<TFeature>(TFeature instance)
+    {
+        if (Features == null) return;
+        Features[typeof(TFeature)] = instance;
     }
 }

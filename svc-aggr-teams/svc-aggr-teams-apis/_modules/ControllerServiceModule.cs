@@ -21,7 +21,7 @@ using Odata;
 [ExcludeFromCodeCoverage]
 public class ControllerServiceModule : DependencyServiceModule
 {
-    static IEdmModel GetAggregateEdmModel()
+    static IEdmModel GetEdmModel()
     {
         var odataBuilder = new ODataConventionModelBuilder();
         odataBuilder.EntitySet<AssociateModel>("associates");
@@ -35,19 +35,6 @@ public class ControllerServiceModule : DependencyServiceModule
         odataBuilder.AddOdataConfigurations<AssociateModelConfiguration, AssociateModel>();
         odataBuilder.AddOdataConfigurations<SquadModelConfiguration, SquadModel>();
         odataBuilder.AddOdataConfigurations<SquadAssociateModelConfiguration, SquadAssociateModel>();
-        return odataBuilder.GetEdmModel();
-    }
-
-    static IEdmModel GetEdmModel()
-    {
-        var odataBuilder = new ODataConventionModelBuilder();
-        odataBuilder.EntitySet<AssociateElement>("associates");
-        odataBuilder.EntitySet<SquadElement>("squads");
-        odataBuilder.EntitySet<SquadAssociateElement>("squad-associates");
-        
-        odataBuilder.AddOdataConfigurations<AssociateElementConfiguration, AssociateElement>();
-        odataBuilder.AddOdataConfigurations<SquadElementConfiguration, SquadElement>();
-        odataBuilder.AddOdataConfigurations<SquadAssociateElementConfiguration, SquadAssociateElement>();
         return odataBuilder.GetEdmModel();
     }
     
@@ -68,8 +55,7 @@ public class ControllerServiceModule : DependencyServiceModule
             }).AddOData(opt =>
             {
                 opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(500)
-                    // .AddRouteComponents("protected", GetEdmModel())
-                    .AddRouteComponents("protected/aggregates", GetAggregateEdmModel());
+                    .AddRouteComponents("protected", GetEdmModel());
             });
     }
 }

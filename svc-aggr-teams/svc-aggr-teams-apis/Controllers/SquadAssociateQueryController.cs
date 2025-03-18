@@ -4,16 +4,21 @@ using System.Net;
 using Application.SquadAssociates;
 using Application.SquadAssociates.DataContracts;
 using Application.Squads.DataContracts;
+using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
 using Framework.ApiEssentials.Odata.Implementations;
+using Framework.AppEssentials;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
-public class SquadAssociateAggregateController(ISender sender, OdataFilterVisitor visitor,
-    IOdataNavigator<SquadAssociateModel> navigator) : 
-    DistribuTeAggregateController<SquadAssociateModel>(visitor, navigator)
+[Route("protected/squad-associates")]
+[ApiVersion("1.0")]
+[Produces("application/json")]
+public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor visitor,
+    IOdataNavigator<SquadAssociateModel> navigator, IRequestContext requestContext) : 
+    DistribuTeQueryController<SquadAssociateModel>(visitor, navigator, requestContext)
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
     

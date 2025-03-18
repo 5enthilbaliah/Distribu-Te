@@ -1,5 +1,7 @@
 ﻿namespace DistribuTe.Framework.AppEssentials;
 
+using Microsoft.AspNetCore.Http;
+
 public interface IRequestContext
 {
     string CorrelationId { get; }
@@ -7,5 +9,8 @@ public interface IRequestContext
     string UserEmail { get; }
     string HttpMethod { get; }
 
+    HttpContext Current { get; }
+
     TFeature? GetFeature<TFeature>();
+    void Set<TFeature>(TFeature instance);
 }

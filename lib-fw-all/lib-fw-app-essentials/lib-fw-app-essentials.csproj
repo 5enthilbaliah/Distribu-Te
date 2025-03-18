@@ -16,4 +16,8 @@
       <ProjectReference Include="..\lib-fw-domain-essentials\lib-fw-domain-essentials.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+    
 </Project>

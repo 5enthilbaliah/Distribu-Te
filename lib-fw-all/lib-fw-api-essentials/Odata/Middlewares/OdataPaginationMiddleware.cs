@@ -38,8 +38,10 @@ public class OdataPaginationMiddleware(RequestDelegate next, IServiceProvider se
 
             if (isArray)
             {
+                var pageId = httpContext.Request.Path.Value!.Split(['/'])[^1].ToLower();
+                
                 using var scope = _serviceProvider.CreateScope();
-                var paginator = scope.ServiceProvider.GetRequiredKeyedService<IOdataPaginator>("aggregates_associates");
+                var paginator = scope.ServiceProvider.GetRequiredKeyedService<IOdataPaginator>(pageId);
                 var count = await paginator.CountAsync(CancellationToken.None);
                 responseBody = $"{{ \"count\": {count}, \"results\": {responseBody} }}";
             }

@@ -42,9 +42,9 @@ public class ApiServiceModule : DependencyServiceModule
         services.AddScoped<IOdataNavigator<SquadAssociateModel>>(_ => 
             new OdataNavigator<SquadAssociateModel>(WhereClauseItem.SpawnOne));
 
-        services.AddKeyedScoped<IOdataPaginator, AssociateOdataPaginator>("aggregates_associates");
-        services.AddKeyedScoped<IOdataPaginator, SquadOdataPaginator>("aggregates_squads");
-        services.AddKeyedScoped<IOdataPaginator, SquadAssociateOdataPaginator>("aggregates_squad_associates");
+        services.AddKeyedScoped<IOdataPaginator, AssociateOdataPaginator>("associates");
+        services.AddKeyedScoped<IOdataPaginator, SquadOdataPaginator>("squads");
+        services.AddKeyedScoped<IOdataPaginator, SquadAssociateOdataPaginator>("squad-associates");
         
         services.Configure<ServiceSettings>(configuration.GetSection(nameof(ServiceSettings)));
         services.Configure<SwaggerSettings>(configuration.GetSection(nameof(SwaggerSettings)));

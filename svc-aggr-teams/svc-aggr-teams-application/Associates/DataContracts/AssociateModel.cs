@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace DistribuTe.Aggregates.Teams.Application.Associates.DataContracts;
 
+using System.Text.Json.Serialization;
 using Base;
 using Framework.AppEssentials;
 
@@ -15,5 +16,6 @@ public class AssociateModel : IModel
     
     public IList<SquadAssociateElement>? Squad_Associates { get; set; }
 
+    [JsonIgnore]
     public string ModelIdentifier => $"{Id}";
 }

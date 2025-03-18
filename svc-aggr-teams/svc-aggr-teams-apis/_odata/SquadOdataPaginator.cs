@@ -2,25 +2,24 @@
 namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
 using Application.Squads;
-using Application.Squads.DataContracts;
-using Framework.ApiEssentials.Odata.Implementations;
+using Framework.ApiEssentials.Odata;
+using Framework.AppEssentials;
+using Framework.AppEssentials.Linq;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
-public class SquadOdataPaginator(ISender sender, IHttpContextAccessor httpContextAccessor,
-    OdataFilterVisitor visitor) : OdataPaginator<SquadModel>(visitor)
+public class SquadOdataPaginator(ISender sender, IRequestContext requestContext) : IOdataPaginator
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? 
-                                                                 throw new ArgumentNullException(nameof(httpContextAccessor));
+    private readonly IRequestContext _requestContext = requestContext ?? 
+                                                       throw new ArgumentNullException(nameof(requestContext));
 
-    public override string Name => "aggregates_squads";
+    public string Name => "aggregates_squads";
 
-    public override async Task<long> CountAsync(CancellationToken cancellationToken = default)
+    public async Task<long> CountAsync(CancellationToken cancellationToken = default)
     {
         return await _sender.Send(new CountSquadsQuery
         {
-            LinqQueryFacade = GenerateWhereClauseFacadeFrom(_httpContextAccessor.HttpContext!.Request),
+            LinqQueryFacade = _requestContext.GetFeature<LinqQueryFacade>()!,
         }, cancellationToken);
     }
 }
