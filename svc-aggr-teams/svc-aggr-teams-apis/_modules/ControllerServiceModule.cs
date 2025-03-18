@@ -9,8 +9,6 @@ using Application.Base;
 using Application.SquadAssociates.DataContracts;
 using Application.Squads.DataContracts;
 using Framework.ApiEssentials.Odata;
-using Framework.ApiEssentials.Odata.Implementations;
-using Framework.AppEssentials.Implementations;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.OData;
@@ -70,16 +68,8 @@ public class ControllerServiceModule : DependencyServiceModule
             }).AddOData(opt =>
             {
                 opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(500)
-                    .AddRouteComponents("protected", GetEdmModel())
+                    // .AddRouteComponents("protected", GetEdmModel())
                     .AddRouteComponents("protected/aggregates", GetAggregateEdmModel());
             });
-        
-        services.AddTransient(_ => new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<AssociateModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<AssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<SquadModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<SquadModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<SquadAssociateModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<SquadAssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
     }
 }

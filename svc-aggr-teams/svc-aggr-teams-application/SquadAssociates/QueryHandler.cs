@@ -14,7 +14,8 @@ public class QueryHandler(
     LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId> baseMapper,
     IMapper mapper) :
     IRequestHandler<YieldSquadAssociatesQuery, ErrorOr<IList<SquadAssociateModel>>>,
-    IRequestHandler<PickSquadAssociateQuery, ErrorOr<SquadAssociateModel>>
+    IRequestHandler<PickSquadAssociateQuery, ErrorOr<SquadAssociateModel>>,
+    IRequestHandler<CountSquadAssociatesQuery, long>
 {
     private readonly ITeamsReader<SquadAssociateAggregate, SquadAssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
@@ -77,5 +78,11 @@ public class QueryHandler(
             return Errors.SquadAssociates.NotFound;
         
         return _mapper.Map<SquadAssociateModel>(entity);
+    }
+
+    public async Task<long> Handle(CountSquadAssociatesQuery request, CancellationToken cancellationToken)
+    {
+        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
+        return await _reader.CountAsync(expression, cancellationToken);
     }
 }

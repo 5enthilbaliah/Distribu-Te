@@ -2,6 +2,7 @@
 namespace DistribuTe.Aggregates.Teams.Apis.Pipelines;
 
 using System.Diagnostics.CodeAnalysis;
+using Framework.ApiEssentials.Odata.Middlewares;
 using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ public class MvcPipeline : IMiddlewarePipeline
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)
     {
         app.UseRouting();
+        app.UseMiddleware<OdataPaginationMiddleware>();
         app.MapControllers();
     }
 }

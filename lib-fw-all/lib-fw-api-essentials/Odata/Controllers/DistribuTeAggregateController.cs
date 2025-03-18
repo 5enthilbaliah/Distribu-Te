@@ -27,7 +27,7 @@ public class DistribuTeAggregateController<TModel>(
         }
         
         queryOptions.Filter.FilterClause.Expression.Accept(_visitor);
-        var facade = new LinqQueryFacade(visitor.FilterOptions, queryOptions.Skip?.Value, queryOptions.Top?.Value);
+        var facade = new LinqQueryFacade(_visitor.FilterOptions, queryOptions.Skip?.Value, queryOptions.Top?.Value);
         
         return _navigator.ApplyNavigations(facade, queryOptions);
     }

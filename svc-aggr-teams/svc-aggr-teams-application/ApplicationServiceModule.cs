@@ -8,7 +8,6 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
 using SquadAssociates;
 using Squads;
 
@@ -23,7 +22,7 @@ public class ApplicationServiceModule : DependencyServiceModule
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
-        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<IRequestContext>());
+        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<ApplicationServiceModule>());
         
         var mapsterConfig = TypeAdapterConfig.GlobalSettings;
         TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetAssembly(typeof(ApplicationServiceModule))!);

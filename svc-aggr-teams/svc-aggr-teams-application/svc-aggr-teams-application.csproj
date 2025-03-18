@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Folder Include="Associates\Validations\" />
+      <Folder Include="_shared\" />
     </ItemGroup>
 
 </Project>

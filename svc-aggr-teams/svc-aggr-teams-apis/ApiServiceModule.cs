@@ -1,16 +1,23 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Apis;
 
+using Application.Associates.DataContracts;
+using Application.SquadAssociates.DataContracts;
+using Application.Squads.DataContracts;
 using Framework.ApiEssentials;
 using Framework.ApiEssentials.Auth;
 using Framework.ApiEssentials.Cors;
 using Framework.ApiEssentials.Identities;
+using Framework.ApiEssentials.Odata;
+using Framework.ApiEssentials.Odata.Implementations;
 using Framework.ApiEssentials.Swagger;
 using Framework.ApiEssentials.Versioning;
+using Framework.AppEssentials.Implementations;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules;
+using Odata;
 
 public class ApiServiceModule : DependencyServiceModule
 {
@@ -27,6 +34,18 @@ public class ApiServiceModule : DependencyServiceModule
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
+        services.AddTransient(_ => new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<AssociateModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<AssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<SquadModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadAssociateModel, WhereClauseItem>>(_ => 
+            new OdataNavigator<SquadAssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+
+        services.AddKeyedScoped<IOdataPaginator, AssociateOdataPaginator>("aggregates_associates");
+        services.AddKeyedScoped<IOdataPaginator, SquadOdataPaginator>("aggregates_squads");
+        services.AddKeyedScoped<IOdataPaginator, SquadAssociateOdataPaginator>("aggregates_squad_associates");
+        
         services.Configure<ServiceSettings>(configuration.GetSection(nameof(ServiceSettings)));
         services.Configure<SwaggerSettings>(configuration.GetSection(nameof(SwaggerSettings)));
         services.AddHealthChecks();
