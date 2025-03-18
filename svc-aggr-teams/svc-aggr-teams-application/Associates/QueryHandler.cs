@@ -4,7 +4,7 @@ using DataContracts;
 using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

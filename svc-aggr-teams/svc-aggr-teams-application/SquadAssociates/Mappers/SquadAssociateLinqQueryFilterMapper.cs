@@ -4,7 +4,7 @@ namespace DistribuTe.Aggregates.Teams.Application.SquadAssociates.Mappers;
 using System.Linq.Expressions;
 using Domain.Entities;
 using Framework.AppEssentials;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 
 public class SquadAssociateLinqQueryFilterMapper : LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId>
 {

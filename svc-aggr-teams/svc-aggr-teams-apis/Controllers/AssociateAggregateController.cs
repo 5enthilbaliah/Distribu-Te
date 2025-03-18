@@ -7,7 +7,6 @@ using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
 using Framework.ApiEssentials.Odata.Implementations;
-using Framework.AppEssentials.Implementations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -15,8 +14,8 @@ using Microsoft.AspNetCore.OData.Query;
 [Route("protected/aggregates/associates")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class AssociateAggregateController(ISender sender, OdataFilterVisitor<WhereClauseItem> visitor,
-    IOdataNavigator<AssociateModel, WhereClauseItem> navigator) : 
+public class AssociateAggregateController(ISender sender, OdataFilterVisitor visitor,
+    IOdataNavigator<AssociateModel> navigator) : 
     DistribuTeAggregateController<AssociateModel>(visitor, navigator)
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
@@ -30,7 +29,7 @@ public class AssociateAggregateController(ISender sender, OdataFilterVisitor<Whe
     {
         var result = await _sender.Send(new YieldAssociatesQuery
         {
-            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!
+            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions)
         }, cancellationToken);
         
         return result.Match(
@@ -48,7 +47,7 @@ public class AssociateAggregateController(ISender sender, OdataFilterVisitor<Whe
     {
         var result = await _sender.Send(new PickAssociateQuery
         {
-            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!,
+            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions),
             Id = id
         }, cancellationToken);
         

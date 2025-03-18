@@ -1,16 +1,15 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata.Implementations;
 
 using AppEssentials;
-using AppEssentials.Implementations;
+using AppEssentials.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OData.Extensions;
 using Microsoft.AspNetCore.OData.Query;
 
-public class OdataPaginator<TModel>(OdataFilterVisitor<WhereClauseItem> visitor) : IOdataPaginator
+public class OdataPaginator<TModel>(OdataFilterVisitor visitor) : IOdataPaginator
     where TModel : IModel, new()
 {
-    private readonly OdataFilterVisitor<WhereClauseItem> _visitor = visitor ??
-                                                                    throw new ArgumentNullException(nameof(visitor));
+    private readonly OdataFilterVisitor _visitor = visitor ?? throw new ArgumentNullException(nameof(visitor));
 
     public virtual string Name => "base";
     
@@ -19,7 +18,7 @@ public class OdataPaginator<TModel>(OdataFilterVisitor<WhereClauseItem> visitor)
         return await Task.FromResult(0);
     }
 
-    public ILinqQueryFacade<WhereClauseItem> GenerateWhereClauseFacadeFrom(HttpRequest httpRequest)
+    public LinqQueryFacade GenerateWhereClauseFacadeFrom(HttpRequest httpRequest)
     {
         var path = httpRequest.ODataFeature().Path;
         var model = httpRequest.GetModel();

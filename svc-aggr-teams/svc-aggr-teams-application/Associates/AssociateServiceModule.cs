@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Application.Associates;
 
 using Domain.Entities;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using Framework.ModuleZ.Implementations;
 using Mappers;
 using Microsoft.AspNetCore.Hosting;

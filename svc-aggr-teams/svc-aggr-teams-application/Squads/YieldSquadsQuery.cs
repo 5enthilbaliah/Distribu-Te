@@ -2,7 +2,7 @@ namespace DistribuTe.Aggregates.Teams.Application.Squads;
 
 using DataContracts;
 using ErrorOr;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using MediatR;
 
 public class YieldSquadsQuery : IRequest<ErrorOr<IList<SquadModel>>>

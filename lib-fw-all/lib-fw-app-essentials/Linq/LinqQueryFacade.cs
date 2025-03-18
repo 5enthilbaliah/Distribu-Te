@@ -1,8 +1,8 @@
-﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
+﻿namespace DistribuTe.Framework.AppEssentials.Linq;
 
 using System.Collections.ObjectModel;
 
-public class LinqQueryFacade(ReadOnlyCollection<WhereClauseItem> whereClauses, int? skip, int? top) : ILinqQueryFacade<WhereClauseItem>
+public class LinqQueryFacade(ReadOnlyCollection<WhereClauseItem> whereClauses, int? skip, int? top)
 {
     public ReadOnlyCollection<WhereClauseItem> WhereClauses => whereClauses;
     public Dictionary<string, ReadOnlyCollection<WhereClauseItem>> InnerWhereClauses { get; } = new();

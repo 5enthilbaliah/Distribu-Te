@@ -2,7 +2,7 @@ namespace DistribuTe.Aggregates.Teams.Application.Associates;
 
 using DataContracts;
 using ErrorOr;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using MediatR;
 
 public class PickAssociateQuery : IRequest<ErrorOr<AssociateModel>>

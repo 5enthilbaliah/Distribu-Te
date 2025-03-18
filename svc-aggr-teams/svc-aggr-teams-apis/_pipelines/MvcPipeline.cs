@@ -14,7 +14,7 @@ public class MvcPipeline : IMiddlewarePipeline
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)
     {
         app.UseRouting();
-        app.UseMiddleware<OdataPaginationMiddleware>();
+        // app.UseMiddleware<OdataPaginationMiddleware>();
         app.MapControllers();
     }
 }

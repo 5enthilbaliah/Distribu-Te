@@ -2,7 +2,7 @@
 
 using DataContracts;
 using ErrorOr;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using MediatR;
 
 public class YieldAssociatesQuery : IRequest<ErrorOr<IList<AssociateModel>>>

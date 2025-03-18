@@ -1,6 +1,6 @@
-﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
+﻿namespace DistribuTe.Framework.AppEssentials.Linq;
 
-public class WhereClauseItem : IWhereClause
+public class WhereClauseItem
 {
     public string? FieldName { get; private set; } 
     public Operators? Operator { get; private set; }
@@ -33,4 +33,6 @@ public class WhereClauseItem : IWhereClause
     {
         Value = value.Trim(['\'']);
     }
+    
+    public static WhereClauseItem SpawnOne() => new();
 }

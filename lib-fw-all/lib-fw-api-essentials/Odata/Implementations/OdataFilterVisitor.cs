@@ -1,20 +1,19 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata.Implementations;
 
 using System.Collections.ObjectModel;
-using AppEssentials;
+using AppEssentials.Linq;
 using Microsoft.OData.UriParser;
 
-public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
-    where T : IWhereClause
+public class OdataFilterVisitor(Func<WhereClauseItem> generator) : QueryNodeVisitor<WhereClauseItem>
 {
-    private readonly Func<T> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
+    private readonly Func<WhereClauseItem> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
-    private T _current = generator();
-    private readonly List<T> _filterOptions = [];
+    private WhereClauseItem _current = generator();
+    private readonly List<WhereClauseItem> _filterOptions = [];
 
-    public ReadOnlyCollection<T> FilterOptions => _filterOptions.AsReadOnly();
+    public ReadOnlyCollection<WhereClauseItem> FilterOptions => _filterOptions.AsReadOnly();
 
-    public override T Visit(BinaryOperatorNode nodeIn)
+    public override WhereClauseItem Visit(BinaryOperatorNode nodeIn)
     {
         if (nodeIn.OperatorKind != BinaryOperatorKind.And)
         {
@@ -26,7 +25,7 @@ public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
         return _current;
     }
     
-    public override T Visit(ConvertNode nodeIn)
+    public override WhereClauseItem Visit(ConvertNode nodeIn)
     {
         return nodeIn.Source switch
         {
@@ -36,7 +35,7 @@ public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
         };
     }
 
-    public override T Visit(SingleValuePropertyAccessNode nodeIn)
+    public override WhereClauseItem Visit(SingleValuePropertyAccessNode nodeIn)
     {
         _current.SetFieldName(nodeIn.Property.Name);
         _filterOptions.Add(_current);
@@ -44,7 +43,7 @@ public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
         return _current;
     }
     
-    public override T Visit(SingleValueFunctionCallNode nodeIn)
+    public override WhereClauseItem Visit(SingleValueFunctionCallNode nodeIn)
     {
         _current.SetOperator(nodeIn.Name);
         var parameters = nodeIn.Parameters.ToArray();
@@ -53,19 +52,19 @@ public class OdataFilterVisitor<T>(Func<T> generator) : QueryNodeVisitor<T>
         return _current;
     }
     
-    public override T Visit(ConstantNode nodeIn)
+    public override WhereClauseItem Visit(ConstantNode nodeIn)
     {
         _current.SetValue(nodeIn.LiteralText);
         return _current;
     }
     
-    public override T Visit(CollectionConstantNode nodeIn)
+    public override WhereClauseItem Visit(CollectionConstantNode nodeIn)
     {
         _current.SetValue(nodeIn.LiteralText);
         return _current;
     }
     
-    public override T Visit(InNode nodeIn)
+    public override WhereClauseItem Visit(InNode nodeIn)
     {
         _current.SetFieldName((nodeIn.Left as SingleValuePropertyAccessNode)!.Property.Name);
         _current.SetOperator(nodeIn.Kind.ToString());

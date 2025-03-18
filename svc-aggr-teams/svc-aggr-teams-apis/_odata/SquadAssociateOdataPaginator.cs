@@ -4,12 +4,11 @@ namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 using Application.SquadAssociates;
 using Application.SquadAssociates.DataContracts;
 using Framework.ApiEssentials.Odata.Implementations;
-using Framework.AppEssentials.Implementations;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
 public class SquadAssociateOdataPaginator(ISender sender, IHttpContextAccessor httpContextAccessor,
-    OdataFilterVisitor<WhereClauseItem> visitor) : OdataPaginator<SquadAssociateModel>(visitor)
+    OdataFilterVisitor visitor) : OdataPaginator<SquadAssociateModel>(visitor)
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? 
@@ -21,7 +20,7 @@ public class SquadAssociateOdataPaginator(ISender sender, IHttpContextAccessor h
     {
         return await _sender.Send(new CountSquadAssociatesQuery
         {
-            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(_httpContextAccessor.HttpContext!.Request) as LinqQueryFacade)!,
+            LinqQueryFacade = GenerateWhereClauseFacadeFrom(_httpContextAccessor.HttpContext!.Request),
         }, cancellationToken);
     }
 }

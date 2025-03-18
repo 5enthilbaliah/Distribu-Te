@@ -11,7 +11,7 @@ using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Implementations;
 using Framework.ApiEssentials.Swagger;
 using Framework.ApiEssentials.Versioning;
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,13 +34,13 @@ public class ApiServiceModule : DependencyServiceModule
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
-        services.AddTransient(_ => new OdataFilterVisitor<WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<AssociateModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<AssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<SquadModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<SquadModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
-        services.AddScoped<IOdataNavigator<SquadAssociateModel, WhereClauseItem>>(_ => 
-            new OdataNavigator<SquadAssociateModel, WhereClauseItem>(WhereClauseGenerator<WhereClauseItem>.SpawnOne));
+        services.AddTransient(_ => new OdataFilterVisitor(WhereClauseItem.SpawnOne));
+        services.AddScoped<IOdataNavigator<AssociateModel>>(_ => 
+            new OdataNavigator<AssociateModel>(WhereClauseItem.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadModel>>(_ => 
+            new OdataNavigator<SquadModel>(WhereClauseItem.SpawnOne));
+        services.AddScoped<IOdataNavigator<SquadAssociateModel>>(_ => 
+            new OdataNavigator<SquadAssociateModel>(WhereClauseItem.SpawnOne));
 
         services.AddKeyedScoped<IOdataPaginator, AssociateOdataPaginator>("aggregates_associates");
         services.AddKeyedScoped<IOdataPaginator, SquadOdataPaginator>("aggregates_squads");

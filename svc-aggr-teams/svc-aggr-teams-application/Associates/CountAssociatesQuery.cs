@@ -1,6 +1,6 @@
 namespace DistribuTe.Aggregates.Teams.Application.Associates;
 
-using Framework.AppEssentials.Implementations;
+using Framework.AppEssentials.Linq;
 using MediatR;
 
 public class CountAssociatesQuery : IRequest<long>

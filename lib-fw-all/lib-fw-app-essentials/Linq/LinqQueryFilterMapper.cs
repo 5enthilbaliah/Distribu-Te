@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Framework.AppEssentials.Implementations;
+﻿namespace DistribuTe.Framework.AppEssentials.Linq;
 
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
@@ -18,8 +18,7 @@ public abstract class LinqQueryFilterMapper<TEntity, TId>
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EndsWithChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> ContainsChecks { get; }
 
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(ReadOnlyCollection<TWhereClause> whereClauses) 
-        where TWhereClause : IWhereClause
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression(ReadOnlyCollection<WhereClauseItem> whereClauses) 
     {
         var expressions = new List<Expression<Func<TEntity, bool>>>();
 
@@ -63,8 +62,7 @@ public abstract class LinqQueryFilterMapper<TEntity, TId>
         return expressions.Count != 0 ? expressions.AsCombinedExpression() : null;
     }
     
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression<TWhereClause>(ILinqQueryFacade<TWhereClause>? whereClauseFacade)
-        where TWhereClause : IWhereClause
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression(LinqQueryFacade? whereClauseFacade)
     {
         if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)
             return null;

@@ -1,17 +1,16 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata.Implementations;
 
-using System.Collections.ObjectModel;
 using AppEssentials;
+using AppEssentials.Linq;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.OData.UriParser;
 
-public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) : IOdataNavigator<TModel, TWhereClause>
+public class OdataNavigator<TModel>(Func<WhereClauseItem> generator) : IOdataNavigator<TModel>
     where TModel : IModel, new()
-    where TWhereClause : IWhereClause
 {
-    private readonly Func<TWhereClause> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
+    private readonly Func<WhereClauseItem> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
-    public ILinqQueryFacade<TWhereClause> ApplyNavigations(ILinqQueryFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions)
+    public LinqQueryFacade ApplyNavigations(LinqQueryFacade facade, ODataQueryOptions<TModel> queryOptions)
     {
         if (queryOptions.SelectExpand is not { SelectExpandClause: not null }
             || !queryOptions.SelectExpand.SelectExpandClause.SelectedItems.Any()) return facade;
@@ -27,7 +26,7 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
             var navigationSource = selectedItem.NavigationSource.Name.ToLower();
             if (selectedItem.FilterOption is not null)
             {
-                var visitor = new OdataFilterVisitor<TWhereClause>(_generator);
+                var visitor = new OdataFilterVisitor(_generator);
                 selectedItem.FilterOption.Expression.Accept(visitor);
                 
                 facade.AddInnerWhereClauses(navigationSource,
@@ -36,7 +35,7 @@ public class OdataNavigator<TModel, TWhereClause>(Func<TWhereClause> generator) 
                 continue;
             }
             
-            facade.AddInnerWhereClauses(navigationSource, new List<TWhereClause>().AsReadOnly());
+            facade.AddInnerWhereClauses(navigationSource, new List<WhereClauseItem>().AsReadOnly());
         }
 
         return facade;

@@ -7,7 +7,6 @@ using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
 using Framework.ApiEssentials.Odata.Implementations;
-using Framework.AppEssentials.Implementations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -15,8 +14,8 @@ using Microsoft.AspNetCore.OData.Query;
 [Route("protected/aggregates/squads")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-public class SquadAggregateController(ISender sender, OdataFilterVisitor<WhereClauseItem> visitor,
-    IOdataNavigator<SquadModel, WhereClauseItem> navigator) : 
+public class SquadAggregateController(ISender sender, OdataFilterVisitor visitor,
+    IOdataNavigator<SquadModel> navigator) : 
     DistribuTeAggregateController<SquadModel>(visitor, navigator)
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
@@ -30,7 +29,7 @@ public class SquadAggregateController(ISender sender, OdataFilterVisitor<WhereCl
     {
         var result = await _sender.Send(new YieldSquadsQuery
         {
-            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!
+            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions)
         }, cancellationToken);
         
         return result.Match(
@@ -48,7 +47,7 @@ public class SquadAggregateController(ISender sender, OdataFilterVisitor<WhereCl
     {
         var result = await _sender.Send(new PickSquadQuery
         {
-            LinqQueryFacade = (GenerateWhereClauseFacadeFrom(queryOptions) as LinqQueryFacade)!,
+            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions),
             Id = id
         }, cancellationToken);
         

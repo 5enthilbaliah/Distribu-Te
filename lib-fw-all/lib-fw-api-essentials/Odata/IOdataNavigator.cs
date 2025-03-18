@@ -1,13 +1,11 @@
 ﻿namespace DistribuTe.Framework.ApiEssentials.Odata;
 
 using AppEssentials;
-using Implementations;
+using AppEssentials.Linq;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.OData.UriParser;
 
-public interface IOdataNavigator<TModel, TWhereClause>
+public interface IOdataNavigator<TModel>
     where TModel : IModel, new()
-    where TWhereClause : IWhereClause
 {
-    ILinqQueryFacade<TWhereClause> ApplyNavigations(ILinqQueryFacade<TWhereClause> facade, ODataQueryOptions<TModel> queryOptions);
+    LinqQueryFacade ApplyNavigations(LinqQueryFacade facade, ODataQueryOptions<TModel> queryOptions);
 }
