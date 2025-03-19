@@ -7,6 +7,7 @@ using Application.Squads.DataContracts;
 using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
+using Framework.ApiEssentials.Odata.Filters;
 using Framework.ApiEssentials.Odata.Implementations;
 using Framework.AppEssentials;
 using MediatR;
@@ -25,7 +26,7 @@ public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor vi
     [HttpGet]
     [Route("")]
     [ProducesResponseType(typeof(IList<SquadAssociateModel>), (int)HttpStatusCode.OK)]
-    [EnableQuery()]
+    [DistribuTeEnableQuery()]
     public async Task<IActionResult> SearchAsync(ODataQueryOptions<SquadAssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
@@ -43,7 +44,7 @@ public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor vi
     [Route("{squadId:int}-{associateId:int}")]
     [HttpGet]
     [ProducesResponseType(typeof(SquadModel), (int)HttpStatusCode.OK)]
-    [EnableQuery()]
+    [DistribuTeEnableQuery()]
     public async Task<IActionResult> GetByIdAsync(int squadId, int associateId, ODataQueryOptions<SquadAssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {

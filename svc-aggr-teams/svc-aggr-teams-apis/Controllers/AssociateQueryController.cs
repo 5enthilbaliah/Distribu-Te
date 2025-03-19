@@ -6,6 +6,7 @@ using Application.Associates.DataContracts;
 using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
+using Framework.ApiEssentials.Odata.Filters;
 using Framework.ApiEssentials.Odata.Implementations;
 using Framework.AppEssentials;
 using MediatR;
@@ -24,7 +25,7 @@ public class AssociateQueryController(ISender sender, OdataFilterVisitor visitor
     [HttpGet]
     [Route("")]
     [ProducesResponseType(typeof(IList<AssociateModel>), (int)HttpStatusCode.OK)]
-    [EnableQuery()]
+    [DistribuTeEnableQuery()]
     public async Task<IActionResult> SearchAsync(ODataQueryOptions<AssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
@@ -42,7 +43,7 @@ public class AssociateQueryController(ISender sender, OdataFilterVisitor visitor
     [Route("{id:int}")]
     [HttpGet]
     [ProducesResponseType(typeof(AssociateModel), (int)HttpStatusCode.OK)]
-    [EnableQuery()]
+    [DistribuTeEnableQuery()]
     public async Task<IActionResult> GetByIdAsync(int id, ODataQueryOptions<AssociateModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
