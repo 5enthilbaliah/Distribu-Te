@@ -18,9 +18,18 @@ public class OdataPaginationMiddleware(RequestDelegate next, IServiceProvider se
         // Replace it with our own, so that we can read it
         using var bodyStream = new MemoryStream();
         httpContext.Response.Body = bodyStream;
-        
-        await _next(httpContext);
 
+        try
+        {
+            await _next(httpContext);
+        }
+        catch (Exception)
+        {
+            // Handle exception on odata parsing - set back the response stream to body
+            httpContext.Response.Body = responseStream;
+            throw;
+        }
+        
         httpContext.Response.Body = responseStream;
         bodyStream.Seek(0, SeekOrigin.Begin);
         var responseBody = await new StreamReader(bodyStream).ReadToEndAsync();
