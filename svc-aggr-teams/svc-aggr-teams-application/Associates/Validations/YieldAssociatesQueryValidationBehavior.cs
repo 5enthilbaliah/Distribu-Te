@@ -21,12 +21,12 @@ public class YieldAssociatesQueryValidationBehavior(EntityLinqMapper<AssociateAg
     {
         var facade = request.EntityLinqFacade;
         var errors = new List<Error>();
-        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "associate"));
-        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "associate"));
+        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "query_associate"));
+        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "query_associate"));
 
         if (facade.InnerWhereClauses.TryGetValue("squad_associates", out var innerClauseItems))
         {
-            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "squad_associate"));
+            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "query_squad_associate"));
         }
 
         if (errors.Count != 0)

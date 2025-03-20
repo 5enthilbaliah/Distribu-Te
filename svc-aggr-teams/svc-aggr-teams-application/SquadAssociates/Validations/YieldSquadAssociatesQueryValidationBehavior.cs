@@ -17,8 +17,8 @@ public class YieldSquadAssociatesQueryValidationBehavior(EntityLinqMapper<SquadA
     {
         var facade = request.EntityLinqFacade;
         var errors = new List<Error>();
-        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "squad_associate"));
-        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "squad_associate"));
+        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "query_squad_associate"));
+        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "query_squad_associate"));
         
         if (errors.Count != 0)
             return errors;

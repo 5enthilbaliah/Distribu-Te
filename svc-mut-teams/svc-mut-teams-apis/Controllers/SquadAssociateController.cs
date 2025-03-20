@@ -9,6 +9,7 @@ using Framework.ApiEssentials.Odata.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using ApiErrors = DistribuTe.Mutators.Teams.Apis.Controllers.Errors.Errors;
 
 [Route("protected/squad-associates")]
 [ApiVersion("1.0")]
@@ -43,9 +44,9 @@ public class SquadAssociateController(IMediator mediator) : DistribuTeController
     {
         var errors = new List<Error>();
         if (squadId != squadAssociate.Squad_Id)
-            errors.Add(Errors.Errors.SquadAssociateEndpoints.MismatchSquadId);
+            errors.Add(ApiErrors.SquadAssociateEndpoints.MismatchSquadId);
         if (associateId != squadAssociate.Associate_Id)
-            errors.Add(Errors.Errors.SquadAssociateEndpoints.MismatchAssociateId);
+            errors.Add(ApiErrors.SquadAssociateEndpoints.MismatchAssociateId);
         
         if (errors.Count != 0)
             return Problem(errors);

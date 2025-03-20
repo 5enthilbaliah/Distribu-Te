@@ -21,12 +21,12 @@ public class YieldSquadsQueryValidationBehavior(EntityLinqMapper<SquadAggregate,
     {
         var facade = request.EntityLinqFacade;
         var errors = new List<Error>();
-        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "squad"));
-        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "squad"));
+        errors.AddRange(_baseMapper.ValidateFilters(facade.WhereClauses, "query_squad"));
+        errors.AddRange(_baseMapper.ValidateSortOrders(facade.OrderByClause, "query_squad"));
 
         if (facade.InnerWhereClauses.TryGetValue("squad_associates", out var innerClauseItems))
         {
-            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "squad_associate"));
+            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "query_squad_associate"));
         }
 
         if (errors.Count != 0)

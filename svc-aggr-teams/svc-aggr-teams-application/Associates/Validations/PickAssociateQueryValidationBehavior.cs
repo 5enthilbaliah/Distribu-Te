@@ -19,13 +19,13 @@ public class PickAssociateQueryValidationBehavior(
     {
         var facade = request.EntityLinqFacade;
         if (facade.WhereClauses.Any())
-            return Error.Conflict("associate.invalid_combination", 
+            return Error.Conflict("query_associate.invalid_combination", 
                 "Filter(s) cannot be used select by id request.");
         
         var errors = new List<Error>();
         if (facade.InnerWhereClauses.TryGetValue("squad_associates", out var innerClauseItems))
         {
-            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "squad_associate"));
+            errors.AddRange(_squadSubMapper.ValidateFilters(innerClauseItems, "query_squad_associate"));
         }
 
         if (errors.Count != 0)
