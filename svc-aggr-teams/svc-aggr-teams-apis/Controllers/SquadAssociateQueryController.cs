@@ -32,7 +32,7 @@ public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor vi
     {
         var result = await _sender.Send(new YieldSquadAssociatesQuery
         {
-            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions)
+            EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions)
         }, cancellationToken);
         
         return result.Match(
@@ -50,7 +50,7 @@ public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor vi
     {
         var result = await _sender.Send(new PickSquadAssociateQuery
         {
-            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions),
+            EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions),
             SquadId = squadId,
             AssociateId = associateId
         }, cancellationToken);

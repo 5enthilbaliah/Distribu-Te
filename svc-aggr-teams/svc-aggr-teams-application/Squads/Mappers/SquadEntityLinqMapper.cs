@@ -6,12 +6,36 @@ using Domain.Entities;
 using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 
-public class SquadLinqQueryFilterMapper : LinqQueryFilterMapper<SquadAggregate, SquadId>
+public class SquadEntityLinqMapper : EntityLinqMapper<SquadAggregate, SquadId>
 {
     private const string ID = "id";
     private const string NAME = "name";
     private const string CODE = "code";
-
+    
+    #region Sort by ascending
+    protected override Dictionary<string, Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>>>
+        AscendingSorters
+    {
+        get;
+    } = new()
+    {
+        { ID, queryable => queryable.SafeAscendingOrder(x => x.Id) },
+        { NAME, queryable => queryable.SafeAscendingOrder(x => x.Name) },
+        { CODE, queryable => queryable.SafeAscendingOrder(x => x.Code) }
+    };
+    #endregion
+    
+    #region Sort by descending
+    protected override Dictionary<string, Func<IQueryable<SquadAggregate>, IQueryable<SquadAggregate>>>
+        DescendingSorters
+    {
+        get;
+    } = new()
+    {
+        { ID, queryable => queryable.SafeDescendingOrder(x => x.Id) }
+    };
+    #endregion
+    
     #region Equal
     protected override Dictionary<string, Func<string, Expression<Func<SquadAggregate, bool>>>> EqualChecks
     {

@@ -19,7 +19,7 @@ public class SquadOdataPaginator(ISender sender, IRequestContext requestContext)
     {
         return await _sender.Send(new CountSquadsQuery
         {
-            LinqQueryFacade = _requestContext.GetFeature<LinqQueryFacade>()!,
+            EntityLinqFacade = _requestContext.GetFeature<EntityLinqFacade>()!,
         }, cancellationToken);
     }
 }

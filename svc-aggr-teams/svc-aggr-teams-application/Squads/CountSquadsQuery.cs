@@ -5,5 +5,5 @@ using MediatR;
 
 public class CountSquadsQuery : IRequest<long>
 {
-    public LinqQueryFacade LinqQueryFacade { get; set; } = null!;
+    public EntityLinqFacade EntityLinqFacade { get; set; } = null!;
 }

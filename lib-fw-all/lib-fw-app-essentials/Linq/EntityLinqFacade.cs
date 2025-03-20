@@ -2,13 +2,17 @@
 
 using System.Collections.ObjectModel;
 
-public class LinqQueryFacade(ReadOnlyCollection<WhereClauseItem> whereClauses, int? skip, int? top)
+public class EntityLinqFacade(ReadOnlyCollection<WhereClauseItem> whereClauses, 
+    ReadOnlyCollection<OrderByClauseItem> orderByClauses,
+    int? skip, int? top)
 {
     public ReadOnlyCollection<WhereClauseItem> WhereClauses => whereClauses;
+    public ReadOnlyCollection<OrderByClauseItem> OrderByClause => orderByClauses;
+    
     public Dictionary<string, ReadOnlyCollection<WhereClauseItem>> InnerWhereClauses { get; } = new();
 
-    public int Skip { get; } = skip ?? 0;
-    public int Top { get; } = top ?? 50;
+    public int? Skip { get; } = skip;
+    public int? Top { get; } = top;
 
     public void AddInnerWhereClauses(string projection, ReadOnlyCollection<WhereClauseItem> clauses)
     {

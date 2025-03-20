@@ -36,3 +36,14 @@ public class WhereClauseItem
     
     public static WhereClauseItem SpawnOne() => new();
 }
+
+public class OrderByClauseItem
+{
+    public string FieldName { get; private set; } = null!;
+    public SortDirections Direction { get; private set; }
+
+    public static OrderByClauseItem SpawnOne(string fieldName, SortDirections direction = SortDirections.Ascending )
+    {
+        return new OrderByClauseItem { FieldName = fieldName, Direction = direction };
+    }
+}

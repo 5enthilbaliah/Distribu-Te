@@ -31,7 +31,7 @@ public class SquadQueryController(ISender sender, OdataFilterVisitor visitor,
     {
         var result = await _sender.Send(new YieldSquadsQuery
         {
-            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions)
+            EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions)
         }, cancellationToken);
         
         return result.Match(
@@ -49,7 +49,7 @@ public class SquadQueryController(ISender sender, OdataFilterVisitor visitor,
     {
         var result = await _sender.Send(new PickSquadQuery
         {
-            LinqQueryFacade = GenerateWhereClauseFacadeFrom(queryOptions),
+            EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions),
             Id = id
         }, cancellationToken);
         

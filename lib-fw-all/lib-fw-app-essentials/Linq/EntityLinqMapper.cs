@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 using DomainEssentials;
 
-public abstract class LinqQueryFilterMapper<TEntity, TId>
+public abstract class EntityLinqMapper<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {
@@ -18,12 +18,16 @@ public abstract class LinqQueryFilterMapper<TEntity, TId>
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> EndsWithChecks { get; }
     protected abstract Dictionary<string, Func<string, Expression<Func<TEntity, bool>>>> ContainsChecks { get; }
 
+    protected abstract Dictionary<string, Func<IQueryable<TEntity>, IQueryable<TEntity>>> AscendingSorters { get; }
+    protected abstract Dictionary<string, Func<IQueryable<TEntity>, IQueryable<TEntity>>> DescendingSorters { get; }
+    
     public Expression<Func<TEntity, bool>>? MapAsSearchExpression(ReadOnlyCollection<WhereClauseItem> whereClauses) 
     {
         var expressions = new List<Expression<Func<TEntity, bool>>>();
 
         foreach (var whereClause in whereClauses)
         {
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (whereClause.Operator)
             {
                 case Operators.EqualTo:
@@ -53,20 +57,34 @@ public abstract class LinqQueryFilterMapper<TEntity, TId>
                 case Operators.Contains:
                     expressions.Add(ContainsChecks[whereClause.FieldName!](whereClause.Value!));
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(whereClause.Operator), whereClause.Operator, 
-                        "You cannot be here, should have been validated.");
             }
         }
         
         return expressions.Count != 0 ? expressions.AsCombinedExpression() : null;
     }
     
-    public Expression<Func<TEntity, bool>>? MapAsSearchExpression(LinqQueryFacade? whereClauseFacade)
+    public Expression<Func<TEntity, bool>>? MapAsSearchExpression(EntityLinqFacade? whereClauseFacade)
     {
         if (whereClauseFacade == null || whereClauseFacade.WhereClauses.Count == 0)
             return null;
         
         return MapAsSearchExpression(whereClauseFacade.WhereClauses);
+    }
+
+    public IQueryable<TEntity> ApplySort(IQueryable<TEntity> queryable, 
+        ReadOnlyCollection<OrderByClauseItem> orderByClauses)
+    {
+        foreach (var orderByClause in orderByClauses)
+        {
+            if (orderByClause.Direction == SortDirections.Ascending)
+            {
+                queryable = AscendingSorters[orderByClause.FieldName](queryable);
+                continue;
+            }
+            
+            queryable = DescendingSorters[orderByClause.FieldName](queryable);
+        }
+        
+        return queryable;
     }
 }

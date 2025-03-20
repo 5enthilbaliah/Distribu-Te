@@ -15,6 +15,10 @@ internal sealed class SquadAssociateTeamsRepository(TeamDatabaseContext context)
         if (expander != null)
             queryable = expander(queryable);
         
+        queryable = queryable.AsNoTracking();
+        
+       // var y = queryable.OrderByDescending(x => x.Id)
+        
         return await queryable
             .SingleOrDefaultAsync(x => x.SquadId == id.SquadId && x.AssociateId == id.AssociateId, 
                 cancellationToken: cancellationToken);

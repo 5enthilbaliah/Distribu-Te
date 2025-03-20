@@ -7,5 +7,5 @@ using Microsoft.AspNetCore.OData.Query;
 public interface IOdataNavigator<TModel>
     where TModel : IModel, new()
 {
-    LinqQueryFacade ApplyNavigations(LinqQueryFacade facade, ODataQueryOptions<TModel> queryOptions);
+    EntityLinqFacade ApplyNavigations(EntityLinqFacade facade, ODataQueryOptions<TModel> queryOptions);
 }

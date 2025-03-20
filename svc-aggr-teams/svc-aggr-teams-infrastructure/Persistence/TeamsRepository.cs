@@ -20,21 +20,34 @@ public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) :
         if (expander != null)
             queryable = expander(queryable);
         
-        return await queryable
+        return await queryable.AsNoTracking()
             .SingleOrDefaultAsync(x => x.Id == id, cancellationToken: cancellationToken);
     }
 
-    public async Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter, int skip, int take,
-        Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, CancellationToken cancellationToken = default)
+    public async Task<IList<TEntity>> YieldAsync(Expression<Func<TEntity, bool>>? filter, int? skip, int? take,
+        Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, 
+        Func<IQueryable<TEntity>, IQueryable<TEntity>>? sorter = null, 
+        CancellationToken cancellationToken = default)
     {
         var queryable = DbContext.Set<TEntity>().AsQueryable();
         if (expander != null)
             queryable = expander(queryable);
         
+        queryable = queryable.AsNoTracking();
+        
         if (filter != null)
             queryable = queryable.Where(filter);
-        queryable = queryable.Skip(skip);
-        queryable = queryable.Take(take);
+        else
+            take = 500;
+        
+        if (sorter != null)
+            queryable = sorter(queryable);
+        
+        if (skip.HasValue)
+            queryable = queryable.Skip(skip.Value);
+        
+        if (take.HasValue)
+            queryable = queryable.Take(take.Value);
         
         return await queryable.ToListAsync(cancellationToken);
     }
@@ -46,7 +59,7 @@ public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) :
 
     public async Task<long> CountAsync(Expression<Func<TEntity, bool>>? filter, CancellationToken cancellationToken = default)
     {
-        var queryable = DbContext.Set<TEntity>().AsQueryable();
+        var queryable = DbContext.Set<TEntity>().AsNoTracking();
         if (filter != null)
             queryable = queryable.Where(filter);
         

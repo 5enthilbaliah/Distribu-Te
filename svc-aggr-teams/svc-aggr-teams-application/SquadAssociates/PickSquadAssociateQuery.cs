@@ -9,5 +9,5 @@ public class PickSquadAssociateQuery : IRequest<ErrorOr<SquadAssociateModel>>
 {
     public int SquadId { get; set; }
     public int AssociateId { get; set; }
-    public LinqQueryFacade LinqQueryFacade { get; init; } = null!;
+    public EntityLinqFacade EntityLinqFacade { get; init; } = null!;
 }

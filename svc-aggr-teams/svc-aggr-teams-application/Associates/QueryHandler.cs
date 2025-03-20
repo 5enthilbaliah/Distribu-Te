@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 public class QueryHandler(
     ITeamsReader<AssociateAggregate, AssociateId> reader,
-    LinqQueryFilterMapper<AssociateAggregate, AssociateId> baseMapper,
-    LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
+    EntityLinqMapper<AssociateAggregate, AssociateId> baseMapper,
+    EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
     IMapper mapper) :
     IRequestHandler<YieldAssociatesQuery, ErrorOr<IList<AssociateModel>>>,
     IRequestHandler<PickAssociateQuery, ErrorOr<AssociateModel>>,
@@ -21,15 +21,15 @@ public class QueryHandler(
     private readonly ITeamsReader<AssociateAggregate, AssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
 
-    private readonly LinqQueryFilterMapper<AssociateAggregate, AssociateId> _baseMapper =
+    private readonly EntityLinqMapper<AssociateAggregate, AssociateId> _baseMapper =
         baseMapper ?? throw new ArgumentNullException(nameof(baseMapper));
 
-    private readonly LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId> _squadSubMapper =
+    private readonly EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> _squadSubMapper =
         squadSubMapper ?? throw new ArgumentNullException(nameof(squadSubMapper));
 
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
-    private Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>> FindExpander(LinqQueryFacade facade)
+    private Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>> FindExpander(EntityLinqFacade facade)
     {
         return (queryable) =>
         {
@@ -50,17 +50,20 @@ public class QueryHandler(
     public async Task<ErrorOr<IList<AssociateModel>>> Handle(YieldAssociatesQuery request,
         CancellationToken cancellationToken)
     {
-        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
+        var expression = _baseMapper.MapAsSearchExpression(request.EntityLinqFacade);
         Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? expander = null;
+        Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? sorter = null;
         
-        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
-        {
-            expander = FindExpander(request.LinqQueryFacade);
-        }
+        if (request.EntityLinqFacade.InnerWhereClauses.Count != 0)
+            expander = FindExpander(request.EntityLinqFacade);
 
-        var skip = request.LinqQueryFacade.Skip;
-        var take = request.LinqQueryFacade.Top;
-        var entities = await _reader.YieldAsync(expression, skip, take, expander: expander, 
+        if (request.EntityLinqFacade.OrderByClause.Count != 0)
+            sorter = queryable => _baseMapper.ApplySort(queryable, request.EntityLinqFacade.OrderByClause);
+
+        var skip = request.EntityLinqFacade.Skip;
+        var take = request.EntityLinqFacade.Top;
+        var entities = await _reader.YieldAsync(expression, skip, take, 
+            expander: expander, sorter: sorter,
             cancellationToken: cancellationToken);
         
         return _mapper.Map<List<AssociateModel>>(entities);
@@ -69,9 +72,9 @@ public class QueryHandler(
     public async Task<ErrorOr<AssociateModel>> Handle(PickAssociateQuery request, CancellationToken cancellationToken)
     {
         Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>? expander = null;
-        if (request.LinqQueryFacade.InnerWhereClauses.Count != 0)
+        if (request.EntityLinqFacade.InnerWhereClauses.Count != 0)
         {
-            expander = FindExpander(request.LinqQueryFacade);
+            expander = FindExpander(request.EntityLinqFacade);
         }
         
         var entity = await _reader.PickAsync(new AssociateId(request.Id), expander: expander,
@@ -85,7 +88,7 @@ public class QueryHandler(
 
     public async Task<long> Handle(CountAssociatesQuery request, CancellationToken cancellationToken)
     {
-        var expression = _baseMapper.MapAsSearchExpression(request.LinqQueryFacade);
+        var expression = _baseMapper.MapAsSearchExpression(request.EntityLinqFacade);
         return await _reader.CountAsync(expression, cancellationToken);
     }
 }

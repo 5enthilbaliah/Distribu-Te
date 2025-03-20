@@ -6,13 +6,39 @@ using Domain.Entities;
 using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 
-public class SquadAssociateLinqQueryFilterMapper : LinqQueryFilterMapper<SquadAssociateAggregate, SquadAssociateId>
+public class SquadAssociateEntityLinqMapper : EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId>
 {
     private const string SQUAD_ID = "squad_id";
     private const string ASSOCIATE_ID = "associate_id";
     private const string STARTED_ON = "started_on";
     private const string ENDED_ON = "ended_on";
     private const string CAPACITY = "capacity";
+    
+    #region Sort by ascending
+    protected override Dictionary<string, Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>>>
+        AscendingSorters
+    {
+        get;
+    } = new()
+    {
+        { SQUAD_ID, queryable => queryable.SafeAscendingOrder(x => x.SquadId) },
+        { ASSOCIATE_ID, queryable => queryable.SafeAscendingOrder(x => x.AssociateId) },
+        { STARTED_ON, queryable => queryable.SafeAscendingOrder(x => x.StartedOn) }
+    };
+    #endregion
+    
+    #region Sort by descending
+    protected override Dictionary<string, Func<IQueryable<SquadAssociateAggregate>, IQueryable<SquadAssociateAggregate>>>
+        DescendingSorters
+    {
+        get;
+    } = new()
+    {
+        { SQUAD_ID, queryable => queryable.SafeDescendingOrder(x => x.SquadId) },
+        { ASSOCIATE_ID, queryable => queryable.SafeDescendingOrder(x => x.AssociateId) },
+        { STARTED_ON, queryable => queryable.SafeDescendingOrder(x => x.EndedOn) }
+    };
+    #endregion
     
     #region Equal
     protected override Dictionary<string, Func<string, Expression<Func<SquadAssociateAggregate, bool>>>> EqualChecks

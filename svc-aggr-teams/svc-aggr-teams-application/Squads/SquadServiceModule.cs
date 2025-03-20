@@ -12,6 +12,6 @@ public class SquadServiceModule : DependencyServiceModule
 {
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, IConfiguration configuration)
     {
-        services.AddScoped<LinqQueryFilterMapper<SquadAggregate, SquadId>, SquadLinqQueryFilterMapper>();
+        services.AddScoped<EntityLinqMapper<SquadAggregate, SquadId>, SquadEntityLinqMapper>();
     }
 }

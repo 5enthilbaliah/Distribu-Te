@@ -6,7 +6,7 @@ using Domain.Entities;
 using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 
-public class AssociateLinqQueryFilterMapper : LinqQueryFilterMapper<AssociateAggregate, AssociateId>
+public class AssociateEntityLinqMapper : EntityLinqMapper<AssociateAggregate, AssociateId>
 {
     private const string ID = "id";
     private const string FIRST_NAME = "first_name";
@@ -14,6 +14,30 @@ public class AssociateLinqQueryFilterMapper : LinqQueryFilterMapper<AssociateAgg
     private const string MIDDLE_NAME = "middle_name";
     private const string GENDER = "gender";
     private const string EMAIL_ID = "email_id";
+    
+    #region Sort by ascending
+    protected override Dictionary<string, Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>>
+        AscendingSorters
+    {
+        get;
+    } = new()
+    {
+        { ID, queryable => queryable.SafeAscendingOrder(x => x.Id) },
+        { FIRST_NAME, queryable => queryable.SafeAscendingOrder(x => x.FirstName) },
+        { LAST_NAME, queryable => queryable.SafeAscendingOrder(x => x.LastName) }
+    };
+    #endregion
+    
+    #region Sort by descending
+    protected override Dictionary<string, Func<IQueryable<AssociateAggregate>, IQueryable<AssociateAggregate>>>
+        DescendingSorters
+    {
+        get;
+    } = new()
+    {
+        { ID, queryable => queryable.SafeDescendingOrder(x => x.Id) }
+    };
+    #endregion
     
     #region Equal
     protected override Dictionary<string, Func<string, Expression<Func<AssociateAggregate, bool>>>> EqualChecks

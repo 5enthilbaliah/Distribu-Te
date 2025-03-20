@@ -10,7 +10,7 @@ public class OdataNavigator<TModel>(Func<WhereClauseItem> generator) : IOdataNav
 {
     private readonly Func<WhereClauseItem> _generator = generator ?? throw new ArgumentNullException(nameof(generator));
     
-    public LinqQueryFacade ApplyNavigations(LinqQueryFacade facade, ODataQueryOptions<TModel> queryOptions)
+    public EntityLinqFacade ApplyNavigations(EntityLinqFacade facade, ODataQueryOptions<TModel> queryOptions)
     {
         if (queryOptions.SelectExpand is not { SelectExpandClause: not null }
             || !queryOptions.SelectExpand.SelectExpandClause.SelectedItems.Any()) return facade;
@@ -18,7 +18,6 @@ public class OdataNavigator<TModel>(Func<WhereClauseItem> generator) : IOdataNav
         var selectExpandClause = queryOptions.SelectExpand.SelectExpandClause;
         var selectedItems = selectExpandClause.SelectedItems
             .OfType<ExpandedNavigationSelectItem>()
-            //.Where(x => x.FilterOption != null)
             .Where(x => x.NavigationSource != null);
 
         foreach (var selectedItem in selectedItems)

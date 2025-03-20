@@ -8,5 +8,5 @@ using MediatR;
 public class PickSquadQuery : IRequest<ErrorOr<SquadModel>>
 {
     public int Id { get; set; }
-    public LinqQueryFacade LinqQueryFacade { get; init; } = null!;
+    public EntityLinqFacade EntityLinqFacade { get; init; } = null!;
 }
