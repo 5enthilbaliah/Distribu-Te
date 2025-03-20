@@ -1,9 +1,9 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Application.Squads.Mappers;
 
-using Base;
 using DataContracts;
 using Domain.Entities;
 using Mapster;
+using Shared;
 
 public class SquadMapperConfig : IRegister
 {

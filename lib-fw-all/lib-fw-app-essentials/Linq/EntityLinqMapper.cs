@@ -20,6 +20,30 @@ public abstract class EntityLinqMapper<TEntity, TId>
 
     protected abstract Dictionary<string, Func<IQueryable<TEntity>, IQueryable<TEntity>>> AscendingSorters { get; }
     protected abstract Dictionary<string, Func<IQueryable<TEntity>, IQueryable<TEntity>>> DescendingSorters { get; }
+
+    public bool FilterMapExists(WhereClauseItem whereClause)
+    {
+        return whereClause.Operator switch
+        {
+            Operators.EqualTo => EqualChecks.ContainsKey(whereClause.FieldName!),
+            Operators.NotEqualTo => NotEqualChecks.ContainsKey(whereClause.FieldName!),
+            Operators.GreaterThan => GreaterThanChecks.ContainsKey(whereClause.FieldName!),
+            Operators.GreaterThanOrEqualTo => GreaterThanEqualChecks.ContainsKey(whereClause.FieldName!),
+            Operators.LessThan => LesserThanChecks.ContainsKey(whereClause.FieldName!),
+            Operators.LessThanOrEqualTo => LesserThanEqualChecks.ContainsKey(whereClause.FieldName!),
+            Operators.StartsWith => StartsWithChecks.ContainsKey(whereClause.FieldName!),
+            Operators.EndsWith => EndsWithChecks.ContainsKey(whereClause.FieldName!),
+            Operators.Contains => ContainsChecks.ContainsKey(whereClause.FieldName!),
+            _ => false
+        };
+    }
+
+    public bool SortMapExists(OrderByClauseItem orderByClause)
+    {
+        return orderByClause.Direction == SortDirections.Ascending ? 
+            AscendingSorters.ContainsKey(orderByClause.FieldName) 
+            : DescendingSorters.ContainsKey(orderByClause.FieldName);
+    }
     
     public Expression<Func<TEntity, bool>>? MapAsSearchExpression(ReadOnlyCollection<WhereClauseItem> whereClauses) 
     {

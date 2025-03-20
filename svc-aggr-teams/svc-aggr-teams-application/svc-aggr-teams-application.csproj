@@ -21,8 +21,4 @@
       <ProjectReference Include="..\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Associates\Validations\" />
-    </ItemGroup>
-
 </Project>

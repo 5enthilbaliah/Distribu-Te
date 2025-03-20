@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Application.Associates.DataContracts;
-using Application.Base;
+using Application.Shared;
 using Application.SquadAssociates.DataContracts;
 using Application.Squads.DataContracts;
 using Framework.ApiEssentials.Odata;

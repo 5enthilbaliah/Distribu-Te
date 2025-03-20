@@ -1,6 +1,6 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable once CheckNamespace
-namespace DistribuTe.Aggregates.Teams.Application.Base;
+namespace DistribuTe.Aggregates.Teams.Application.Shared;
 
 public class SquadElement
 {

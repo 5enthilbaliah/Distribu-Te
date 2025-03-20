@@ -2,8 +2,8 @@
 namespace DistribuTe.Aggregates.Teams.Application.SquadAssociates.DataContracts;
 
 using System.Text.Json.Serialization;
-using Base;
 using Framework.AppEssentials;
+using Shared;
 
 public class SquadAssociateModel : IModel
 {
