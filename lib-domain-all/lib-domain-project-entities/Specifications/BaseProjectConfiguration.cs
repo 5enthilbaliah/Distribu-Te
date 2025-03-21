@@ -48,10 +48,5 @@ public class BaseProjectConfiguration<TProject> : IEntityTypeConfiguration<TProj
             .HasMaxLength(45)
             .HasColumnName("modified_by")
             .HasColumnType("varchar(45)");
-        
-        builder.Property(p => p.CategoryId)
-            .HasColumnName("category_id");
-        
-        builder.HasIndex(p => p.CategoryId);
     }
 }

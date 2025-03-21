@@ -12,6 +12,11 @@ public class ProjectAggregateConfiguration : IEntityTypeConfiguration<ProjectAgg
         builder.Property(p => p.Id)
             .ValueGeneratedOnAdd()
             .HasColumnName("id");
+
+        builder.Property(p => p.CategoryId)
+            .HasColumnName("category_id");
+        
+        builder.HasIndex(p => p.CategoryId);
         
         var configuration = new BaseProjectConfiguration<ProjectAggregate>();
         configuration.Configure(builder);

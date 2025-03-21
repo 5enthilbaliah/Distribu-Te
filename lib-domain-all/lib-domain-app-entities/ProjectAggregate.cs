@@ -8,6 +8,7 @@ using ProjectEntities;
 public class ProjectAggregate : BaseProject
 {
     public int Id { get; set; }
+    public int CategoryId { get; set; }
     public virtual ProjectCategoryAggregate Category { get; set; } 
     public virtual IList<SquadProjectAggregate> SquadProjects { get; set; }
     public virtual IList<DeploymentItemAggregate> DeploymentItems { get; set; }
