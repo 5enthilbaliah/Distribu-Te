@@ -1,14 +1,13 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Aggregates.Teams.Apis.Pipelines;
+﻿namespace DistribuTe.Framework.ApiEssentials.Odata;
 
 using System.Diagnostics.CodeAnalysis;
-using Framework.ApiEssentials.Odata.Middlewares;
-using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Middlewares;
+using ModuleZ;
 
-public class MvcPipeline : IMiddlewarePipeline
+public class AggregatorControllerPipeline : IMiddlewarePipeline
 {
     [ExcludeFromCodeCoverage]
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)

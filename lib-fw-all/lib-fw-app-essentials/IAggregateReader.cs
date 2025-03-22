@@ -1,9 +1,9 @@
-﻿namespace DistribuTe.Aggregates.Teams.Application;
+namespace DistribuTe.Framework.AppEssentials;
 
 using System.Linq.Expressions;
-using Framework.DomainEssentials;
+using DomainEssentials;
 
-public interface ITeamsReader<TEntity, TId> 
+public interface IAggregateReader<TEntity, TId> 
     where TEntity : class, IEntity<TId>
     where TId : class
 {

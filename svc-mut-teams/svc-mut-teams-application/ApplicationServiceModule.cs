@@ -26,7 +26,7 @@ public class ApplicationServiceModule : DependencyServiceModule
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
-        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<IRequestContext>());
+        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<ApplicationServiceModule>());
         
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UserTrackBehavior<,>));
         

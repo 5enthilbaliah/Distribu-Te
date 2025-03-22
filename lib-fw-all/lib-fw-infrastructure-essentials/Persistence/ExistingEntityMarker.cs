@@ -1,8 +1,8 @@
-﻿namespace DistribuTe.Mutators.Projects.Infrastructure.Persistence;
+﻿namespace DistribuTe.Framework.InfrastructureEssentials.Persistence;
 
 using System.Diagnostics.CodeAnalysis;
-using Framework.AppEssentials;
-using Framework.DomainEssentials;
+using AppEssentials;
+using DomainEssentials;
 
 [ExcludeFromCodeCoverage]
 public class ExistingEntityMarker<TEntity, TId> : IExistingEntityMarker<TEntity, TId>

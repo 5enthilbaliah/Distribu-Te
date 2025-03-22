@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence.Helpers;
+namespace DistribuTe.Framework.InfrastructureEssentials.Persistence.Helpers;
 
 using Microsoft.EntityFrameworkCore;
 

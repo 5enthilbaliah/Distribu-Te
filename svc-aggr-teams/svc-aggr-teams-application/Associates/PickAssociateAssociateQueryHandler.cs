@@ -5,17 +5,18 @@ using DataContracts;
 using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
+using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 using MapsterMapper;
 using MediatR;
 
 public class PickAssociateAssociateQueryHandler(
-    ITeamsReader<AssociateAggregate, AssociateId> reader,
+    IAggregateReader<AssociateAggregate, AssociateId> reader,
     EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
     IMapper mapper) : AssociateQueryHandler(squadSubMapper),
     IRequestHandler<PickAssociateQuery, ErrorOr<AssociateModel>>
 {
-    private readonly ITeamsReader<AssociateAggregate, AssociateId> _reader =
+    private readonly IAggregateReader<AssociateAggregate, AssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
     
     private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

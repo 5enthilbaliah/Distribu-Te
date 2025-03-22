@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\lib-domain-all\lib-domain-team-entities\lib-domain-team-entities.csproj" />
+      <ProjectReference Include="..\..\lib-fw-all\lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj" />
       <ProjectReference Include="..\svc-aggr-teams-application\svc-aggr-teams-application.csproj" />
       <ProjectReference Include="..\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj" />
     </ItemGroup>

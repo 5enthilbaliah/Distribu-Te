@@ -1,14 +1,12 @@
-﻿namespace DistribuTe.Mutators.Projects.Infrastructure.Persistence;
+﻿namespace DistribuTe.Framework.InfrastructureEssentials.Persistence;
 
-using Application;
-using Application.Shared;
-using Framework.AppEssentials;
-using Framework.DomainEssentials;
+using AppEssentials;
+using DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 
-public class UnitOfWork(ProjectSchemaDatabaseContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork
+public class UnitOfWork(DbContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork
 {
-    private readonly ProjectSchemaDatabaseContext _context = context ?? throw new ArgumentNullException(nameof(context));
+    private readonly DbContext _context = context ?? throw new ArgumentNullException(nameof(context));
     private readonly IDateTimeProvider  _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
     
     public async Task SaveChangesAsync(string mutator = "Anonymous", CancellationToken cancellationToken = default)

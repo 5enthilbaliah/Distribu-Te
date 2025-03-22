@@ -6,4 +6,5 @@ public class ServiceSettings
     public string Description { get; set; } = null!;
     public string Instance { get; set; } = null!;
     public string Version { get; set; } = null!;
+    public string DocumentationPathPattern { get; set; } = null!;
 }

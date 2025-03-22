@@ -1,13 +1,13 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis;
 
 using Framework.ApiEssentials.Auth;
+using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.ErrorHandling;
 using Framework.ApiEssentials.Swagger;
 using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Pipelines;
 
 public static class ApiSetup
 {
@@ -20,6 +20,6 @@ public static class ApiSetup
             .Pipe<AuthenticationPipeline>(environment, configuration)
             //TOMARE:: custom error handling pipeline here - order matters
             .Pipe<ErrorHandlePipeline>(environment, configuration)
-            .Pipe<MvcPipeline>(environment, configuration);
+            .Pipe<MutatorControllerPipeline>(environment, configuration);
     }
 }

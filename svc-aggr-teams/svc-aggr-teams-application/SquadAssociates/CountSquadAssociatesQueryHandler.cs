@@ -1,14 +1,15 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Application.SquadAssociates;
 
 using Domain.Entities;
+using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 using MediatR;
 
-public class CountSquadAssociatesQueryHandler(ITeamsReader<SquadAssociateAggregate, SquadAssociateId> reader,
+public class CountSquadAssociatesQueryHandler(IAggregateReader<SquadAssociateAggregate, SquadAssociateId> reader,
     EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> baseMapper) :
     IRequestHandler<CountSquadAssociatesQuery, long>
 {
-    private readonly ITeamsReader<SquadAssociateAggregate, SquadAssociateId> _reader =
+    private readonly IAggregateReader<SquadAssociateAggregate, SquadAssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
     
     private readonly EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> _baseMapper =

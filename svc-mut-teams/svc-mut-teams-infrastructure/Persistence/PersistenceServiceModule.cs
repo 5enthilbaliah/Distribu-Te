@@ -3,6 +3,7 @@
 using Domain.Entities;
 using Domain.Settings;
 using Framework.AppEssentials;
+using Framework.InfrastructureEssentials.Persistence;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,11 @@ public class PersistenceServiceModule : DependencyServiceModule
 
         services.AddScoped(typeof(IExistingEntityMarker<,>), typeof(ExistingEntityMarker<,>));
         
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork>(sp =>
+        {
+            var dbContext = sp.GetRequiredService<TeamSchemaDatabaseContext>();
+            var dateTimeProvider = sp.GetRequiredService<IDateTimeProvider>();
+            return new UnitOfWork(dbContext, dateTimeProvider);
+        });
     }
 }

@@ -4,18 +4,19 @@ using Base;
 using DataContracts;
 using Domain.Entities;
 using ErrorOr;
+using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 using MapsterMapper;
 using MediatR;
 
 public class YieldAssociatesAssociateQueryHandler(
-    ITeamsReader<AssociateAggregate, AssociateId> reader,
+    IAggregateReader<AssociateAggregate, AssociateId> reader,
     EntityLinqMapper<AssociateAggregate, AssociateId> baseMapper,
     EntityLinqMapper<SquadAssociateAggregate, SquadAssociateId> squadSubMapper,
     IMapper mapper) : AssociateQueryHandler(squadSubMapper),
     IRequestHandler<YieldAssociatesQuery, ErrorOr<IList<AssociateModel>>>
 {
-    private readonly ITeamsReader<AssociateAggregate, AssociateId> _reader =
+    private readonly IAggregateReader<AssociateAggregate, AssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
 
     private readonly EntityLinqMapper<AssociateAggregate, AssociateId> _baseMapper =

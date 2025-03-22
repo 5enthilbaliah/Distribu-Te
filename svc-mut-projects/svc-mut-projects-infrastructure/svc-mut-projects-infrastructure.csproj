@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\lib-fw-all\lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj" />
         <ProjectReference Include="..\svc-mut-projects-application\svc-mut-projects-application.csproj" />
         <ProjectReference Include="..\svc-mut-projects-domain\svc-mut-projects-domain.csproj" />
     </ItemGroup>

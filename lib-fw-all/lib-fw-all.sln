@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "lib-fw-domain-essentials\lib-fw-domain-essentials.csproj", "{8F20CA12-B9E5-4E55-8E05-8EDF36910686}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj", "{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{8F20CA12-B9E5-4E55-8E05-8EDF36910686}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F20CA12-B9E5-4E55-8E05-8EDF36910686}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F20CA12-B9E5-4E55-8E05-8EDF36910686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

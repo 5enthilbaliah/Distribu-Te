@@ -71,6 +71,8 @@ use case management
 
 ## lib-fw-domain-essentials
 
+## lib-fw-infrastructure-essentials
+
 ## svc-mut-teams
 
 ## svc-aggr-teams

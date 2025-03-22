@@ -1,7 +1,7 @@
-﻿namespace DistribuTe.Mutators.Projects.Infrastructure;
+﻿namespace DistribuTe.Framework.InfrastructureEssentials;
 
 using System.Diagnostics.CodeAnalysis;
-using Framework.AppEssentials;
+using AppEssentials;
 
 [ExcludeFromCodeCoverage]
 public class DateTimeProvider : IDateTimeProvider

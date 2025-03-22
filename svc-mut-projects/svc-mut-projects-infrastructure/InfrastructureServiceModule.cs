@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Projects.Infrastructure;
 
-using Application.Shared;
 using Domain.Settings;
+using Framework.AppEssentials;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

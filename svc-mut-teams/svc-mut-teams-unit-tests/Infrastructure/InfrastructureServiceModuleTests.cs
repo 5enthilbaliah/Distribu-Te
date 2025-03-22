@@ -1,11 +1,11 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Infrastructure;
 
 using FluentAssertions;
+using Framework.AppEssentials;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
-using Teams.Application.Shared;
 using Teams.Infrastructure;
 
 public class InfrastructureServiceModuleTests

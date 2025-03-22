@@ -3,7 +3,7 @@
 [assembly: InternalsVisibleTo(assemblyName: "svc-mut-teams-unit-tests")]
 namespace DistribuTe.Mutators.Teams.Infrastructure;
 
-using Application.Shared;
+using Framework.AppEssentials;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

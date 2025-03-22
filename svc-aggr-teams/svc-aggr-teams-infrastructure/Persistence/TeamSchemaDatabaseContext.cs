@@ -1,17 +1,17 @@
 ﻿namespace DistribuTe.Aggregates.Teams.Infrastructure.Persistence;
 
 using Domain.Entities;
-using Helpers;
+using Framework.InfrastructureEssentials.Persistence.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Specifications;
 
-public class TeamDatabaseContext : DbContext
+public class TeamSchemaDatabaseContext : DbContext
 {
     // Needed for unit testing
-    public TeamDatabaseContext()
+    public TeamSchemaDatabaseContext()
     {}
 
-    public TeamDatabaseContext(DbContextOptions<TeamDatabaseContext> options)
+    public TeamSchemaDatabaseContext(DbContextOptions<TeamSchemaDatabaseContext> options)
         : base(options)
     { }
     

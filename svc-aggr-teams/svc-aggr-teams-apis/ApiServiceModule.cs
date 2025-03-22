@@ -16,7 +16,6 @@ using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Modules;
 using Odata;
 
 public class ApiServiceModule : DependencyServiceModule

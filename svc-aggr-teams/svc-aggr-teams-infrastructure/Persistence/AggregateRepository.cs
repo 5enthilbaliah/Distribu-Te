@@ -2,16 +2,16 @@
 namespace DistribuTe.Aggregates.Teams.Infrastructure.Persistence;
 
 using System.Linq.Expressions;
-using Application;
+using Framework.AppEssentials;
 using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 
-public class TeamsRepository<TEntity, TId>(TeamDatabaseContext context) : 
-    ITeamsReader<TEntity, TId>
+public class AggregateRepository<TEntity, TId>(TeamSchemaDatabaseContext context) : 
+    IAggregateReader<TEntity, TId>
     where TEntity : class, IEntity<TId>
     where TId : class
 {
-    protected readonly TeamDatabaseContext DbContext = context ?? throw new ArgumentNullException(nameof(context));
+    protected readonly TeamSchemaDatabaseContext DbContext = context ?? throw new ArgumentNullException(nameof(context));
     
     public virtual async Task<TEntity?> PickAsync(TId id, Func<IQueryable<TEntity>, IQueryable<TEntity>>? expander = null, 
         CancellationToken cancellationToken = default)

@@ -1,10 +1,11 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Modules;
+namespace DistribuTe.Aggregates.Teams.Apis.Odata;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Application.Associates.DataContracts;
+using Application.Shared;
 using Application.SquadAssociates.DataContracts;
 using Application.Squads.DataContracts;
 using Framework.ApiEssentials.Odata;
@@ -18,22 +19,26 @@ using Microsoft.OData.ModelBuilder;
 using Odata;
 
 [ExcludeFromCodeCoverage]
-internal class ControllerServiceModule : DependencyServiceModule
+public class ControllerServiceModule : DependencyServiceModule
 {
     static IEdmModel GetEdmModel()
     {
         var odataBuilder = new ODataConventionModelBuilder();
-        odataBuilder.EntitySet<AssociateResponse>("associates");
-        odataBuilder.EntitySet<SquadResponse>("squads");
-        odataBuilder.EntitySet<SquadAssociateResponse>("squad-associates");
+        odataBuilder.EntitySet<AssociateModel>("associates");
+        odataBuilder.EntitySet<SquadModel>("squads");
+        odataBuilder.EntitySet<SquadAssociateModel>("squad-associates");
         
-        odataBuilder.AddOdataConfigurations<AssociateResponseConfiguration, AssociateResponse>();
-        odataBuilder.AddOdataConfigurations<SquadResponseConfiguration, SquadResponse>();
-        odataBuilder.AddOdataConfigurations<SquadAssociateResponseConfiguration, SquadAssociateResponse>();
+        odataBuilder.AddOdataConfigurations<AssociateElementConfiguration, AssociateElement>();
+        odataBuilder.AddOdataConfigurations<SquadElementConfiguration, SquadElement>();
+        odataBuilder.AddOdataConfigurations<SquadAssociateElementConfiguration, SquadAssociateElement>();
+        
+        odataBuilder.AddOdataConfigurations<AssociateModelConfiguration, AssociateModel>();
+        odataBuilder.AddOdataConfigurations<SquadModelConfiguration, SquadModel>();
+        odataBuilder.AddOdataConfigurations<SquadAssociateModelConfiguration, SquadAssociateModel>();
         return odataBuilder.GetEdmModel();
     }
     
-    protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
+    protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment,
         IConfiguration configuration)
     {
         services.AddControllers(config =>
@@ -49,7 +54,7 @@ internal class ControllerServiceModule : DependencyServiceModule
                 opt.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
             }).AddOData(opt =>
             {
-                opt.Select()
+                opt.Select().Filter().OrderBy().Expand().Count().SetMaxTop(500)
                     .AddRouteComponents("protected", GetEdmModel());
             });
     }

@@ -1,13 +1,12 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Apis.Pipelines;
+﻿namespace DistribuTe.Framework.ApiEssentials.Odata;
 
 using System.Diagnostics.CodeAnalysis;
-using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using ModuleZ;
 
-public class MvcPipeline : IMiddlewarePipeline
+public class MutatorControllerPipeline : IMiddlewarePipeline
 {
     [ExcludeFromCodeCoverage]
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)

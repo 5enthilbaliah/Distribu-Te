@@ -1,13 +1,13 @@
 ﻿namespace DistribuTe.Mutators.Teams.UnitTests.Apis.Controllers.Errors;
 
 using FluentAssertions;
+using Framework.AppEssentials;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSubstitute;
 using Teams.Apis.Controllers.Errors;
-using Teams.Application.Shared;
 
 public class ErrorsControllerTests
 {

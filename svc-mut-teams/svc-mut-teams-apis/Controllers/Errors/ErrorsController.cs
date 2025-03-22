@@ -1,6 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Apis.Controllers.Errors;
 
-using Application.Shared;
+using Framework.AppEssentials;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
