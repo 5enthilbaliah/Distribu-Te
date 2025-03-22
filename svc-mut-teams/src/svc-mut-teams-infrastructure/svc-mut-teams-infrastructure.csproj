@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>DistribuTe.Mutators.Teams.Infrastructure</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-application\svc-mut-teams-application.csproj" />
+      <ProjectReference Include="..\svc-mut-teams-domain\svc-mut-teams-domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    </ItemGroup>
+
+</Project>

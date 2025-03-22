@@ -6,35 +6,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{49B5794B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - presentation", "1 - presentation", "{925735D0-4723-4983-B32A-78E05B20974A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-apis", "svc-aggr-teams-apis\svc-aggr-teams-apis.csproj", "{AC8689F0-8946-4118-A403-64933FE47D7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-apis", "src\svc-aggr-teams-apis\svc-aggr-teams-apis.csproj", "{AC8689F0-8946-4118-A403-64933FE47D7E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - application", "2 - application", "{61274147-CA93-4958-8D29-3C8BB6C381B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-application", "svc-aggr-teams-application\svc-aggr-teams-application.csproj", "{81AD0BC5-0F83-4735-A069-83F2CAA0EE3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-application", "src\svc-aggr-teams-application\svc-aggr-teams-application.csproj", "{81AD0BC5-0F83-4735-A069-83F2CAA0EE3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - infrastructure", "3 - infrastructure", "{31A6DA16-71B8-413E-A55B-302FE9FF522A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-infrastructure", "svc-aggr-teams-infrastructure\svc-aggr-teams-infrastructure.csproj", "{53ED442B-F50D-4D5E-8ED6-6A9852602009}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-infrastructure", "src\svc-aggr-teams-infrastructure\svc-aggr-teams-infrastructure.csproj", "{53ED442B-F50D-4D5E-8ED6-6A9852602009}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{96B41100-122F-4B1B-87DB-068F05FA18C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-team-entities", "..\lib-domain-all\lib-domain-team-entities\lib-domain-team-entities.csproj", "{A5CBD7CF-185F-4BC7-83AC-28D32C89355B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-team-entities", "..\lib-domain-all\lib-domain-team-entities\src\lib-domain-team-entities.csproj", "{A5CBD7CF-185F-4BC7-83AC-28D32C89355B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-domain", "svc-aggr-teams-domain\svc-aggr-teams-domain.csproj", "{770F68FE-A8FA-46FA-9176-A372B233E4B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-domain", "src\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj", "{770F68FE-A8FA-46FA-9176-A372B233E4B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "..\lib-fw-all\lib-fw-modulez\lib-fw-modulez.csproj", "{1B26B958-452E-46F2-986B-1D45E0758783}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj", "{1B26B958-452E-46F2-986B-1D45E0758783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..\lib-fw-all\lib-fw-app-essentials\lib-fw-app-essentials.csproj", "{C8668992-0B97-40A2-B271-35947B27B01C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..\lib-fw-all\lib-fw-app-essentials\src\lib-fw-app-essentials.csproj", "{C8668992-0B97-40A2-B271-35947B27B01C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-host", "svc-aggr-teams-host\svc-aggr-teams-host.csproj", "{9F50D572-A738-4C33-96E3-9418C01B43A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-teams-host", "src\svc-aggr-teams-host\svc-aggr-teams-host.csproj", "{9F50D572-A738-4C33-96E3-9418C01B43A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "..\lib-fw-all\lib-fw-api-essentials\lib-fw-api-essentials.csproj", "{EB83A53E-D335-4E9C-B59D-C3225154B1A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj", "{EB83A53E-D335-4E9C-B59D-C3225154B1A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "..\lib-fw-all\lib-fw-domain-essentials\lib-fw-domain-essentials.csproj", "{BC85CF19-43FA-40E9-8210-7BD8915DAAAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "..\lib-fw-all\lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj", "{BC85CF19-43FA-40E9-8210-7BD8915DAAAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj", "{7071B0DC-FD9D-4147-988D-43F304E58B1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj", "{7071B0DC-FD9D-4147-988D-43F304E58B1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

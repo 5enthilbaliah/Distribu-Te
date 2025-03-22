@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>DistribuTe.Domain.AppEntities</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\lib-domain-deployment-entities\src\lib-domain-deployment-entities.csproj" />
+      <ProjectReference Include="..\..\lib-domain-project-entities\src\lib-domain-project-entities.csproj" />
+      <ProjectReference Include="..\..\lib-domain-team-entities\src\lib-domain-team-entities.csproj" />
+    </ItemGroup>
+
+
+</Project>

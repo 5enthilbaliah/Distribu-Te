@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-team-entities", "lib-domain-team-entities\lib-domain-team-entities.csproj", "{AA412D5B-BBA3-46E0-9A3F-57E47DAAB0FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-team-entities", "lib-domain-team-entities\src\lib-domain-team-entities.csproj", "{AA412D5B-BBA3-46E0-9A3F-57E47DAAB0FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-app-entities", "lib-domain-app-entities\lib-domain-app-entities.csproj", "{BE7F7DAF-DF31-4B17-8F7C-4F0EA3BA8888}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-app-entities", "lib-domain-app-entities\src\lib-domain-app-entities.csproj", "{BE7F7DAF-DF31-4B17-8F7C-4F0EA3BA8888}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-project-entities", "lib-domain-project-entities\lib-domain-project-entities.csproj", "{1EAB57E8-070A-401A-8D19-F381ECB1692A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-project-entities", "lib-domain-project-entities\src\lib-domain-project-entities.csproj", "{1EAB57E8-070A-401A-8D19-F381ECB1692A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-deployment-entities", "lib-domain-deployment-entities\lib-domain-deployment-entities.csproj", "{6AEB8013-94DA-4E49-9C69-E83BE81E2D9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-deployment-entities", "lib-domain-deployment-entities\src\lib-domain-deployment-entities.csproj", "{6AEB8013-94DA-4E49-9C69-E83BE81E2D9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

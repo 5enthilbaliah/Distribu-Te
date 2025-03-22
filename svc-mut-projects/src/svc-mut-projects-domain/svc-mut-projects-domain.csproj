@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>DistribuTe.Mutators.Projects.Domain</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\lib-domain-all\lib-domain-project-entities\src\lib-domain-project-entities.csproj" />
+        <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj" />
+        <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ErrorOr" Version="2.0.1" />
+    </ItemGroup>
+
+</Project>

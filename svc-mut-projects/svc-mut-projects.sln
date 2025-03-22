@@ -12,23 +12,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - infrastructure", "3 - i
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{3D3989B0-5F59-4F43-9EF0-D302373661FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-project-entities", "..\lib-domain-all\lib-domain-project-entities\lib-domain-project-entities.csproj", "{15E665AA-42EF-485D-8AFB-D94218B205C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-project-entities", "..\lib-domain-all\lib-domain-project-entities\src\lib-domain-project-entities.csproj", "{15E665AA-42EF-485D-8AFB-D94218B205C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{B25E4C6E-AC06-411C-B20F-985198CD2756}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "..\lib-fw-all\lib-fw-domain-essentials\lib-fw-domain-essentials.csproj", "{CB1B13B3-F81F-48FE-AD3E-FA132487F812}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "..\lib-fw-all\lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj", "{CB1B13B3-F81F-48FE-AD3E-FA132487F812}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..\lib-fw-all\lib-fw-app-essentials\lib-fw-app-essentials.csproj", "{8A891D8E-388F-44A0-87BE-162B3C537185}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..\lib-fw-all\lib-fw-app-essentials\src\lib-fw-app-essentials.csproj", "{8A891D8E-388F-44A0-87BE-162B3C537185}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "..\lib-fw-all\lib-fw-api-essentials\lib-fw-api-essentials.csproj", "{07317148-2C2D-4379-B8CB-7CEBDF3595F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj", "{07317148-2C2D-4379-B8CB-7CEBDF3595F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-domain", "svc-mut-projects-domain\svc-mut-projects-domain.csproj", "{49BCD33A-A3C5-4B24-99B2-3F2BD8952B12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-domain", "src\svc-mut-projects-domain\svc-mut-projects-domain.csproj", "{49BCD33A-A3C5-4B24-99B2-3F2BD8952B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-application", "svc-mut-projects-application\svc-mut-projects-application.csproj", "{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-application", "src\svc-mut-projects-application\svc-mut-projects-application.csproj", "{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-infrastructure", "svc-mut-projects-infrastructure\svc-mut-projects-infrastructure.csproj", "{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-infrastructure", "src\svc-mut-projects-infrastructure\svc-mut-projects-infrastructure.csproj", "{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj", "{0E1D34DF-0060-49EA-B827-E87909695800}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj", "{0E1D34DF-0060-49EA-B827-E87909695800}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

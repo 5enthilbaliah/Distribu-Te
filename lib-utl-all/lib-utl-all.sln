@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-utl-http-fluent", "lib-utl-http-fluent\lib-utl-http-fluent.csproj", "{25650D74-612A-4C88-A634-5E14EBA8CB6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-utl-http-fluent", "lib-utl-http-fluent\src\lib-utl-http-fluent.csproj", "{25650D74-612A-4C88-A634-5E14EBA8CB6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

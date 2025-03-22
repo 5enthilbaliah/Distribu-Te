@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>DistribuTe.Aggregates.Teams.Host</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-app-essentials\src\lib-fw-app-essentials.csproj" />
+      <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-apis\svc-aggr-teams-apis.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-application\svc-aggr-teams-application.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-domain\svc-aggr-teams-domain.csproj" />
+      <ProjectReference Include="..\svc-aggr-teams-infrastructure\svc-aggr-teams-infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

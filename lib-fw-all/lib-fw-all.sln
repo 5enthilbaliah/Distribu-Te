@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-workflowz", "lib-fw-workflowz\lib-fw-workflowz.csproj", "{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-workflowz", "lib-fw-workflowz\src\lib-fw-workflowz.csproj", "{FE416739-D06D-4D4E-AE1F-1CF6C6A22CE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "lib-fw-modulez\lib-fw-modulez.csproj", "{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "lib-fw-modulez\src\lib-fw-modulez.csproj", "{AA4C15E6-DC8C-40D1-929D-C1902BE46D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "lib-fw-app-essentials\lib-fw-app-essentials.csproj", "{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "lib-fw-app-essentials\src\lib-fw-app-essentials.csproj", "{1D2A573F-D9C5-462E-B08F-80AE79DB2FAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-test-essentials", "lib-fw-test-essentials\lib-fw-test-essentials.csproj", "{7BE3D837-E974-4D9C-B822-F0FB0B51F093}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-test-essentials", "lib-fw-test-essentials\src\lib-fw-test-essentials.csproj", "{7BE3D837-E974-4D9C-B822-F0FB0B51F093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "lib-fw-api-essentials\lib-fw-api-essentials.csproj", "{26D6B43C-2596-465D-BB8E-82A3D1E8E3EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "lib-fw-api-essentials\src\lib-fw-api-essentials.csproj", "{26D6B43C-2596-465D-BB8E-82A3D1E8E3EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "lib-fw-domain-essentials\lib-fw-domain-essentials.csproj", "{8F20CA12-B9E5-4E55-8E05-8EDF36910686}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj", "{8F20CA12-B9E5-4E55-8E05-8EDF36910686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "lib-fw-infrastructure-essentials\lib-fw-infrastructure-essentials.csproj", "{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj", "{0DC244AF-8326-4F81-8C07-1C2FCC2FCD57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>DistribuTe.Framework.InfrastructureEssentials</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\lib-fw-app-essentials\src\lib-fw-app-essentials.csproj" />
+      <ProjectReference Include="..\..\lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj" />
+      <ProjectReference Include="..\..\lib-fw-modulez\src\lib-fw-modulez.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    </ItemGroup>
+
+</Project>

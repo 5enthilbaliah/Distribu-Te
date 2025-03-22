@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\lib-domain-all\lib-domain-app-entities\lib-domain-app-entities.csproj" />
+      <ProjectReference Include="..\..\lib-domain-all\lib-domain-app-entities\src\lib-domain-app-entities.csproj" />
     </ItemGroup>
 
 
