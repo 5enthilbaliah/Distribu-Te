@@ -2,6 +2,7 @@
 
 using Application;
 using Application.Shared;
+using Framework.AppEssentials;
 using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 

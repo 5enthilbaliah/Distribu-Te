@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
 using FluentValidation;
+using Framework.AppEssentials;
 using Framework.AppEssentials.Validations;
 using MediatR;
 

@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using System.Linq.Expressions;
-using Application;
+using Framework.AppEssentials;
 using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 

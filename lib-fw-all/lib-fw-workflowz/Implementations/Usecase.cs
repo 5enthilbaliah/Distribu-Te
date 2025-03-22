@@ -4,7 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 public class Usecase(IServiceProvider serviceProvider) : IUsecase
 {
-    private readonly IServiceProvider _serviceProvider = serviceProvider;
+    private readonly IServiceProvider _serviceProvider = serviceProvider 
+                                                         ?? throw new ArgumentNullException(nameof(serviceProvider));
 
 
     public async Task<bool> ExecuteAsync<TCondition>(TCondition condition, CancellationToken cancellationToken) 
