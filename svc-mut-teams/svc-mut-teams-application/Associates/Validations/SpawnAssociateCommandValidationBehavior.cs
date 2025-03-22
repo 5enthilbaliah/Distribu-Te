@@ -9,11 +9,11 @@ using Framework.AppEssentials.Validations;
 using MediatR;
 using Shared;
 
-public class SpawnAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader,
+public class SpawnAssociateCommandValidationBehavior(IEntityReader<Associate, AssociateId> reader,
     IValidator<AssociateRequest> validator) : DistribuTeRequestValidationBehavior<AssociateRequest>(validator),
     IPipelineBehavior<SpawnAssociateCommand, ErrorOr<AssociateResponse>>
 {
-    private readonly ITeamsReader<Associate, AssociateId> _reader = 
+    private readonly IEntityReader<Associate, AssociateId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
     
     public async Task<ErrorOr<AssociateResponse>> Handle(SpawnAssociateCommand request, 

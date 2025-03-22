@@ -5,9 +5,9 @@ using Application.Shared;
 using Framework.DomainEssentials;
 using Microsoft.EntityFrameworkCore;
 
-public class UnitOfWork(TeamDatabaseContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork
+public class UnitOfWork(TeamSchemaDatabaseContext context, IDateTimeProvider dateTimeProvider) : IUnitOfWork
 {
-    private readonly TeamDatabaseContext _context = context ?? throw new ArgumentNullException(nameof(context));
+    private readonly TeamSchemaDatabaseContext _context = context ?? throw new ArgumentNullException(nameof(context));
     private readonly IDateTimeProvider  _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
     
     public async Task SaveChangesAsync(string mutator = "Anonymous", CancellationToken cancellationToken = default)

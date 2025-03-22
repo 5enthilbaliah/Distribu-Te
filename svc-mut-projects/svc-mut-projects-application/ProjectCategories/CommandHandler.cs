@@ -8,13 +8,13 @@ using Mapster;
 using MapsterMapper;
 using MediatR;
 
-public class CommandHandler(IProjectsMutator<ProjectCategory, ProjectCategoryId> mutator, 
+public class CommandHandler(IEntityMutator<ProjectCategory, ProjectCategoryId> mutator, 
     IExistingEntityMarker<ProjectCategory, ProjectCategoryId> entityMarker, IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<SpawnProjectCategoryCommand, ErrorOr<ProjectCategoryResponse>>,
         IRequestHandler<CommitProjectCategoryCommand, ErrorOr<ProjectCategoryResponse>>,
         IRequestHandler<TrashProjectCategoryCommand, ErrorOr<bool>>
 {
-    private readonly IProjectsMutator<ProjectCategory, ProjectCategoryId> _mutator =
+    private readonly IEntityMutator<ProjectCategory, ProjectCategoryId> _mutator =
         mutator ?? throw new ArgumentNullException(nameof(mutator));
     private readonly IExistingEntityMarker<ProjectCategory, ProjectCategoryId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

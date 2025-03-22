@@ -17,20 +17,20 @@ public class PersistenceServiceModule : DependencyServiceModule
         var dbSettings = new DistribuTeDbSettings();
         configuration.GetSection(nameof(DistribuTeDbSettings)).Bind(dbSettings);
         
-        services.AddDbContext<TeamDatabaseContext>(opt => 
+        services.AddDbContext<TeamSchemaDatabaseContext>(opt => 
             opt.UseSqlServer(dbSettings.ConnectionString, mssqlOpt =>
             {
                 mssqlOpt.CommandTimeout(dbSettings.TimeoutInSeconds);
             }));
 
         // TODO:: find a way to register the same repository for both mutators and readers
-        services.AddScoped<ITeamsMutator<Associate, AssociateId>, AssociateTeamsRepository>();
-        services.AddScoped<ITeamsMutator<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
-        services.AddScoped<ITeamsMutator<Squad, SquadId>, SquadTeamsRepository>();
+        services.AddScoped<IEntityMutator<Associate, AssociateId>, AssociateEntityRepository>();
+        services.AddScoped<IEntityMutator<SquadAssociate, SquadAssociateId>, SquadAssociateEntityRepository>();
+        services.AddScoped<IEntityMutator<Squad, SquadId>, SquadEntityRepository>();
         
-        services.AddScoped<ITeamsReader<Associate, AssociateId>, AssociateTeamsRepository>();
-        services.AddScoped<ITeamsReader<SquadAssociate, SquadAssociateId>, SquadAssociateTeamsRepository>();
-        services.AddScoped<ITeamsReader<Squad, SquadId>, SquadTeamsRepository>();
+        services.AddScoped<IEntityReader<Associate, AssociateId>, AssociateEntityRepository>();
+        services.AddScoped<IEntityReader<SquadAssociate, SquadAssociateId>, SquadAssociateEntityRepository>();
+        services.AddScoped<IEntityReader<Squad, SquadId>, SquadEntityRepository>();
 
         services.AddScoped(typeof(IExistingEntityMarker<,>), typeof(ExistingEntityMarker<,>));
         

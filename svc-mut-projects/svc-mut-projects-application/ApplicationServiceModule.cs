@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ProjectCategories.Validations;
 using Projects.Validations;
 using Shared;
+using SquadProjects.Validations;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
@@ -19,6 +20,7 @@ public class ApplicationServiceModule : DependencyServiceModule
     {
         AppendModule<ProjectValidationServiceModule>();
         AppendModule<ProjectCategoryValidationServiceModule>();
+        AppendModule<SquadProjectValidationServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 

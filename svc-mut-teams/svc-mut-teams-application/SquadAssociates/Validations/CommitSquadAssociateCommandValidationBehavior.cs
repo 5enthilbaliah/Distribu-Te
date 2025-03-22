@@ -9,12 +9,12 @@ using Framework.AppEssentials;
 using Framework.AppEssentials.Validations;
 using MediatR;
 
-public class CommitSquadAssociateCommandValidationBehavior(ITeamsReader<SquadAssociate, SquadAssociateId> reader,
+public class CommitSquadAssociateCommandValidationBehavior(IEntityReader<SquadAssociate, SquadAssociateId> reader,
     IValidator<SquadAssociateRequest> validator, IExistingEntityMarker<SquadAssociate, SquadAssociateId> entityMarker) : 
     DistribuTeRequestValidationBehavior<SquadAssociateRequest>(validator),
     IPipelineBehavior<CommitSquadAssociateCommand, ErrorOr<SquadAssociateResponse>>
 {
-    private readonly ITeamsReader<SquadAssociate, SquadAssociateId> _reader =
+    private readonly IEntityReader<SquadAssociate, SquadAssociateId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly IExistingEntityMarker<SquadAssociate, SquadAssociateId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

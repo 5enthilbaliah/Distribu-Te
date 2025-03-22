@@ -9,14 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
 using Teams.Application.SquadAssociates;
-using Teams.Application.SquadAssociates.Mappings;
+using Teams.Application.SquadAssociates.Mappers;
 using Teams.Domain.Entities;
 
 public class CommandHandlerTests
 {
     private readonly ServiceProvider _serviceProvider;
-    private readonly ITeamsMutator<SquadAssociate, SquadAssociateId> _teamsMutator = 
-        Substitute.For<ITeamsMutator<SquadAssociate, SquadAssociateId>>();
+    private readonly IEntityMutator<SquadAssociate, SquadAssociateId> _entityMutator = 
+        Substitute.For<IEntityMutator<SquadAssociate, SquadAssociateId>>();
     private readonly IExistingEntityMarker<SquadAssociate, SquadAssociateId> _entityMarker =
         Substitute.For<IExistingEntityMarker<SquadAssociate, SquadAssociateId>>();
     private readonly IUnitOfWork _unitOfWork = Substitute.For<IUnitOfWork>();
@@ -25,7 +25,7 @@ public class CommandHandlerTests
     {
         var services = new ServiceCollection();
         
-        services.AddScoped(_ => _teamsMutator);
+        services.AddScoped(_ => _entityMutator);
         services.AddScoped(_ => _entityMarker);
         services.AddScoped(_ => _unitOfWork);
         var mapsterConfig = TypeAdapterConfig.GlobalSettings;
@@ -47,15 +47,15 @@ public class CommandHandlerTests
         act.Should().Throw<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'mutator')");
         
-        act = () => new CommandHandler(_teamsMutator, null, _unitOfWork, mapper!);
+        act = () => new CommandHandler(_entityMutator, null, _unitOfWork, mapper!);
         act.Should().Throw<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'entityMarker')");
         
-        act = () => new CommandHandler(_teamsMutator, _entityMarker, null, mapper!);
+        act = () => new CommandHandler(_entityMutator, _entityMarker, null, mapper!);
         act.Should().Throw<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'unitOfWork')");
         
-        act = () => new CommandHandler(_teamsMutator, _entityMarker, _unitOfWork, null);
+        act = () => new CommandHandler(_entityMutator, _entityMarker, _unitOfWork, null);
         act.Should().Throw<ArgumentNullException>()
             .WithMessage("Value cannot be null. (Parameter 'mapper')");
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
@@ -68,7 +68,7 @@ public class CommandHandlerTests
         var fixture = new Fixture();
         var command = fixture.Create<SpawnSquadAssociateCommand>();
 
-        _teamsMutator.SpawnOne(Arg.Any<SquadAssociate>());
+        _entityMutator.SpawnOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         
@@ -91,7 +91,7 @@ public class CommandHandlerTests
 
         _entityMarker.Entity.Returns(entity);
         _entityMarker.Id.Returns(entity.Id);
-        _teamsMutator.CommitOne(Arg.Any<SquadAssociate>());
+        _entityMutator.CommitOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         
@@ -112,7 +112,7 @@ public class CommandHandlerTests
         var entity = fixture.Create<SquadAssociate>();
         
         _entityMarker.Entity.Returns(entity);
-        _teamsMutator.TrashOne(Arg.Any<SquadAssociate>());
+        _entityMutator.TrashOne(Arg.Any<SquadAssociate>());
         _unitOfWork.SaveChangesAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
             .Returns(Task.CompletedTask);
         

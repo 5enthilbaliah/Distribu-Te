@@ -28,6 +28,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-application", "svc-mut-projects-application\svc-mut-projects-application.csproj", "{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-utl-http-fluent", "..\lib-utl-all\lib-utl-http-fluent\lib-utl-http-fluent.csproj", "{C16320A0-BD00-4FDE-A98E-2C37CED76D18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-infrastructure", "svc-mut-projects-infrastructure\svc-mut-projects-infrastructure.csproj", "{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,8 @@ Global
 		{07317148-2C2D-4379-B8CB-7CEBDF3595F1} = {B25E4C6E-AC06-411C-B20F-985198CD2756}
 		{49BCD33A-A3C5-4B24-99B2-3F2BD8952B12} = {3D3989B0-5F59-4F43-9EF0-D302373661FE}
 		{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7} = {B5EB1EC6-E88D-4D5B-87CF-8EB3E43B59C2}
+		{C16320A0-BD00-4FDE-A98E-2C37CED76D18} = {B25E4C6E-AC06-411C-B20F-985198CD2756}
+		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918} = {5FE57A23-5718-4A45-972E-CDE0D32738D9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{15E665AA-42EF-485D-8AFB-D94218B205C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,5 +82,13 @@ Global
 		{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C16320A0-BD00-4FDE-A98E-2C37CED76D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C16320A0-BD00-4FDE-A98E-2C37CED76D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C16320A0-BD00-4FDE-A98E-2C37CED76D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C16320A0-BD00-4FDE-A98E-2C37CED76D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -17,7 +17,7 @@ public class UnitOfWorkTests
     public UnitOfWorkTests()
     {
         var services = new ServiceCollection();
-        services.AddDbContext<TeamDatabaseContext>(opt => opt.UseInMemoryDatabase(databaseName: "TeamDatabase"));
+        services.AddDbContext<TeamSchemaDatabaseContext>(opt => opt.UseInMemoryDatabase(databaseName: "TeamDatabase"));
         services.AddScoped<UnitOfWork>();
         services.AddScoped(_ => _dateTimeProvider);
         _serviceProvider = services.BuildServiceProvider();
@@ -34,7 +34,7 @@ public class UnitOfWorkTests
         _dateTimeProvider.UtcNow.Returns(utcNow);
         
         // Act
-        var dbContext = _serviceProvider.GetRequiredService<TeamDatabaseContext>();
+        var dbContext = _serviceProvider.GetRequiredService<TeamSchemaDatabaseContext>();
         var uow = _serviceProvider.GetRequiredService<UnitOfWork>();
         foreach (var associate in entities)
         {

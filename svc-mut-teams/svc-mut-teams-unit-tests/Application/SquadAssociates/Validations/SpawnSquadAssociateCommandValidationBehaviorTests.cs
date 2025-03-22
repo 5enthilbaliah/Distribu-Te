@@ -17,13 +17,13 @@ public class SpawnSquadAssociateCommandValidationBehaviorTests
 {
     private readonly ServiceProvider _serviceProvider;
 
-    private readonly ITeamsReader<SquadAssociate, SquadAssociateId> _reader =
-        Substitute.For<ITeamsReader<SquadAssociate, SquadAssociateId>>();
+    private readonly IEntityReader<SquadAssociate, SquadAssociateId> _reader =
+        Substitute.For<IEntityReader<SquadAssociate, SquadAssociateId>>();
     private readonly IValidator<SquadAssociateRequest> _validator = Substitute.For<IValidator<SquadAssociateRequest>>();
-    private readonly ITeamsReader<Squad, SquadId> _squadReader =
-        Substitute.For<ITeamsReader<Squad, SquadId>>();
-    private readonly ITeamsReader<Associate, AssociateId> _associateReader =
-        Substitute.For<ITeamsReader<Associate, AssociateId>>();
+    private readonly IEntityReader<Squad, SquadId> _squadReader =
+        Substitute.For<IEntityReader<Squad, SquadId>>();
+    private readonly IEntityReader<Associate, AssociateId> _associateReader =
+        Substitute.For<IEntityReader<Associate, AssociateId>>();
 
     public SpawnSquadAssociateCommandValidationBehaviorTests()
     {

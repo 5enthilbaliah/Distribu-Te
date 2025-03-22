@@ -8,11 +8,11 @@ using FluentValidation;
 using Framework.AppEssentials.Validations;
 using MediatR;
 
-public class SpawnProjectCommandValidationBehavior(IProjectsReader<Project, ProjectId> reader,
+public class SpawnProjectCommandValidationBehavior(IEntityReader<Project, ProjectId> reader,
     IValidator<ProjectRequest> validator) : DistribuTeRequestValidationBehavior<ProjectRequest>(validator),
     IPipelineBehavior<SpawnProjectCommand, ErrorOr<ProjectResponse>>
 {
-    private readonly IProjectsReader<Project, ProjectId> _reader = 
+    private readonly IEntityReader<Project, ProjectId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
     
     public async Task<ErrorOr<ProjectResponse>> Handle(SpawnProjectCommand request, 

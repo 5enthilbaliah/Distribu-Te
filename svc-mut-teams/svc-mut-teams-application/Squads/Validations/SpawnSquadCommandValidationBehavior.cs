@@ -8,11 +8,11 @@ using FluentValidation;
 using Framework.AppEssentials.Validations;
 using MediatR;
 
-public class SpawnSquadCommandValidationBehavior(ITeamsReader<Squad, SquadId> reader,
+public class SpawnSquadCommandValidationBehavior(IEntityReader<Squad, SquadId> reader,
     IValidator<SquadRequest> validator) : DistribuTeRequestValidationBehavior<SquadRequest>(validator),
     IPipelineBehavior<SpawnSquadCommand, ErrorOr<SquadResponse>>
 {
-    private readonly ITeamsReader<Squad, SquadId> _reader = 
+    private readonly IEntityReader<Squad, SquadId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
     
     public async Task<ErrorOr<SquadResponse>> Handle(SpawnSquadCommand request, 

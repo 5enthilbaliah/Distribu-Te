@@ -17,8 +17,8 @@ public class CommitSquadCommandValidationBehaviorTests
 {
     private readonly ServiceProvider _serviceProvider;
 
-    private readonly ITeamsReader<Squad, SquadId> _reader =
-        Substitute.For<ITeamsReader<Squad, SquadId>>();
+    private readonly IEntityReader<Squad, SquadId> _reader =
+        Substitute.For<IEntityReader<Squad, SquadId>>();
     private readonly IExistingEntityMarker<Squad, SquadId> _entityMarker =
         Substitute.For<IExistingEntityMarker<Squad, SquadId>>();
     private readonly IValidator<SquadRequest> _validator = Substitute.For<IValidator<SquadRequest>>();

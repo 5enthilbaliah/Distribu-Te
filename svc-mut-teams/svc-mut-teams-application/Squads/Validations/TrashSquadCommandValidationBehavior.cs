@@ -6,11 +6,11 @@ using ErrorOr;
 using Framework.AppEssentials;
 using MediatR;
 
-public class TrashSquadCommandValidationBehavior(ITeamsReader<Squad, SquadId> reader,
+public class TrashSquadCommandValidationBehavior(IEntityReader<Squad, SquadId> reader,
     IExistingEntityMarker<Squad, SquadId> entityMarker) : 
     IPipelineBehavior<TrashSquadCommand, ErrorOr<bool>>
 {
-    private readonly ITeamsReader<Squad, SquadId> _reader = 
+    private readonly IEntityReader<Squad, SquadId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly IExistingEntityMarker<Squad, SquadId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

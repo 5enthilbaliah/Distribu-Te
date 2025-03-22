@@ -8,17 +8,17 @@ using FluentValidation;
 using Framework.AppEssentials.Validations;
 using MediatR;
 
-public class SpawnSquadAssociateCommandValidationBehavior(ITeamsReader<SquadAssociate, SquadAssociateId> reader,
-    IValidator<SquadAssociateRequest> validator, ITeamsReader<Squad, SquadId> squadReader,
-    ITeamsReader<Associate, AssociateId> associateReader) : 
+public class SpawnSquadAssociateCommandValidationBehavior(IEntityReader<SquadAssociate, SquadAssociateId> reader,
+    IValidator<SquadAssociateRequest> validator, IEntityReader<Squad, SquadId> squadReader,
+    IEntityReader<Associate, AssociateId> associateReader) : 
     DistribuTeRequestValidationBehavior<SquadAssociateRequest>(validator),
     IPipelineBehavior<SpawnSquadAssociateCommand, ErrorOr<SquadAssociateResponse>>
 {
-    private readonly ITeamsReader<SquadAssociate, SquadAssociateId> _reader = 
+    private readonly IEntityReader<SquadAssociate, SquadAssociateId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
-    private readonly ITeamsReader<Squad, SquadId> _squadReader = 
+    private readonly IEntityReader<Squad, SquadId> _squadReader = 
         squadReader ?? throw new ArgumentNullException(nameof(squadReader));
-    private readonly ITeamsReader<Associate, AssociateId> _associateReader = 
+    private readonly IEntityReader<Associate, AssociateId> _associateReader = 
         associateReader ?? throw new ArgumentNullException(nameof(associateReader));
     
     public async Task<ErrorOr<SquadAssociateResponse>> Handle(SpawnSquadAssociateCommand request, 
@@ -41,7 +41,7 @@ public class SpawnSquadAssociateCommandValidationBehavior(ITeamsReader<SquadAsso
             return Errors.Associates.NotFound;
         
         var allocationFound = await _reader.AnyAsync(a => a.SquadId == squadId
-                                                     && a.AssociateId == associateId && !a.EndedOn.HasValue, cancellationToken);
+                                                     && a.AssociateId == associateId, cancellationToken);
         if (allocationFound)
             return Errors.SquadAssociates.DuplicateAllocation;
         

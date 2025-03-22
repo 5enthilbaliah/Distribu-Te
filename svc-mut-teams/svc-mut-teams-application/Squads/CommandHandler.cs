@@ -8,13 +8,13 @@ using Mapster;
 using MapsterMapper;
 using MediatR;
 
-public class CommandHandler(ITeamsMutator<Squad, SquadId> mutator, 
+public class CommandHandler(IEntityMutator<Squad, SquadId> mutator, 
     IExistingEntityMarker<Squad, SquadId> entityMarker, IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<SpawnSquadCommand, ErrorOr<SquadResponse>>,
         IRequestHandler<CommitSquadCommand, ErrorOr<SquadResponse>>,
         IRequestHandler<TrashSquadCommand, ErrorOr<bool>>
 {
-    private readonly ITeamsMutator<Squad, SquadId> _mutator =
+    private readonly IEntityMutator<Squad, SquadId> _mutator =
         mutator ?? throw new ArgumentNullException(nameof(mutator));
     private readonly IExistingEntityMarker<Squad, SquadId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

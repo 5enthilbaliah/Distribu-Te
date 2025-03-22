@@ -6,11 +6,11 @@ using ErrorOr;
 using Framework.AppEssentials;
 using MediatR;
 
-public class TrashProjectCategoryCommandValidationBehavior(IProjectsReader<ProjectCategory, ProjectCategoryId> reader,
+public class TrashProjectCategoryCommandValidationBehavior(IEntityReader<ProjectCategory, ProjectCategoryId> reader,
     IExistingEntityMarker<ProjectCategory, ProjectCategoryId> entityMarker) : 
     IPipelineBehavior<TrashProjectCategoryCommand, ErrorOr<bool>>
 {
-    private readonly IProjectsReader<ProjectCategory, ProjectCategoryId> _reader = 
+    private readonly IEntityReader<ProjectCategory, ProjectCategoryId> _reader = 
         reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly IExistingEntityMarker<ProjectCategory, ProjectCategoryId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

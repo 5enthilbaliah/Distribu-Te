@@ -9,12 +9,12 @@ using Framework.AppEssentials;
 using Framework.AppEssentials.Validations;
 using MediatR;
 
-public class CommitProjectCategoryCommandValidationBehavior(IProjectsReader<ProjectCategory, ProjectCategoryId> reader,
+public class CommitProjectCategoryCommandValidationBehavior(IEntityReader<ProjectCategory, ProjectCategoryId> reader,
     IValidator<ProjectCategoryRequest> validator, IExistingEntityMarker<ProjectCategory, ProjectCategoryId> entityMarker) : 
     DistribuTeRequestValidationBehavior<ProjectCategoryRequest>(validator),
     IPipelineBehavior<CommitProjectCategoryCommand, ErrorOr<ProjectCategoryResponse>>
 {
-    private readonly IProjectsReader<ProjectCategory, ProjectCategoryId> _reader =
+    private readonly IEntityReader<ProjectCategory, ProjectCategoryId> _reader =
         reader ?? throw new ArgumentNullException(nameof(reader));
     private readonly IExistingEntityMarker<ProjectCategory, ProjectCategoryId> _entityMarker = 
         entityMarker ?? throw new ArgumentNullException(nameof(entityMarker));

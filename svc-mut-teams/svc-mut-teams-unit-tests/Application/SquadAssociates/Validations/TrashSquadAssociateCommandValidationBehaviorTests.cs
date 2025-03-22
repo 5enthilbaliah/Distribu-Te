@@ -14,8 +14,8 @@ public class TrashSquadAssociateCommandValidationBehaviorTests
 {
     private readonly ServiceProvider _serviceProvider;
 
-    private readonly ITeamsReader<SquadAssociate, SquadAssociateId> _reader =
-        Substitute.For<ITeamsReader<SquadAssociate, SquadAssociateId>>();
+    private readonly IEntityReader<SquadAssociate, SquadAssociateId> _reader =
+        Substitute.For<IEntityReader<SquadAssociate, SquadAssociateId>>();
     private readonly IExistingEntityMarker<SquadAssociate, SquadAssociateId> _entityMarker =
         Substitute.For<IExistingEntityMarker<SquadAssociate, SquadAssociateId>>();
     
