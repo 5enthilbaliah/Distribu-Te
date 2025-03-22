@@ -3,8 +3,8 @@
 using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class TrashSquadCommandValidationBehavior(ITeamsReader<Squad, SquadId> reader,
     IExistingEntityMarker<Squad, SquadId> entityMarker) : 

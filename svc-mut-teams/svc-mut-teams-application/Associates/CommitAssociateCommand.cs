@@ -1,7 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Associates;
 
 using DataContracts;
-using Domain.Entities;
 using ErrorOr;
 using MediatR;
 using Shared;

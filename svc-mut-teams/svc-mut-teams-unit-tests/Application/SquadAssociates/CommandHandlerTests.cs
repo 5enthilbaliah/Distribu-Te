@@ -2,12 +2,12 @@
 
 using AutoFixture;
 using FluentAssertions;
+using Framework.AppEssentials;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
-using Teams.Application.Shared;
 using Teams.Application.SquadAssociates;
 using Teams.Application.SquadAssociates.Mappings;
 using Teams.Domain.Entities;

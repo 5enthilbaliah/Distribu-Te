@@ -1,9 +1,9 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using Application;
-using Application.Shared;
 using Domain.Entities;
 using Domain.Settings;
+using Framework.AppEssentials;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

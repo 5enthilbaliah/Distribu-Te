@@ -2,12 +2,12 @@
 
 using AutoFixture;
 using FluentAssertions;
+using Framework.AppEssentials;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
 using Teams.Application.Associates;
 using Teams.Application.Associates.Validations;
-using Teams.Application.Shared;
 using Teams.Domain.Entities;
 
 public class TrashAssociateCommandValidationBehaviorTests

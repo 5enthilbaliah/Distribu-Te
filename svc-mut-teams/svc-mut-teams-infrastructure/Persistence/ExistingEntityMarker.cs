@@ -1,7 +1,7 @@
 ﻿namespace DistribuTe.Mutators.Teams.Infrastructure.Persistence;
 
 using System.Diagnostics.CodeAnalysis;
-using Application.Shared;
+using Framework.AppEssentials;
 using Framework.DomainEssentials;
 
 [ExcludeFromCodeCoverage]

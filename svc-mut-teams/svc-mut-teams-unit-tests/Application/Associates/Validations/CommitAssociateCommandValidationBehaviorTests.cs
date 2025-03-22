@@ -4,13 +4,13 @@ using AutoFixture;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
+using Framework.AppEssentials;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
 using Teams.Application.Associates;
 using Teams.Application.Associates.DataContracts;
 using Teams.Application.Associates.Validations;
-using Teams.Application.Shared;
 using Teams.Domain.Entities;
 
 public class CommitAssociateCommandValidationBehaviorTests

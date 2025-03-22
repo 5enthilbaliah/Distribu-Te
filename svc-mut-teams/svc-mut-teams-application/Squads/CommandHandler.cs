@@ -3,10 +3,10 @@
 using DataContracts;
 using Domain.Entities;
 using ErrorOr;
+using Framework.AppEssentials;
 using Mapster;
 using MapsterMapper;
 using MediatR;
-using Shared;
 
 public class CommandHandler(ITeamsMutator<Squad, SquadId> mutator, 
     IExistingEntityMarker<Squad, SquadId> entityMarker, IUnitOfWork unitOfWork, IMapper mapper)

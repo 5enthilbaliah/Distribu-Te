@@ -1,7 +1,6 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Application.Shared;
+﻿namespace DistribuTe.Framework.AppEssentials;
 
-using Framework.DomainEssentials;
+using DomainEssentials;
 
 public interface IExistingEntityMarker<TEntity, TId>
     where TEntity : class, IEntity<TId>

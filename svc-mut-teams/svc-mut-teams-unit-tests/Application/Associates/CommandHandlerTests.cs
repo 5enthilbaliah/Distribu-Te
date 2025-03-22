@@ -2,6 +2,7 @@
 
 using AutoFixture;
 using FluentAssertions;
+using Framework.AppEssentials;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,6 @@ using NSubstitute;
 using Teams.Application;
 using Teams.Application.Associates;
 using Teams.Application.Associates.Mappings;
-using Teams.Application.Shared;
 using Teams.Domain.Entities;
 
 public class CommandHandlerTests

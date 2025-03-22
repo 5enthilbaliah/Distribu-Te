@@ -5,9 +5,9 @@ using Domain.Entities;
 using Domain.Errors;
 using ErrorOr;
 using FluentValidation;
+using Framework.AppEssentials;
 using Framework.AppEssentials.Validations;
 using MediatR;
-using Shared;
 
 public class CommitAssociateCommandValidationBehavior(ITeamsReader<Associate, AssociateId> reader,
     IValidator<AssociateRequest> validator, IExistingEntityMarker<Associate, AssociateId> entityMarker) : 

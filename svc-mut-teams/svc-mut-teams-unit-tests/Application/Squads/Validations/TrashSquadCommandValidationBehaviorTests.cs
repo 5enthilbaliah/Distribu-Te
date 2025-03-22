@@ -2,10 +2,10 @@
 
 using AutoFixture;
 using FluentAssertions;
+using Framework.AppEssentials;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Teams.Application;
-using Teams.Application.Shared;
 using Teams.Application.Squads;
 using Teams.Application.Squads.Validations;
 using Teams.Domain.Entities;
