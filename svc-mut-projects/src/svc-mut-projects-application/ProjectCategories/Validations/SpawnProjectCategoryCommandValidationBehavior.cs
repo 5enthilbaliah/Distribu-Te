@@ -25,9 +25,13 @@ public class SpawnProjectCategoryCommandValidationBehavior(IEntityReader<Project
         
         var codeFound = await _reader.AnyAsync(a => a.Code == request.ProjectCategory.Code,
             cancellationToken);
-
         if (codeFound)
             return Errors.ProjectCategories.DuplicateCode;
+        
+        var nameFound = await _reader.AnyAsync(a => a.Name == request.ProjectCategory.Name,
+            cancellationToken);
+        if (nameFound)
+            return Errors.ProjectCategories.DuplicateName;
         
         var response = await next();
         return response;

@@ -25,11 +25,11 @@ public class SpawnSquadCommandValidationBehavior(IEntityReader<Squad, SquadId> r
         
         var codeFound = await _reader.AnyAsync(a => a.Code == request.Squad.Code,
             cancellationToken);
-        var nameFound = await _reader.AnyAsync(a => a.Name == request.Squad.Name,
-            cancellationToken);
-
         if (codeFound)
             return Errors.Squads.DuplicateCode;
+        
+        var nameFound = await _reader.AnyAsync(a => a.Name == request.Squad.Name,
+            cancellationToken);
         if (nameFound)
             return Errors.Squads.DuplicateName;
         

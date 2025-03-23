@@ -8,6 +8,8 @@ public static partial class Errors
     {
         public static Error DuplicateCode = Error.Conflict("project.duplicate_code", 
             "Project code already exists.");
+        public static Error DuplicateName = Error.Conflict("project.duplicate_name", 
+            "Project name already exists.");
         public static Error NotFound = Error.NotFound("project.not_found",
             "Project not found.");
     }

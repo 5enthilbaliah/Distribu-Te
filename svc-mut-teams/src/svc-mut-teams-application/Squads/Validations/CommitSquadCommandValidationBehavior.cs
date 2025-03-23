@@ -27,9 +27,18 @@ public class CommitSquadCommandValidationBehavior(IEntityReader<Squad, SquadId> 
         
         var squadId = new SquadId(request.Id);
         var existing = await _reader.PickAsync(squadId, cancellationToken);
-
         if (existing is null)
             return Errors.Squads.NotFound;
+        
+        var codeFound = await _reader.AnyAsync(a => a.Id != squadId && 
+                                                    a.Code == request.Squad.Code, cancellationToken);
+        if (codeFound)
+            return Errors.Squads.DuplicateCode;
+        
+        var nameFound = await _reader.AnyAsync(a => a.Id != squadId && 
+                                                    a.Name == request.Squad.Name, cancellationToken);
+        if (nameFound)
+            return Errors.Squads.DuplicateName;
 
         _entityMarker.Id = squadId;
         _entityMarker.Entity = existing;

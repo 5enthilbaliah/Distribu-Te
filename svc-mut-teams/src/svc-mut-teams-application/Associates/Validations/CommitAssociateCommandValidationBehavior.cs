@@ -29,9 +29,13 @@ public class CommitAssociateCommandValidationBehavior(IEntityReader<Associate, A
         
         var associateId = new AssociateId(request.Id);
         var existing = await _reader.PickAsync(associateId, cancellationToken);
-
         if (existing is null)
             return Errors.Associates.NotFound;
+        
+        var emailFound = await _reader.AnyAsync(a => a.Id != associateId &&
+                a.EmailId == request.Associate.Email_Id, cancellationToken);
+        if (emailFound)
+            return Errors.Associates.DuplicateEmail;
 
         _entityMarker.Id = associateId;
         _entityMarker.Entity = existing;

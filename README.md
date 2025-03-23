@@ -79,3 +79,8 @@ use case management
 
 
 All libraries would go into the nuget package repository
+
+## KeyCloak set up
+- go to http://localhost:8080/admin
+- Set up a realm 
+- Create a new confidential user

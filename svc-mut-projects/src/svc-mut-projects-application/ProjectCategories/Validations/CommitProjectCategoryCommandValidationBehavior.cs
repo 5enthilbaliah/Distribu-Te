@@ -29,9 +29,18 @@ public class CommitProjectCategoryCommandValidationBehavior(IEntityReader<Projec
         
         var projectCategoryId = new ProjectCategoryId(request.Id);
         var existing = await _reader.PickAsync(projectCategoryId, cancellationToken);
-
         if (existing is null)
             return Errors.ProjectCategories.NotFound;
+        
+        var codeFound = await _reader.AnyAsync(a => a.Id != projectCategoryId && 
+                                                    a.Code == request.ProjectCategory.Code, cancellationToken);
+        if (codeFound)
+            return Errors.ProjectCategories.DuplicateCode;
+        
+        var nameFound = await _reader.AnyAsync(a => a.Id != projectCategoryId && 
+                                                    a.Name == request.ProjectCategory.Name, cancellationToken);
+        if (nameFound)
+            return Errors.ProjectCategories.DuplicateName;
 
         _entityMarker.Id = projectCategoryId;
         _entityMarker.Entity = existing;

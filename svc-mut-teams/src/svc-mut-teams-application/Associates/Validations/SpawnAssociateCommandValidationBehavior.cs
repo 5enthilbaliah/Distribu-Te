@@ -25,7 +25,6 @@ public class SpawnAssociateCommandValidationBehavior(IEntityReader<Associate, As
         
         var emailFound = await _reader.AnyAsync(a => a.EmailId == request.Associate.Email_Id,
             cancellationToken);
-
         if (emailFound)
             return Errors.Associates.DuplicateEmail;
         
