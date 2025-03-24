@@ -3,6 +3,7 @@
 using System.Net;
 using Application;
 using Domain.Entities;
+using Microsoft.Extensions.Caching.Memory;
 
 public class TeamsAggregateApiReader(ITeamsAggregateApi teamsAggregateApi) : ITeamsAggregateApiReader
 {
