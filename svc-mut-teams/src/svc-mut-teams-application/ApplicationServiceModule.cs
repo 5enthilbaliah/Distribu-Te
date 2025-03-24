@@ -2,15 +2,14 @@
 
 using System.Reflection;
 using Associates.Validations;
-using Behaviors;
 using FluentValidation;
+using Framework.AppEssentials.Behaviors;
 using Framework.ModuleZ.Implementations;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared;
 using SquadAssociates.Validations;
 using Squads.Validations;
 

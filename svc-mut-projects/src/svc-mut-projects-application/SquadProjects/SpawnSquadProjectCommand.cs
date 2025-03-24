@@ -2,11 +2,12 @@
 
 using DataContracts;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
-public class SpawnSquadProjectCommand : IRequest<ErrorOr<SquadProjectResponse>>, IUserTrackable
+public class SpawnSquadProjectCommand : IRequest<ErrorOr<SquadProjectResponse>>, ITokenTrackable
 {
     public SquadProjectRequest SquadProject { get; set; } = null!;
     public string? User { get; set; }
+    public string? Token { get; set; }
 }

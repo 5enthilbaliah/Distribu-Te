@@ -1,8 +1,8 @@
 ﻿namespace DistribuTe.Mutators.Projects.Application;
 
 using System.Reflection;
-using Behaviors;
 using FluentValidation;
+using Framework.AppEssentials.Behaviors;
 using Framework.ModuleZ.Implementations;
 using Mapster;
 using MediatR;
@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectCategories.Validations;
 using Projects.Validations;
-using Shared;
 using SquadProjects.Validations;
 
 public class ApplicationServiceModule : DependencyServiceModule
@@ -27,8 +26,8 @@ public class ApplicationServiceModule : DependencyServiceModule
         IConfiguration configuration)
     {
         services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<ApplicationServiceModule>());
-        
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UserTrackBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TokenTrackBehavior<,>));
         
         var mapsterConfig = TypeAdapterConfig.GlobalSettings;
         TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetAssembly(typeof(ApplicationServiceModule))!);

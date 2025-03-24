@@ -1,5 +1,7 @@
 ﻿namespace DistribuTe.Framework.AppEssentials.Linq;
 
+using DataTypes;
+
 public class WhereClauseItem
 {
     public string? FieldName { get; private set; } 

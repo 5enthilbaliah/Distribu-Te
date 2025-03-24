@@ -6,6 +6,7 @@ public interface IRequestContext
 {
     string CorrelationId { get; }
     string UserIdentity { get; }
+    string Token { get; }
     string UserEmail { get; }
     string HttpMethod { get; }
 

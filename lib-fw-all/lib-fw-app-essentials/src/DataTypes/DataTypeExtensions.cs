@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Framework.AppEssentials;
+﻿namespace DistribuTe.Framework.AppEssentials.DataTypes;
 
 public static class DataTypeExtensions
 {

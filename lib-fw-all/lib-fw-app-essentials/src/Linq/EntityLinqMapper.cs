@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using DataTypes;
 using DomainEssentials;
 
 public abstract class EntityLinqMapper<TEntity, TId>

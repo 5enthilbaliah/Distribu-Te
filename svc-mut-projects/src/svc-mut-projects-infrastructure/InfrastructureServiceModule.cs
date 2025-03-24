@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Projects.Infrastructure;
 
+using Application;
 using Domain.Settings;
 using Framework.AppEssentials;
 using Framework.ModuleZ.Implementations;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
+using Refit;
+using SiblingResources;
 
 public class InfrastructureServiceModule : DependencyServiceModule
 {
@@ -23,9 +26,10 @@ public class InfrastructureServiceModule : DependencyServiceModule
         
         var apiSettings = new DistribuTeApiSettings();
         configuration.GetSection(nameof(DistribuTeApiSettings)).Bind(apiSettings);
-        services.AddHttpClient("teams-aggregate-api", httpclient =>
-        {
-            httpclient.BaseAddress = new Uri(apiSettings.TeamsAggregateApiBaseUrl);
-        });
+
+        services.AddRefitClient<ITeamsAggregateApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiSettings.TeamsAggregateApiBaseUrl));
+        services.AddScoped<ITeamsAggregateApiReader, TeamsAggregateApiReader>();
+
     }
 }

@@ -2,8 +2,8 @@
 
 using DataContracts;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class SpawnSquadAssociateCommand : IRequest<ErrorOr<SquadAssociateResponse>>, IUserTrackable
 {

@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using AppEssentials;
+using AppEssentials.DataTypes;
 using AppEssentials.Linq;
 using Implementations;
 using Microsoft.AspNetCore.OData.Query;

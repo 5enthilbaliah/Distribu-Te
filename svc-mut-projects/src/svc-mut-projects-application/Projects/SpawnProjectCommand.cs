@@ -2,8 +2,8 @@ namespace DistribuTe.Mutators.Projects.Application.Projects;
 
 using DataContracts;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class SpawnProjectCommand : IRequest<ErrorOr<ProjectResponse>>, IUserTrackable
 {

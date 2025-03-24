@@ -1,10 +1,7 @@
-﻿// ReSharper disable once CheckNamespace
-namespace DistribuTe.Mutators.Teams.Application.Behaviors;
+﻿namespace DistribuTe.Framework.AppEssentials.Behaviors;
 
 using MediatR;
-using Shared;
 
-// inject IRequestContext
 public class UserTrackBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {

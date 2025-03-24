@@ -3,7 +3,7 @@ namespace DistribuTe.Aggregates.Teams.Application.Squads.Mappers;
 
 using System.Linq.Expressions;
 using Domain.Entities;
-using Framework.AppEssentials;
+using Framework.AppEssentials.DataTypes;
 using Framework.AppEssentials.Linq;
 
 public class SquadEntityLinqMapper : EntityLinqMapper<SquadAggregate, SquadId>

@@ -2,8 +2,8 @@ namespace DistribuTe.Mutators.Projects.Application.ProjectCategories;
 
 using DataContracts;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class SpawnProjectCategoryCommand : IRequest<ErrorOr<ProjectCategoryResponse>>, IUserTrackable
 {

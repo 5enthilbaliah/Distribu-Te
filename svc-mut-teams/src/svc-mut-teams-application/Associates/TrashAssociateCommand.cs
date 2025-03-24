@@ -1,9 +1,8 @@
 ﻿namespace DistribuTe.Mutators.Teams.Application.Associates;
 
-using Domain.Entities;
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class TrashAssociateCommand : IRequest<ErrorOr<bool>>, IUserTrackable
 {

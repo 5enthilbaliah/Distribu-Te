@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.OData.Query;
 [Route("protected/squads")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-[Authorize(Roles = "read-teams")]
+[Authorize(Roles = "read-teams,read-teams-squads")]
 public class SquadQueryController(ISender sender, OdataFilterVisitor visitor,
     IOdataNavigator<SquadModel> navigator, IRequestContext requestContext) : 
     DistribuTeQueryController<SquadModel>(visitor, navigator, requestContext)

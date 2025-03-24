@@ -3,7 +3,7 @@ namespace DistribuTe.Aggregates.Teams.Application.Associates.Mappers;
 
 using System.Linq.Expressions;
 using Domain.Entities;
-using Framework.AppEssentials;
+using Framework.AppEssentials.DataTypes;
 using Framework.AppEssentials.Linq;
 
 public class AssociateEntityLinqMapper : EntityLinqMapper<AssociateAggregate, AssociateId>

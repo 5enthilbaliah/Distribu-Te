@@ -1,8 +1,8 @@
 namespace DistribuTe.Mutators.Projects.Application.ProjectCategories;
 
 using ErrorOr;
+using Framework.AppEssentials;
 using MediatR;
-using Shared;
 
 public class TrashProjectCategoryCommand : IRequest<ErrorOr<bool>>, IUserTrackable
 {
