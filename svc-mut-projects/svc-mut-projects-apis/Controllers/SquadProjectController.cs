@@ -7,6 +7,7 @@ using Asp.Versioning;
 using ErrorOr;
 using Framework.ApiEssentials.Odata.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using ApiErrors = DistribuTe.Mutators.Projects.Apis.Controllers.Errors.Errors;
@@ -14,6 +15,7 @@ using ApiErrors = DistribuTe.Mutators.Projects.Apis.Controllers.Errors.Errors;
 [Route("protected/squad-projects")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize(Roles = "mutate-projects")]
 public class SquadProjectController(IMediator mediator) : DistribuTeController
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));

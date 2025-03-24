@@ -6,12 +6,14 @@ using Application.ProjectCategories.DataContracts;
 using Asp.Versioning;
 using Framework.ApiEssentials.Odata.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
 [Route("protected/project-categories")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize(Roles = "mutate-projects")]
 public class ProjectCategoryController(IMediator mediator) : DistribuTeController
 {
     private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
