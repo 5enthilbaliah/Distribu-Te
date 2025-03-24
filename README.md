@@ -84,3 +84,18 @@ All libraries would go into the nuget package repository
 - go to http://localhost:8080/admin
 - Set up a realm 
 - Create a new confidential user
+- Generate certificates as follows
+
+```bash
+openssl req -x509 -out key_cloak_cert.crt -keyout key_cloak_key.pem \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=auth.distribu-te.io' -days 365 -extensions EXT -config <( \
+   printf "[dn]\nCN=auth.distribu-te.io\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:auth.distribu-te.io\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+
+```bash
+openssl req -x509 -out kc_local_cert.crt -keyout kc_local_key.pem \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -days 365 -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```

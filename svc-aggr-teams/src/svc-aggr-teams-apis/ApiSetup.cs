@@ -17,6 +17,7 @@ public static class ApiSetup
         return app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
             .Pipe<ApiDocumentationPipeline>(environment, configuration)
             .Pipe<CorsPipeline>(environment, configuration)
+            .Pipe<RoutingPipeline>(environment, configuration)
             .Pipe<AuthenticationPipeline>(environment, configuration)
             //TOMARE:: custom error handling pipeline here - order matters
             .Pipe<ErrorHandlePipeline>(environment, configuration)

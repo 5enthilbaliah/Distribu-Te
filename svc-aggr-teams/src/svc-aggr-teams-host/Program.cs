@@ -12,7 +12,7 @@ var configuration = builder.Configuration;
 builder.Configuration
     .SetBasePath(AppContext.BaseDirectory)
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{environment}.json", optional: true)
+    .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
 builder.Services.AddDependencyModule<DomainServiceModule>(environment, configuration)

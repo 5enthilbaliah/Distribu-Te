@@ -11,12 +11,14 @@ using Framework.ApiEssentials.Odata.Filters;
 using Framework.ApiEssentials.Odata.Implementations;
 using Framework.AppEssentials;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
 [Route("protected/squad-associates")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize(Roles = "read-teams,read-teams-squads")]
 public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor visitor,
     IOdataNavigator<SquadAssociateModel> navigator, IRequestContext requestContext) : 
     DistribuTeQueryController<SquadAssociateModel>(visitor, navigator, requestContext)

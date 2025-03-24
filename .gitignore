@@ -19,3 +19,6 @@ x86/
 # User-specific
 *.user
 *.suo
+
+# local development
+_certs/

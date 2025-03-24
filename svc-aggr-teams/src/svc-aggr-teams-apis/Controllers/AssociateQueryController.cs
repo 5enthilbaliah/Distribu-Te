@@ -10,12 +10,14 @@ using Framework.ApiEssentials.Odata.Filters;
 using Framework.ApiEssentials.Odata.Implementations;
 using Framework.AppEssentials;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
 [Route("protected/associates")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
+[Authorize(Roles = "read-teams,read-teams-associates")]
 public class AssociateQueryController(ISender sender, OdataFilterVisitor visitor,
     IOdataNavigator<AssociateModel> navigator, IRequestContext requestContext) : 
     DistribuTeQueryController<AssociateModel>(visitor, navigator, requestContext)

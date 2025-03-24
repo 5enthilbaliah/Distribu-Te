@@ -4,5 +4,5 @@ using Domain.Entities;
 
 public interface ITeamsApiReader
 {
-    Task<bool> ProjectExistsAsync(SquadId squadId, CancellationToken cancellationToken = default);
+    Task<bool> SquadExistsAsync(SquadId squadId, CancellationToken cancellationToken = default);
 }

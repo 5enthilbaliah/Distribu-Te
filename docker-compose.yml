@@ -7,28 +7,33 @@
       MSSQL_SA_PASSWORD: "d3pl0yNow!"
       ACCEPT_EULA: Y
     ports:
-      - 1433:1433
+      - "1433:1433"
     volumes:
       - distribu-te-vol-mssql-data:/var/opt/mssql/data
       - distribu-te-vol-mssql-log:/var/opt/mssql/log
       - distribu-te-vol-mssql-secrets:/var/opt/mssql/secrets
     networks:
       - net-distribu-te
-  
+
   distribu-te-keycloak-identity:
     image: quay.io/keycloak/keycloak:26.1.4
     container_name: distribu-te-keycloak-identity
     environment:
+      KC_HEALTH_ENABLED: true
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: Y0uShallN0tp@zz
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/distribu-Te/certs/kc_local_cert.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/distribu-Te/certs/kc_local_key.pem
     ports:
-      - 8080:8080
+      - "8080:8080"
+      - "8443:8443"
     volumes:
       - distribu-te-vol-keycloak-identity:/opt/keycloak/data
+      - ./_certs/kc:/opt/keycloak/distribu-Te/certs
     networks:
       - net-distribu-te
     command: start-dev
-    
+
 networks:
   net-distribu-te:
     driver: bridge
@@ -43,3 +48,6 @@ volumes:
     name: distribu-te-vol-mssql-data
   distribu-te-vol-keycloak-identity:
     name: distribu-te-vol-keycloak-identity
+      
+      
+    

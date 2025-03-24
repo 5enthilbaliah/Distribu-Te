@@ -31,14 +31,14 @@ public class SpawnSquadProjectCommandValidationBehavior(IEntityReader<SquadProje
         var squadId = new SquadId(request.SquadProject.Squad_Id);
         var projectId = new ProjectId(request.SquadProject.Project_Id);
         
-        var squadFound = await _entityReader.AnyAsync(a => a.Id == projectId,
-            cancellationToken);
-        if (!squadFound)
-            return Errors.Projects.NotFound;
-        
-        var projectFound = await _teamsApiReader.ProjectExistsAsync(squadId,
+        var projectFound = await _entityReader.AnyAsync(a => a.Id == projectId,
             cancellationToken);
         if (!projectFound)
+            return Errors.Projects.NotFound;
+        
+        var squadFound = await _teamsApiReader.SquadExistsAsync(squadId,
+            cancellationToken);
+        if (!squadFound)
             return Errors.Squads.NotFound;
         
         var allocationFound = await _reader.AnyAsync(a => a.SquadId == squadId
