@@ -1,9 +1,9 @@
 using DistribuTe.Framework.ApiEssentials.Odata.ErrorHandling;
 using DistribuTe.Framework.ModuleZ;
-using DistribuTe.Mutators.Teams.Apis;
-using DistribuTe.Mutators.Teams.Application;
-using DistribuTe.Mutators.Teams.Domain;
-using DistribuTe.Mutators.Teams.Infrastructure;
+using DistribuTe.Mutators.Projects.Apis;
+using DistribuTe.Mutators.Projects.Application;
+using DistribuTe.Mutators.Projects.Domain;
+using DistribuTe.Mutators.Projects.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;

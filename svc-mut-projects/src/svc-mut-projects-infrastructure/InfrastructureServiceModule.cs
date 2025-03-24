@@ -3,6 +3,7 @@
 using Application;
 using Domain.Settings;
 using Framework.AppEssentials;
+using Framework.InfrastructureEssentials;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

@@ -30,6 +30,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj", "{0E1D34DF-0060-49EA-B827-E87909695800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-apis", "svc-mut-projects-apis\svc-mut-projects-apis.csproj", "{4D673E2F-09C8-4624-93A1-359F30ECDBBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj", "{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-mut-projects-host", "svc-mut-projects-host\svc-mut-projects-host.csproj", "{EAD04CAA-7817-41A0-B2D8-D711C4F030B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +55,9 @@ Global
 		{D9DE2A98-8CF5-4698-86FF-259FBD7D8DE7} = {B5EB1EC6-E88D-4D5B-87CF-8EB3E43B59C2}
 		{B51E9678-B155-4EE7-A8D5-EE5C4EBB6918} = {5FE57A23-5718-4A45-972E-CDE0D32738D9}
 		{0E1D34DF-0060-49EA-B827-E87909695800} = {B25E4C6E-AC06-411C-B20F-985198CD2756}
+		{4D673E2F-09C8-4624-93A1-359F30ECDBBC} = {DBD7EB79-583F-4206-9FDA-4A954A69F02F}
+		{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4} = {B25E4C6E-AC06-411C-B20F-985198CD2756}
+		{EAD04CAA-7817-41A0-B2D8-D711C4F030B3} = {FB6154EA-36F7-4E4C-8171-AD4168A194D6}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{15E665AA-42EF-485D-8AFB-D94218B205C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -83,5 +92,17 @@ Global
 		{0E1D34DF-0060-49EA-B827-E87909695800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E1D34DF-0060-49EA-B827-E87909695800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E1D34DF-0060-49EA-B827-E87909695800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D673E2F-09C8-4624-93A1-359F30ECDBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D673E2F-09C8-4624-93A1-359F30ECDBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D673E2F-09C8-4624-93A1-359F30ECDBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D673E2F-09C8-4624-93A1-359F30ECDBBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D1AB89-B1EF-4187-B3B1-5B0D1015F9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD04CAA-7817-41A0-B2D8-D711C4F030B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD04CAA-7817-41A0-B2D8-D711C4F030B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD04CAA-7817-41A0-B2D8-D711C4F030B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD04CAA-7817-41A0-B2D8-D711C4F030B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

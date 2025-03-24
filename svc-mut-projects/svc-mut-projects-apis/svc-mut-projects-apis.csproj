@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>DistribuTe.Aggregates.Teams.Apis</RootNamespace>
+        <RootNamespace>DistribuTe.Mutators.Projects.Apis</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -13,20 +13,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj" />
-      <ProjectReference Include="..\svc-aggr-teams-application\svc-aggr-teams-application.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
-        <PackageReference Include="MediatR" Version="12.4.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.2.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+      <ProjectReference Include="..\..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj" />
+      <ProjectReference Include="..\..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj" />
+      <ProjectReference Include="..\src\svc-mut-projects-application\svc-mut-projects-application.csproj" />
     </ItemGroup>
 
 </Project>

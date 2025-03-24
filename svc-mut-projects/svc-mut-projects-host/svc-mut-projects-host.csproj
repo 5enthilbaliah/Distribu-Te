@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>DistribuTe.Mutators.Projects.Host</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\src\svc-mut-projects-application\svc-mut-projects-application.csproj" />
+      <ProjectReference Include="..\src\svc-mut-projects-domain\svc-mut-projects-domain.csproj" />
+      <ProjectReference Include="..\src\svc-mut-projects-infrastructure\svc-mut-projects-infrastructure.csproj" />
+      <ProjectReference Include="..\svc-mut-projects-apis\svc-mut-projects-apis.csproj" />
+    </ItemGroup>
+
+</Project>
