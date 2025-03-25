@@ -24,12 +24,10 @@ public class DomainServiceModuleTests
         services.AddOptions();
  
         var fixture = new Fixture();
-        var cacheSettings = fixture.Create<CacheSettings>();
         var distribuTeDbSettings = fixture.Create<DistribuTeDbSettings>();
         
         var settings = new
         {
-            CacheSettings = cacheSettings,
             DistribuTeDbSettings = distribuTeDbSettings
         };
          
@@ -42,11 +40,9 @@ public class DomainServiceModuleTests
         var sut = new DomainServiceModule();
         sut.Register(services, _webHostEnvironment, configuration);
         var serviceProvider = services.BuildServiceProvider();
-        var cacheSettingOptions = serviceProvider.GetService<IOptions<CacheSettings>>();
         var distribuTeDbSettingOptions = serviceProvider.GetService<IOptions<DistribuTeDbSettings>>();
         
         // Assert
-        cacheSettingOptions!.Value.Should().BeEquivalentTo(cacheSettings);
         distribuTeDbSettingOptions!.Value.Should().BeEquivalentTo(distribuTeDbSettings);
     }
 }

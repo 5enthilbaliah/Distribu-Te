@@ -1,5 +1,6 @@
 ﻿namespace DistribuTe.Mutators.Teams.Domain;
 
+using Framework.DomainEssentials.Settings;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,5 +15,6 @@ public class DomainServiceModule : DependencyServiceModule
         services.AddOptions();
         services.Configure<CacheSettings>(configuration.GetSection(nameof(CacheSettings)));
         services.Configure<DistribuTeDbSettings>(configuration.GetSection(nameof(DistribuTeDbSettings)));
+        services.Configure<TelemetrySettings>(configuration.GetSection(nameof(TelemetrySettings)));
     }
 }

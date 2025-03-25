@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Mutators.Teams.Domain.Settings;
+﻿namespace DistribuTe.Framework.DomainEssentials.Settings;
 
 public class CacheSettings
 {
