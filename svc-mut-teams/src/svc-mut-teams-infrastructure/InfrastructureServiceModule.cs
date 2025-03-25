@@ -9,8 +9,7 @@ using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using OpenTelemetry.Exporter;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Persistence;
@@ -42,6 +41,13 @@ public class InfrastructureServiceModule : DependencyServiceModule
                     .AddHttpClientInstrumentation()
                     .AddSqlClientInstrumentation(option => option.SetDbStatementForText = true);
                 tracing.AddOtlpExporter(option => option.Endpoint = new Uri(telemetrySettings.TraceExporterEndpoint));
+            }).WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    .AddSqlClientInstrumentation()
+                    .AddPrometheusExporter();
             });
     }
 }

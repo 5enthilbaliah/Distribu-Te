@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Framework.ApiEssentials.Health;
+﻿namespace DistribuTe.Framework.ApiEssentials.Telemetry;
 
 using System.Text.Encodings.Web;
 using System.Text.Json;

@@ -1,7 +1,5 @@
 ﻿namespace DistribuTe.Mutators.Projects.Infrastructure;
 
-using Application;
-using Domain.Settings;
 using Framework.AppEssentials;
 using Framework.DomainEssentials.Settings;
 using Framework.InfrastructureEssentials;
@@ -10,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Persistence;
-using Refit;
 using SiblingResources;
 
 public class InfrastructureServiceModule : DependencyServiceModule
@@ -45,6 +43,13 @@ public class InfrastructureServiceModule : DependencyServiceModule
                     .AddHttpClientInstrumentation()
                     .AddSqlClientInstrumentation(option => option.SetDbStatementForText = true);
                 tracing.AddOtlpExporter(option => option.Endpoint = new Uri(telemetrySettings.TraceExporterEndpoint));
+            }).WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    .AddSqlClientInstrumentation()
+                    .AddPrometheusExporter();
             });
     }
 }

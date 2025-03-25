@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Framework.ApiEssentials.Health;
+﻿namespace DistribuTe.Framework.ApiEssentials.Telemetry;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using ModuleZ;
 
-public class HealthCheckPipeline : IMiddlewarePipeline
+public class TelemetryPipeline : IMiddlewarePipeline
 {
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)
     {
@@ -14,5 +14,7 @@ public class HealthCheckPipeline : IMiddlewarePipeline
         {
             ResponseWriter = HealthCheckResponseWriter.WriteHealthCheckResponse
         });
+
+        app.UseOpenTelemetryPrometheusScrapingEndpoint();
     }
 }

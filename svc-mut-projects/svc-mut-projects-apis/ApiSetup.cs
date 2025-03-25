@@ -2,10 +2,10 @@
 
 using Framework.ApiEssentials.Auth;
 using Framework.ApiEssentials.Cors;
-using Framework.ApiEssentials.Health;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.ErrorHandling;
 using Framework.ApiEssentials.Swagger;
+using Framework.ApiEssentials.Telemetry;
 using Framework.ModuleZ;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +19,7 @@ public static class ApiSetup
         return app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
             .Pipe<ApiDocumentationPipeline>(environment, configuration)
             .Pipe<CorsPipeline>(environment, configuration)
-            .Pipe<HealthCheckPipeline>(environment, configuration)
+            .Pipe<TelemetryPipeline>(environment, configuration)
             .Pipe<RoutingPipeline>(environment, configuration)
             .Pipe<AuthenticationPipeline>(environment, configuration)
             //TOMARE:: custom error handling pipeline here - order matters

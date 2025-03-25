@@ -45,8 +45,27 @@
     networks:
       - net-distribu-te
     command: start-dev
+    
+  distribu-te-prometheus:
+    image: prom/prometheus:v2.53.4
+    container_name: distribu-te-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./_configurations/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - net-distribu-te
+        
+  distribu-te-grafana:
+    image: grafana/grafana:11.6.0
+    container_name: distribu-te-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: As-Graph1c@l-@$-it-g3tz
+    networks:
+      - net-distribu-te
 
-# No volumes needed - as you will use it only during debugging
   distribu-te-jaeger:
     image: jaegertracing/all-in-one:1.67.0
     container_name: distribu-te-jaeger
