@@ -22,5 +22,7 @@ public class InfrastructureServiceModule : DependencyServiceModule
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddMemoryCache();
+        services.AddHealthChecks()
+            .AddDbContextCheck<TeamSchemaDatabaseContext>(name: "sql_server", tags: ["db"]);
     }
 }

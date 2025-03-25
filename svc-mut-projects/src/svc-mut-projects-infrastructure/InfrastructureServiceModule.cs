@@ -8,6 +8,7 @@ using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Persistence;
 using Refit;
 using SiblingResources;
@@ -32,5 +33,9 @@ public class InfrastructureServiceModule : DependencyServiceModule
             .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiSettings.TeamsAggregateApiBaseUrl));
         services.AddScoped<ITeamsAggregateApiReader, TeamsAggregateApiReader>();
 
+        services.AddHealthChecks()
+            .AddDbContextCheck<ProjectSchemaDatabaseContext>(name: "sql_server", tags: ["db"])
+            .AddCheck<TeamsAggregateApiHealthCheck>("aggr_teams_api", HealthStatus.Unhealthy, 
+                tags: ["api", "aggregate"]);
     }
 }

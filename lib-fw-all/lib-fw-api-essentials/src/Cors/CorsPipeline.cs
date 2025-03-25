@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Framework.ApiEssentials.Auth;
+﻿namespace DistribuTe.Framework.ApiEssentials.Cors;
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Builder;

@@ -48,6 +48,5 @@ public class ApiServiceModule : DependencyServiceModule
         services.Configure<ServiceSettings>(configuration.GetSection(nameof(ServiceSettings)));
         services.Configure<SwaggerSettings>(configuration.GetSection(nameof(SwaggerSettings)));
         services.Configure<AuthSettings>(configuration.GetSection(nameof(AuthSettings)));
-        services.AddHealthChecks();
     }
 }

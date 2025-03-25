@@ -17,5 +17,7 @@ public class InfrastructureServiceModule : DependencyServiceModule
         IConfiguration configuration)
     {
         services.AddMemoryCache();
+        services.AddHealthChecks()
+            .AddDbContextCheck<TeamSchemaDatabaseContext>(name: "sql_server", tags: ["db"]);
     }
 }
