@@ -53,6 +53,7 @@
       - "9090:9090"
     volumes:
       - ./_configurations/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - distribu-te-vol-prometheus-data:/prometheus
     networks:
       - net-distribu-te
         
@@ -63,6 +64,8 @@
       - "3000:3000"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: As-Graph1c@l-@$-it-g3tz
+    volumes:
+      - distribu-te-vol-grafana-data:/var/lib/grafana
     networks:
       - net-distribu-te
 
@@ -92,6 +95,10 @@ volumes:
     name: distribu-te-vol-keycloak-identity
   distribu-te-vol-pgsql-data:
     name: distribu-te-vol-pgsql-data
+  distribu-te-vol-grafana-data:
+    name: distribu-te-vol-grafana-data
+  distribu-te-vol-prometheus-data:
+    name: distribu-te-vol-prometheus-data
       
       
     
