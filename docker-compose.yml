@@ -78,6 +78,21 @@
       - "16686:16686"
     networks:
       - net-distribu-te
+  
+  distribu-te-seq:
+    image: datalust/seq:2024.3
+    container_name: distribu-te-seq
+    ports:
+      - "80:80"
+      - "5341:5341"
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_FIRSTRUN_ADMINPASSWORD: admin
+      # S3quenCial3
+    volumes:
+      - distribu-te-vol-seq-data:/data
+    networks:
+      - net-distribu-te
     
 networks:
   net-distribu-te:
@@ -99,6 +114,8 @@ volumes:
     name: distribu-te-vol-grafana-data
   distribu-te-vol-prometheus-data:
     name: distribu-te-vol-prometheus-data
+  distribu-te-vol-seq-data:
+    name: distribu-te-vol-seq-data
       
       
     

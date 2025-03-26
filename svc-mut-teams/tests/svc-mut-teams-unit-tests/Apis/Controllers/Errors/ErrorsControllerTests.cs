@@ -72,9 +72,12 @@ public class ErrorsControllerTests
     [Fact]
     public void HandleError_ReturnsProblemDetails()
     {
+        // Arrange
+        var requestContext = Substitute.For<IRequestContext>();
+        
         // Act
         var sut = _serviceProvider.GetService<ErrorsController>();
-        var result = sut!.HandleError();
+        var result = sut!.HandleError(requestContext);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();

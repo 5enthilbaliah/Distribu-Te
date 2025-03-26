@@ -9,6 +9,8 @@ using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -48,6 +50,14 @@ public class InfrastructureServiceModule : DependencyServiceModule
                     .AddRuntimeInstrumentation()
                     .AddSqlClientInstrumentation()
                     .AddPrometheusExporter();
+            }).WithLogging(logging =>
+            {
+                logging.AddOtlpExporter(option =>
+                {
+                    option.Endpoint = new Uri(telemetrySettings.LogExporterEndpoint);
+                    option.Headers = $"X-Seq-ApiKey={telemetrySettings.LogApiKey}";
+                    option.Protocol = OtlpExportProtocol.HttpProtobuf;
+                });
             });
     }
 }
