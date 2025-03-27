@@ -16,8 +16,9 @@ public static class ApiSetup
     public static WebApplication Setup(this WebApplication app,
         IWebHostEnvironment environment, IConfiguration configuration)
     {
-        return app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
-            .Pipe<ApiDocumentationPipeline>(environment, configuration)
+        // https redirection is not needed since the application will be hosted behind a reverse proxy and managed by an
+        // api gateway - you can use it when you are deploying it as stand alone
+        return app.Pipe<ApiDocumentationPipeline>(environment, configuration)
             .Pipe<CorsPipeline>(environment, configuration)
             .Pipe<TelemetryPipeline>(environment, configuration)
             .Pipe<RoutingPipeline>(environment, configuration)

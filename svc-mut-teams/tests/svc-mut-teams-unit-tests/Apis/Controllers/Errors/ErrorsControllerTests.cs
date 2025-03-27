@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Teams.Apis.Controllers.Errors;
 
@@ -27,6 +28,7 @@ public class ErrorsControllerTests
         // Arrange
         var hostEnvironment = Substitute.For<IHostEnvironment>();
         var requestContext = Substitute.For<IRequestContext>();
+        var logger = Substitute.For<ILogger>();
         
         hostEnvironment.EnvironmentName.Returns("Development");
         requestContext.GetFeature<IExceptionHandlerFeature>().Returns(new ExceptionHandlerFeature
@@ -37,7 +39,7 @@ public class ErrorsControllerTests
         
         // Act
         var sut = _serviceProvider.GetService<ErrorsController>();
-        var result = sut!.HandleErrorDevelopment(hostEnvironment, requestContext);
+        var result = sut!.HandleErrorDevelopment(hostEnvironment, requestContext, logger);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();
@@ -53,6 +55,7 @@ public class ErrorsControllerTests
         // Arrange
         var hostEnvironment = Substitute.For<IHostEnvironment>();
         var requestContext = Substitute.For<IRequestContext>();
+        var logger = Substitute.For<ILogger>();
         
         hostEnvironment.EnvironmentName.Returns("Production");
         requestContext.GetFeature<IExceptionHandlerFeature>().Returns(new ExceptionHandlerFeature
@@ -63,7 +66,7 @@ public class ErrorsControllerTests
         
         // Act
         var sut = _serviceProvider.GetService<ErrorsController>();
-        var result = sut!.HandleErrorDevelopment(hostEnvironment, requestContext);
+        var result = sut!.HandleErrorDevelopment(hostEnvironment, requestContext, logger);
         
         // Assert
         result.Should().BeOfType<NotFoundResult>();
@@ -74,10 +77,11 @@ public class ErrorsControllerTests
     {
         // Arrange
         var requestContext = Substitute.For<IRequestContext>();
+        var logger = Substitute.For<ILogger>();
         
         // Act
         var sut = _serviceProvider.GetService<ErrorsController>();
-        var result = sut!.HandleError(requestContext);
+        var result = sut!.HandleError(requestContext, logger);
         
         // Assert
         result.Should().BeOfType<ObjectResult>();

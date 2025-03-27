@@ -4,16 +4,11 @@
 namespace DistribuTe.Mutators.Teams.Infrastructure;
 
 using Framework.AppEssentials;
-using Framework.DomainEssentials.Settings;
+using Framework.InfrastructureEssentials.Telemetry;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenTelemetry.Exporter;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Persistence;
 
 public class InfrastructureServiceModule : DependencyServiceModule
@@ -21,43 +16,16 @@ public class InfrastructureServiceModule : DependencyServiceModule
     public InfrastructureServiceModule()
     {
         PrependModule<PersistenceServiceModule>();
+        AppendModule<TelemetryServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)
     {
-        var telemetrySettings = new TelemetrySettings();
-        configuration.GetSection(nameof(TelemetrySettings)).Bind(telemetrySettings);
-        
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddMemoryCache();
         
         services.AddHealthChecks()
             .AddDbContextCheck<TeamSchemaDatabaseContext>(name: "sql_server", tags: ["db"]);
-
-        services.AddOpenTelemetry()
-            .ConfigureResource(resource => resource.AddService(telemetrySettings.ServiceName))
-            .WithTracing(tracing =>
-            {
-                tracing.AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddSqlClientInstrumentation(option => option.SetDbStatementForText = true);
-                tracing.AddOtlpExporter(option => option.Endpoint = new Uri(telemetrySettings.TraceExporterEndpoint));
-            }).WithMetrics(metrics =>
-            {
-                metrics.AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation()
-                    .AddSqlClientInstrumentation()
-                    .AddPrometheusExporter();
-            }).WithLogging(logging =>
-            {
-                logging.AddOtlpExporter(option =>
-                {
-                    option.Endpoint = new Uri(telemetrySettings.LogExporterEndpoint);
-                    option.Headers = $"X-Seq-ApiKey={telemetrySettings.LogApiKey}";
-                    option.Protocol = OtlpExportProtocol.HttpProtobuf;
-                });
-            });
     }
 }

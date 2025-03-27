@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;
 var configuration = builder.Configuration;
 
+// builder.Logging.ClearProviders();
+
 builder.Configuration
     .SetBasePath(AppContext.BaseDirectory)
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

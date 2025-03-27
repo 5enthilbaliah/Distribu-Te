@@ -83,7 +83,7 @@
     image: datalust/seq:2024.3
     container_name: distribu-te-seq
     ports:
-      - "80:80"
+      - "8085:80"
       - "5341:5341"
     environment:
       ACCEPT_EULA: Y

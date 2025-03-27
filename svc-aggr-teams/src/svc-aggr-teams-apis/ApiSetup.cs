@@ -16,8 +16,7 @@ public static class ApiSetup
     public static WebApplication Setup(this WebApplication app,
         IWebHostEnvironment environment, IConfiguration configuration)
     {
-        return app.Pipe<HttpsRedirectionPipeline>(environment, configuration)
-            .Pipe<ApiDocumentationPipeline>(environment, configuration)
+        return app.Pipe<ApiDocumentationPipeline>(environment, configuration)
             .Pipe<CorsPipeline>(environment, configuration)
             .Pipe<TelemetryPipeline>(environment, configuration)
             .Pipe<RoutingPipeline>(environment, configuration)

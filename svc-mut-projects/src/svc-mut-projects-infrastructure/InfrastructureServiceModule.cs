@@ -3,14 +3,12 @@
 using Framework.AppEssentials;
 using Framework.DomainEssentials.Settings;
 using Framework.InfrastructureEssentials;
+using Framework.InfrastructureEssentials.Telemetry;
 using Framework.ModuleZ.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using Persistence;
 using SiblingResources;
 
@@ -20,6 +18,7 @@ public class InfrastructureServiceModule : DependencyServiceModule
     {
         PrependModule<PersistenceServiceModule>();
         PrependModule<SiblingResourcesServiceModule>();
+        AppendModule<TelemetryServiceModule>();
     }
     
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
@@ -34,22 +33,5 @@ public class InfrastructureServiceModule : DependencyServiceModule
             .AddDbContextCheck<ProjectSchemaDatabaseContext>(name: "sql_server", tags: ["db"])
             .AddCheck<TeamsAggregateApiHealthCheck>("aggr_teams_api", HealthStatus.Unhealthy, 
                 tags: ["api", "aggregate"]);
-        
-        services.AddOpenTelemetry()
-            .ConfigureResource(resource => resource.AddService(telemetrySettings.ServiceName))
-            .WithTracing(tracing =>
-            {
-                tracing.AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddSqlClientInstrumentation(option => option.SetDbStatementForText = true);
-                tracing.AddOtlpExporter(option => option.Endpoint = new Uri(telemetrySettings.TraceExporterEndpoint));
-            }).WithMetrics(metrics =>
-            {
-                metrics.AddAspNetCoreInstrumentation()
-                    .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation()
-                    .AddSqlClientInstrumentation()
-                    .AddPrometheusExporter();
-            });
     }
 }

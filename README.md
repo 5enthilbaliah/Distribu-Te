@@ -99,3 +99,9 @@ openssl req -x509 -out kc_local_cert.crt -keyout kc_local_key.pem \
   -subj '/CN=localhost' -days 365 -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 ```
+
+## Opentelemetry 
+- Grafana - grafana metrics - 17706
+- Prometheus
+- Seq
+- Jaeger

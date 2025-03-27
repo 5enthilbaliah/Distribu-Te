@@ -10,3 +10,15 @@ scrape_configs:
     scheme: https
     tls_config:
       insecure_skip_verify: true
+  - job_name: 'mut-projects-api'
+    static_configs:
+      - targets: [ 'host.docker.internal:7013' ]
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+  - job_name: 'aggr-teams-api'
+    static_configs:
+      - targets: [ 'host.docker.internal:7257' ]
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true

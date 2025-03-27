@@ -10,7 +10,7 @@ using Swagger;
 public class RequestContext(IHttpContextAccessor accessor) : IRequestContext
 {
     private readonly IHttpContextAccessor _accessor = accessor ?? throw new ArgumentNullException(nameof(accessor));
-    private readonly Guid _defaultCorrelationId = Guid.NewGuid();
+    private readonly Guid _defaultCorrelationId = Guid.Empty;
     
     public const string DEFAULT_USER_NAME = "Anonymous";
     public const string DEFAULT_TOKEN = "Anonymous";
