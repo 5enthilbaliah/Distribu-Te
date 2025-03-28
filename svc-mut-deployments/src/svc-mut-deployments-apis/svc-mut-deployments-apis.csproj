@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <RootNamespace>DistribuTe.Mutators.Projects.Apis</RootNamespace>
+        <RootNamespace>DistribuTe.Mutators.Deployments.Apis</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -20,9 +20,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj" />
-      <ProjectReference Include="..\..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj" />
-      <ProjectReference Include="..\src\svc-mut-projects-application\svc-mut-projects-application.csproj" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj" />
+        <ProjectReference Include="..\..\..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj" />
+        <ProjectReference Include="..\svc-mut-deployments-application\svc-mut-deployments-application.csproj" />
     </ItemGroup>
 
 </Project>
