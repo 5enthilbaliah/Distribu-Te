@@ -1,0 +1,80 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{55F4BF37-3287-4CE7-8B6C-02F6E586348C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{49B5794B-A71A-4BF8-96C8-C3205A1087F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - presentation", "1 - presentation", "{925735D0-4723-4983-B32A-78E05B20974A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - application", "2 - application", "{61274147-CA93-4958-8D29-3C8BB6C381B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - infrastructure", "3 - infrastructure", "{31A6DA16-71B8-413E-A55B-302FE9FF522A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{96B41100-122F-4B1B-87DB-068F05FA18C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-app-essentials", "..\lib-fw-all\lib-fw-app-essentials\src\lib-fw-app-essentials.csproj", "{C8668992-0B97-40A2-B271-35947B27B01C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-api-essentials", "..\lib-fw-all\lib-fw-api-essentials\src\lib-fw-api-essentials.csproj", "{EB83A53E-D335-4E9C-B59D-C3225154B1A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-domain-essentials", "..\lib-fw-all\lib-fw-domain-essentials\src\lib-fw-domain-essentials.csproj", "{BC85CF19-43FA-40E9-8210-7BD8915DAAAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-infrastructure-essentials", "..\lib-fw-all\lib-fw-infrastructure-essentials\src\lib-fw-infrastructure-essentials.csproj", "{7071B0DC-FD9D-4147-988D-43F304E58B1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-fw-modulez", "..\lib-fw-all\lib-fw-modulez\src\lib-fw-modulez.csproj", "{1B26B958-452E-46F2-986B-1D45E0758783}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-projects-apis", "src\svc-aggr-projects-apis\svc-aggr-projects-apis.csproj", "{5D34D183-9E37-427A-A72C-35B60E774708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-projects-application", "src\svc-aggr-projects-application\svc-aggr-projects-application.csproj", "{1F11510E-6990-4BBC-B55B-80665DF6AE14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-projects-infrastructure", "src\svc-aggr-projects-infrastructure\svc-aggr-projects-infrastructure.csproj", "{6686BACA-E5B3-4748-82F9-A27635DF744D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc-aggr-projects-domain", "src\svc-aggr-projects-domain\svc-aggr-projects-domain.csproj", "{38A94B82-6B11-42B0-974E-86AB63F8D5CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib-domain-project-entities", "..\lib-domain-all\lib-domain-project-entities\src\lib-domain-project-entities.csproj", "{F1CC4661-6A3B-4DF5-B551-250E86D7A487}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{925735D0-4723-4983-B32A-78E05B20974A} = {55F4BF37-3287-4CE7-8B6C-02F6E586348C}
+		{61274147-CA93-4958-8D29-3C8BB6C381B2} = {55F4BF37-3287-4CE7-8B6C-02F6E586348C}
+		{31A6DA16-71B8-413E-A55B-302FE9FF522A} = {55F4BF37-3287-4CE7-8B6C-02F6E586348C}
+		{96B41100-122F-4B1B-87DB-068F05FA18C1} = {55F4BF37-3287-4CE7-8B6C-02F6E586348C}
+		{6B8CD168-73BA-43F7-8CB9-606CE40EFCCD} = {55F4BF37-3287-4CE7-8B6C-02F6E586348C}
+		{EB83A53E-D335-4E9C-B59D-C3225154B1A6} = {6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}
+		{C8668992-0B97-40A2-B271-35947B27B01C} = {6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}
+		{BC85CF19-43FA-40E9-8210-7BD8915DAAAF} = {6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}
+		{7071B0DC-FD9D-4147-988D-43F304E58B1C} = {6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}
+		{1B26B958-452E-46F2-986B-1D45E0758783} = {6B8CD168-73BA-43F7-8CB9-606CE40EFCCD}
+		{5D34D183-9E37-427A-A72C-35B60E774708} = {925735D0-4723-4983-B32A-78E05B20974A}
+		{1F11510E-6990-4BBC-B55B-80665DF6AE14} = {61274147-CA93-4958-8D29-3C8BB6C381B2}
+		{6686BACA-E5B3-4748-82F9-A27635DF744D} = {31A6DA16-71B8-413E-A55B-302FE9FF522A}
+		{38A94B82-6B11-42B0-974E-86AB63F8D5CB} = {96B41100-122F-4B1B-87DB-068F05FA18C1}
+		{F1CC4661-6A3B-4DF5-B551-250E86D7A487} = {96B41100-122F-4B1B-87DB-068F05FA18C1}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D34D183-9E37-427A-A72C-35B60E774708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D34D183-9E37-427A-A72C-35B60E774708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D34D183-9E37-427A-A72C-35B60E774708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D34D183-9E37-427A-A72C-35B60E774708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F11510E-6990-4BBC-B55B-80665DF6AE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F11510E-6990-4BBC-B55B-80665DF6AE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F11510E-6990-4BBC-B55B-80665DF6AE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F11510E-6990-4BBC-B55B-80665DF6AE14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6686BACA-E5B3-4748-82F9-A27635DF744D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6686BACA-E5B3-4748-82F9-A27635DF744D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6686BACA-E5B3-4748-82F9-A27635DF744D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6686BACA-E5B3-4748-82F9-A27635DF744D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38A94B82-6B11-42B0-974E-86AB63F8D5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38A94B82-6B11-42B0-974E-86AB63F8D5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38A94B82-6B11-42B0-974E-86AB63F8D5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38A94B82-6B11-42B0-974E-86AB63F8D5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1CC4661-6A3B-4DF5-B551-250E86D7A487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1CC4661-6A3B-4DF5-B551-250E86D7A487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1CC4661-6A3B-4DF5-B551-250E86D7A487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1CC4661-6A3B-4DF5-B551-250E86D7A487}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

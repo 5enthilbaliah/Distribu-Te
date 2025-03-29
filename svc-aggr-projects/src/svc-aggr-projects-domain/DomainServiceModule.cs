@@ -1,4 +1,4 @@
-﻿namespace DistribuTe.Aggregates.Teams.Domain;
+﻿namespace DistribuTe.Aggregates.Projects.Domain;
 
 using Framework.DomainEssentials.Settings;
 using Framework.ModuleZ.Implementations;
