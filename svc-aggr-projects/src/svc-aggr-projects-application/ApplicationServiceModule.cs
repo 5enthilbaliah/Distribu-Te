@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectCategories;
 using Projects;
+using SquadProjects;
 
 public class ApplicationServiceModule : DependencyServiceModule
 {
@@ -16,6 +17,7 @@ public class ApplicationServiceModule : DependencyServiceModule
     {
         PrependModule<ProjectServiceModule>();
         PrependModule<ProjectCategoryServiceModule>();
+        PrependModule<SquadProjectServiceModule>();
     }
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)

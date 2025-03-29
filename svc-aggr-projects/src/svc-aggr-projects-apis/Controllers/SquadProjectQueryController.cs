@@ -1,9 +1,8 @@
-﻿namespace DistribuTe.Aggregates.Teams.Apis.Controllers;
+﻿namespace DistribuTe.Aggregates.Projects.Apis.Controllers;
 
 using System.Net;
-using Application.SquadAssociates;
-using Application.SquadAssociates.DataContracts;
-using Application.Squads.DataContracts;
+using Application.SquadProjects;
+using Application.SquadProjects.DataContracts;
 using Asp.Versioning;
 using Framework.ApiEssentials.Odata;
 using Framework.ApiEssentials.Odata.Controllers;
@@ -15,24 +14,24 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
-[Route("protected/squad-associates")]
+[Route("protected/squad-projects")]
 [ApiVersion("1.0")]
 [Produces("application/json")]
-[Authorize(Roles = "read-teams")]
-public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor visitor,
-    IOdataNavigator<SquadAssociateModel> navigator, IRequestContext requestContext) : 
-    DistribuTeQueryController<SquadAssociateModel>(visitor, navigator, requestContext)
+[Authorize(Roles = "read-projects")]
+public class SquadProjectQueryController(ISender sender, OdataFilterVisitor visitor,
+    IOdataNavigator<SquadProjectModel> navigator, IRequestContext requestContext) : 
+    DistribuTeQueryController<SquadProjectModel>(visitor, navigator, requestContext)
 {
     private readonly ISender _sender = sender ?? throw new ArgumentNullException(nameof(sender));
     
     [HttpGet]
     [Route("")]
-    [ProducesResponseType(typeof(IList<SquadAssociateModel>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(IList<SquadProjectModel>), (int)HttpStatusCode.OK)]
     [DistribuTeEnableQuery()]
-    public async Task<IActionResult> SearchAsync(ODataQueryOptions<SquadAssociateModel> queryOptions,
+    public async Task<IActionResult> SearchAsync(ODataQueryOptions<SquadProjectModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new YieldSquadAssociatesQuery
+        var result = await _sender.Send(new YieldSquadProjectsQuery
         {
             EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions)
         }, cancellationToken);
@@ -43,18 +42,18 @@ public class SquadAssociateQueryController(ISender sender, OdataFilterVisitor vi
         );
     }
     
-    [Route("{squadId:int}-{associateId:int}")]
+    [Route("{squadId:int}-{projectId:int}")]
     [HttpGet]
-    [ProducesResponseType(typeof(SquadAssociateModel), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(SquadProjectModel), (int)HttpStatusCode.OK)]
     [DistribuTeEnableQuery()]
-    public async Task<IActionResult> GetByIdAsync(int squadId, int associateId, ODataQueryOptions<SquadAssociateModel> queryOptions,
+    public async Task<IActionResult> GetByIdAsync(int squadId, int projectId, ODataQueryOptions<SquadProjectModel> queryOptions,
         CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new PickSquadAssociateQuery
+        var result = await _sender.Send(new PickSquadProjectQuery
         {
             EntityLinqFacade = GenerateWhereClauseFacadeFrom(queryOptions),
             SquadId = squadId,
-            AssociateId = associateId
+            ProjectId = projectId
         }, cancellationToken);
         
         return result.Match(
