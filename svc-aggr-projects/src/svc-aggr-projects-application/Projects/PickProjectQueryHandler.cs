@@ -10,7 +10,7 @@ using Framework.AppEssentials.Linq;
 using MapsterMapper;
 using MediatR;
 
-public class PickSquadQueryHandler(
+public class PickProjectQueryHandler(
     IAggregateReader<ProjectAggregate, ProjectId> reader,
     EntityLinqMapper<SquadProjectAggregate, SquadProjectId> squadSubMapper,
     IMapper mapper) : ProjectQueryHandler(squadSubMapper),

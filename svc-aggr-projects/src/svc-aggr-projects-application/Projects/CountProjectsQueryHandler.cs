@@ -5,7 +5,7 @@ using Framework.AppEssentials;
 using Framework.AppEssentials.Linq;
 using MediatR;
 
-public class CountSquadsQueryHandler(IAggregateReader<ProjectAggregate, ProjectId> reader,
+public class CountProjectsQueryHandler(IAggregateReader<ProjectAggregate, ProjectId> reader,
     EntityLinqMapper<ProjectAggregate, ProjectId> baseMapper) :
     IRequestHandler<CountProjectsQuery, long>
 {

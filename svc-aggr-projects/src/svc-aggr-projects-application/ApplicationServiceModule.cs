@@ -7,6 +7,7 @@ using Mapster;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProjectCategories;
 using Projects;
 
 public class ApplicationServiceModule : DependencyServiceModule
@@ -14,6 +15,7 @@ public class ApplicationServiceModule : DependencyServiceModule
     public ApplicationServiceModule ()
     {
         PrependModule<ProjectServiceModule>();
+        PrependModule<ProjectCategoryServiceModule>();
     }
     protected override void RegisterCurrent(IServiceCollection services, IWebHostEnvironment environment, 
         IConfiguration configuration)

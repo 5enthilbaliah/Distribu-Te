@@ -21,11 +21,11 @@ public class ProjectQueryHandler(EntityLinqMapper<SquadProjectAggregate, SquadPr
             if (!facade.InnerWhereClauses.TryGetValue("squad_projects", out var clause))
                 return queryable;
                 
-            var squadAssociateExpr = _squadSubMapper.MapAsSearchExpression(clause);
-            if (squadAssociateExpr != null)
+            var squadProjectExpr = _squadSubMapper.MapAsSearchExpression(clause);
+            if (squadProjectExpr != null)
             {
                 return queryable.Include(a => 
-                    a.SquadProjects.AsQueryable().Where(squadAssociateExpr));
+                    a.SquadProjects.AsQueryable().Where(squadProjectExpr));
             }
                 
             return queryable.Include(a => a.SquadProjects);
