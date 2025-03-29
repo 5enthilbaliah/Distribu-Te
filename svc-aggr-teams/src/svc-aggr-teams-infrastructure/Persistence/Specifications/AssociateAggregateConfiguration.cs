@@ -14,7 +14,6 @@ public class AssociateAggregateConfiguration : IEntityTypeConfiguration<Associat
             id => id.Value, 
             value => new AssociateId(value));
         
-        builder.ToTable("associates");
         builder.HasKey(a => a.Id);
             
         builder.Property(a => a.Id)

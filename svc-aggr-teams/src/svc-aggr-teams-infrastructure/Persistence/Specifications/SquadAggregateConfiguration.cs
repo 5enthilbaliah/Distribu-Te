@@ -14,7 +14,6 @@ public class SquadAggregateConfiguration : IEntityTypeConfiguration<SquadAggrega
             id => id.Value, 
             value => new SquadId(value));
         
-        builder.ToTable("squads");
         builder.HasKey(a => a.Id);
             
         builder.Property(a => a.Id)

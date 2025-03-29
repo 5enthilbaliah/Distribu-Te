@@ -16,8 +16,7 @@ public class SquadAssociateAggregateConfiguration : IEntityTypeConfiguration<Squ
         var squadConverter = new ValueConverter<SquadId, int>(
             id => id.Value, 
             value => new SquadId(value));
-
-        builder.ToTable("squad_associates");
+        
         builder.Ignore(c => c.Id);
 
         builder.HasKey(x => new { x.SquadId, x.AssociateId });
