@@ -10,7 +10,7 @@ public class SquadProjectQueryHandler()
     {
         return (queryable) =>
         {
-            if (facade.InnerWhereClauses.TryGetValue("projects", out _))
+            if (facade.InnerWhereClauses.TryGetValue("project", out _))
                 return queryable.Include(a => a.Project);
             
             return queryable;

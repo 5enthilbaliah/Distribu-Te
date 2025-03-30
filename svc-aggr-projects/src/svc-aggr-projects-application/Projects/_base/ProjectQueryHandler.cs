@@ -13,7 +13,7 @@ public class ProjectQueryHandler(EntityLinqMapper<SquadProjectAggregate, SquadPr
     {
         return (queryable) =>
         {
-            if (facade.InnerWhereClauses.TryGetValue("project_categories", out _))
+            if (facade.InnerWhereClauses.TryGetValue("category", out _))
             {
                 queryable = queryable.Include(a => a.Category);
             }
