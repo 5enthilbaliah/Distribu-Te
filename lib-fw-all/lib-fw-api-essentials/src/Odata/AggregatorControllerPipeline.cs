@@ -12,8 +12,11 @@ public class AggregatorControllerPipeline : IMiddlewarePipeline
     [ExcludeFromCodeCoverage]
     public void Setup(WebApplication app, IWebHostEnvironment environment, IConfiguration configuration)
     {
+        app.UseWhen(context => context.Request.Path.StartsWithSegments("/protected"), conditional =>
+        {
+            conditional.UseMiddleware<OdataPaginationMiddleware>();
+        });
         
-        app.UseMiddleware<OdataPaginationMiddleware>();
         app.MapControllers();
     }
 }

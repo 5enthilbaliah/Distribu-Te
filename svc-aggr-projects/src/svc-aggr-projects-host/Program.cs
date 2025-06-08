@@ -2,6 +2,7 @@
 using DistribuTe.Aggregates.Projects.Apis;
 using DistribuTe.Aggregates.Projects.Application;
 using DistribuTe.Aggregates.Projects.Domain;
+using DistribuTe.Aggregates.Projects.gRPC;
 using DistribuTe.Aggregates.Projects.Infrastructure;
 using DistribuTe.Framework.ApiEssentials.Odata.ErrorHandling;
 using DistribuTe.Framework.ModuleZ;
@@ -22,9 +23,11 @@ builder.Services.AddDependencyModule<DomainServiceModule>(environment, configura
     .AddDependencyModule<ApplicationServiceModule>(environment, configuration)
     .AddDependencyModule<InfrastructureServiceModule>(environment, configuration)
     .AddDependencyModule<ApiServiceModule>(environment, configuration)
+    .AddDependencyModule<GrpcServiceModule>(environment, configuration)
     //TOMARE:: override the problem details factory here - order matters
     .AddDependencyModule<ErrorServiceModule>(environment, configuration);
 
 var app = builder.Build();
 await app.Setup(environment, configuration)
+    .SetupGrpc(environment, configuration)
     .RunAsync();

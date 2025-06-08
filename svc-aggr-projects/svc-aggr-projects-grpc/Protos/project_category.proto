@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+option csharp_namespace = "DistribuTe.Aggregates.Projects.gRPC";
+
+package project_categories;
+
+service ProjectCategoryFinder {
+  rpc EntityExists (google.protobuf.Int32Value) returns (google.protobuf.BoolValue);
+}
